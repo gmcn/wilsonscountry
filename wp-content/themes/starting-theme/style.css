@@ -44,6 +44,7 @@ Nicolas Gallagher and Jonathan Neal https://necolas.github.io/normalize.css/
 /*--------------------------------------------------------------
 # Normalize
 --------------------------------------------------------------*/
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,600,600i,700|Rubik:400,500,700");
 /* line 1, sass/_normalize.scss */
 html {
   font-family: sans-serif;
@@ -692,12 +693,65 @@ footer {
   background: url("images/footer_bg.png") center top;
   padding-top: 100px;
   color: #fff; }
-  /* line 5, sass/pages/_footer.scss */
-  footer .site-info .row div {
-    border-left: 1px solid #fff; }
-  /* line 8, sass/pages/_footer.scss */
+  @media screen and (min-width: 360px) {
+    /* line 5, sass/pages/_footer.scss */
+    footer .site-info .row div {
+      border-bottom: 1px solid #fff;
+      padding-bottom: 20px;
+      padding-top: 20px; } }
+  @media screen and (min-width: 992px) {
+    /* line 5, sass/pages/_footer.scss */
+    footer .site-info .row div {
+      border-left: 1px solid #fff;
+      border-bottom: none;
+      padding-bottom: 100px; } }
+  @media screen and (min-width: 360px) {
+    /* line 17, sass/pages/_footer.scss */
+    footer .footer__logo {
+      width: 50%; } }
+  @media screen and (min-width: 992px) {
+    /* line 17, sass/pages/_footer.scss */
+    footer .footer__logo {
+      width: 65%; } }
+  /* line 25, sass/pages/_footer.scss */
+  footer span {
+    display: block; }
+    @media screen and (min-width: 992px) {
+      /* line 25, sass/pages/_footer.scss */
+      footer span {
+        padding-top: 50px; } }
+  /* line 33, sass/pages/_footer.scss */
+  footer p:first-of-type {
+    color: #65B32E;
+    font-size: 22px;
+    font-weight: 400; }
+  /* line 38, sass/pages/_footer.scss */
+  footer p {
+    color: #fff;
+    font-family: "Rubik", sans-serif;
+    font-size: 30px;
+    font-weight: 700;
+    margin-bottom: 0; }
+  /* line 45, sass/pages/_footer.scss */
+  footer .social img {
+    float: left;
+    height: 60px; }
+  /* line 49, sass/pages/_footer.scss */
+  footer span.cornell {
+    display: block;
+    clear: left; }
+    @media screen and (min-width: 992px) {
+      /* line 49, sass/pages/_footer.scss */
+      footer span.cornell {
+        padding-top: 130px; } }
+  /* line 58, sass/pages/_footer.scss */
   footer a {
-    color: #fff; }
+    color: #fff;
+    transition: 0.5s; }
+  /* line 62, sass/pages/_footer.scss */
+  footer a:hover {
+    color: #65B32E;
+    text-decoration: none; }
 
 /*--------------------------------------------------------------
 # Homepage
