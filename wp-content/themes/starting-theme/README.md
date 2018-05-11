@@ -2,17 +2,17 @@
 
 
 #JS used
-Bootstrap
-bxslider.js
-matchHeight.js
+Bootstrap,
+bxslider.js,
+matchHeight.js,
 wow.js
 
 #CSS used
-Bootstrap
+Bootstrap,
 animate.css
 
 #Tech used
-SCSS
-php
-Atom.io
+SCSS,
+php,
+Atom.io,
 github
