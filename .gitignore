@@ -6,6 +6,7 @@ wp-content/*
 !wp-content/plugins/
 !wp-content/themes/
 wp-includes/
+.sass-cache/*
 
 /.htaccess
 /license.txt
