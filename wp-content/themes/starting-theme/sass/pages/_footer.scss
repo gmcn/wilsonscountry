@@ -3,9 +3,64 @@ footer {
   padding-top: 100px;
   color: #fff;
   .site-info .row div {
-    border-left: 1px solid #fff;
+    @include xxs {
+      border-bottom: 1px solid #fff;
+      padding-bottom: 20px;
+      padding-top: 20px;
+    }
+    @include md {
+      border-left: 1px solid #fff;
+      border-bottom: none;
+      padding-bottom: 100px;
+    }
+  }
+  .footer__logo {
+    @include xxs {
+      width: 50%;
+    }
+    @include md {
+      width: 65%;
+    }
+  }
+  span {
+    @include xxs {
+    }
+    @include md {
+      padding-top: 50px;
+    }
+    display: block;
+  }
+  p:first-of-type {
+    color: $green;
+    font-size: 22px;
+    font-weight: $primaryfont_reg;
+  }
+  p {
+    color: $white;
+    font-family: $primaryfont;
+    font-size: 30px;
+    font-weight: $primaryfont_bold;
+    margin-bottom: 0;
+  }
+  .social img {
+    float: left;
+    height: 60px;
+  }
+  span.cornell {
+    @include xxs {
+    }
+    @include md {
+      padding-top: 130px;
+    }
+    display: block;
+    clear: left;
   }
   a {
     color: #fff;
+    transition: .5s
+  }
+  a:hover {
+    color: $green;
+    text-decoration: none;
   }
 }
