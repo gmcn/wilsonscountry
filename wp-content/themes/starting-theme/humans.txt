@@ -1,0 +1,19 @@
+/* TEAM */
+
+  Project Manager: Emma McCabe
+  Contact: emma [at] epicmanagement.ie
+  Website: https://www.epicmanagement.ie
+  From: Dundalk, Ireland
+
+  Web designer & developer: Gary McNally
+  Contact: gary [at] digital-only.com
+  Twitter: @garymcnally
+  Twitter: @digionly
+  Website: https://www.digital-only.com
+  From: Ireland/Northern Ireland
+
+/* SITE */
+
+  Last update:02/10/17
+  Doctype:HTML5
+  IDE: Atom, FileZilla, Photoshop, Wordpress, Bootstrap
