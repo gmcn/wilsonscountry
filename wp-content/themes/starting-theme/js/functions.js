@@ -4,8 +4,7 @@
    * Match Height (Including Safari onload fix)
    */
   function startMatchHeight() {
-    $('.matchheight').matchHeight();
-    $('.featureheight').matchHeight();
+    $('.footermatch').matchHeight();
   }
   window.onload = startMatchHeight;
 
