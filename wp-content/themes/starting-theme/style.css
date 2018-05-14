@@ -44,7 +44,7 @@ Nicolas Gallagher and Jonathan Neal https://necolas.github.io/normalize.css/
 /*--------------------------------------------------------------
 # Normalize
 --------------------------------------------------------------*/
-@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,600,600i,700|Rubik:400,500,700");
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,600i,700|Rubik:300,400,500,700");
 /* line 1, sass/_normalize.scss */
 html {
   font-family: sans-serif;
@@ -694,46 +694,77 @@ a {
 header .container {
   border-top: 5px solid #65B32E; }
 
-/* line 10, sass/pages/_header.scss */
-.navbar-nav > li {
-  border-right: 1px solid #2A2F3E; }
+@media screen and (min-width: 992px) {
+  /* line 10, sass/pages/_header.scss */
+  .navbar-nav > li {
+    border-right: 1px solid #2A2F3E; } }
 
-/* line 14, sass/pages/_header.scss */
+/* line 16, sass/pages/_header.scss */
+.navbar-nav > li.current-menu-item a {
+  color: #999A9E; }
+
+@media screen and (min-width: 992px) {
+  /* line 20, sass/pages/_header.scss */
+  .navbar-nav > li.current-menu-item::after {
+    display: block;
+    width: 100%;
+    height: 24px;
+    margin-top: 15px;
+    background: url("images/after-graphic.png") right no-repeat;
+    content: '';
+    border-right: none; } }
+
+/* line 33, sass/pages/_header.scss */
 .navbar-nav > li > a {
   padding-top: 0;
   color: #272C3B;
   font-weight: 500;
   font-size: 14px; }
+  @media screen and (min-width: 360px) {
+    /* line 33, sass/pages/_header.scss */
+    .navbar-nav > li > a {
+      text-align: center; } }
 
-/* line 21, sass/pages/_header.scss */
+/* line 43, sass/pages/_header.scss */
 .navbar-nav > li > a:hover {
   color: #999A9E; }
 
-/* line 25, sass/pages/_header.scss */
+/* line 47, sass/pages/_header.scss */
 .navbar-nav > li:last-of-type {
   border-right: none; }
 
-/* line 30, sass/pages/_header.scss */
-.right img {
-  float: left;
-  width: 40px; }
-/* line 34, sass/pages/_header.scss */
-.right .search-form {
-  background: grey;
-  border-radius: 10px;
-  width: 60%;
-  float: left; }
-  /* line 39, sass/pages/_header.scss */
-  .right .search-form input {
-    background: none;
-    border: none;
-    max-width: 100%;
-    color: #fff;
-    font-weight: 400; }
-  /* line 46, sass/pages/_header.scss */
-  .right .search-form ::placeholder {
-    color: #fff;
-    font-weight: 400; }
+/* line 51, sass/pages/_header.scss */
+.right {
+  margin-top: 45px; }
+  /* line 53, sass/pages/_header.scss */
+  .right img {
+    float: right;
+    height: 25px;
+    margin: 5px 5px 0; }
+  /* line 58, sass/pages/_header.scss */
+  .right .search-form {
+    background: grey;
+    border-radius: 30px;
+    width: 60%;
+    padding: 5px;
+    float: left; }
+    /* line 64, sass/pages/_header.scss */
+    .right .search-form input {
+      background: none;
+      border: none;
+      max-width: 60%;
+      color: #fff;
+      font-weight: 300;
+      float: left; }
+    /* line 72, sass/pages/_header.scss */
+    .right .search-form ::placeholder {
+      color: #fff;
+      font-weight: 300; }
+    /* line 76, sass/pages/_header.scss */
+    .right .search-form input[type="image"] {
+      width: 20%;
+      float: right;
+      margin-right: 5px; }
 
 /*--------------------------------------------------------------
 # Footer

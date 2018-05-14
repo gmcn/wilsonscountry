@@ -1,1 +1,82 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,600i,700|Rubik:400,500,700');
+.no-gutter > [class*='col-'] {
+    padding-right:0;
+    padding-left:0;
+}
+
+header .container {
+  border-top: 5px solid $green;
+}
+
+.navbar-nav > li {
+  @include md {
+    border-right: 1px solid #2A2F3E;
+  }
+}
+
+.navbar-nav > li.current-menu-item a {
+  color: #999A9E;
+}
+
+.navbar-nav > li.current-menu-item::after {
+  @include md {
+    display: block;
+    width: 100%;
+    height: 24px;
+    margin-top: 15px;
+    background: url("images/after-graphic.png") right no-repeat;
+    // content: url(images/after-graphic.png);
+    content: '';
+    border-right: none;
+  }
+}
+
+.navbar-nav > li > a {
+  @include xxs {
+    text-align: center;
+  }
+  padding-top: 0;
+  color: #272C3B;
+  font-weight: $primaryfont_med;
+  font-size: 14px;
+}
+
+.navbar-nav > li > a:hover {
+  color: #999A9E
+}
+
+.navbar-nav > li:last-of-type {
+  border-right: none;
+}
+
+.right {
+  margin-top: 45px;
+  img {
+    float: right;
+    height: 25px;
+    margin: 5px 5px 0;
+  }
+  .search-form {
+    background: grey;
+    border-radius: 30px;
+    width: 60%;
+    padding: 5px;
+    float: left;
+    input {
+      background: none;
+      border: none;
+      max-width: 60%;
+      color: #fff;
+      font-weight: $primaryfont_lte;
+      float: left;
+    }
+    ::placeholder {
+      color: #fff;
+      font-weight: $primaryfont_lte;
+    }
+    input[type="image"] {
+      width: 20%;
+      float: right;
+      margin-right: 5px;
+    }
+  }
+}
