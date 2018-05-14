@@ -1,9 +1,9 @@
 /*!
-Theme Name: starter-theme
-Theme URI: http://underscores.me/
-Author: Underscores.me
-Author URI: http://underscores.me/
-Description: Description
+Theme Name: Wilsons Country
+Theme URI: https://www.wilsonscountry.com/
+Author: Gary McNally
+Author URI: https://cornellstudios.com/
+Description: Since Angus Wilson started the business from the family farm in 1980s we have grown from strength to strength.
 Version: 1.0.0
 License: GNU General Public License v2 or later
 License URI: LICENSE
@@ -259,7 +259,7 @@ th {
 /*--------------------------------------------------------------
 # Typography
 --------------------------------------------------------------*/
-/* line 1, sass/typography/_typography.scss */
+/* line 3, sass/typography/_typography.scss */
 body,
 button,
 input,
@@ -685,6 +685,56 @@ a {
 /*--------------------------------------------------------------
 # Header
 --------------------------------------------------------------*/
+/* line 1, sass/pages/_header.scss */
+.no-gutter > [class*='col-'] {
+  padding-right: 0;
+  padding-left: 0; }
+
+/* line 6, sass/pages/_header.scss */
+header .container {
+  border-top: 5px solid #65B32E; }
+
+/* line 10, sass/pages/_header.scss */
+.navbar-nav > li {
+  border-right: 1px solid #2A2F3E; }
+
+/* line 14, sass/pages/_header.scss */
+.navbar-nav > li > a {
+  padding-top: 0;
+  color: #272C3B;
+  font-weight: 500;
+  font-size: 14px; }
+
+/* line 21, sass/pages/_header.scss */
+.navbar-nav > li > a:hover {
+  color: #999A9E; }
+
+/* line 25, sass/pages/_header.scss */
+.navbar-nav > li:last-of-type {
+  border-right: none; }
+
+/* line 30, sass/pages/_header.scss */
+.right img {
+  float: left;
+  width: 40px; }
+/* line 34, sass/pages/_header.scss */
+.right .search-form {
+  background: grey;
+  border-radius: 10px;
+  width: 60%;
+  float: left; }
+  /* line 39, sass/pages/_header.scss */
+  .right .search-form input {
+    background: none;
+    border: none;
+    max-width: 100%;
+    color: #fff;
+    font-weight: 400; }
+  /* line 46, sass/pages/_header.scss */
+  .right .search-form ::placeholder {
+    color: #fff;
+    font-weight: 400; }
+
 /*--------------------------------------------------------------
 # Footer
 --------------------------------------------------------------*/
