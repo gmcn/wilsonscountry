@@ -2,6 +2,9 @@ footer {
   background: url('images/footer_bg.png') center top;
   padding-top: 100px;
   color: #fff;
+  margin-top: -65px;
+  z-index: 999999;
+  position: relative;
   .site-info .row div {
     @include xxs {
       border-bottom: 1px solid #fff;

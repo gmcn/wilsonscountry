@@ -14,14 +14,10 @@
 
 get_header(); ?>
 
-<div class="callout-card">
-	<div class="v-align">
-		Gary
-	</div>
-</div>
-
 <?php
 include(locate_template("inc/page-front/slide-banner.php"));
+include(locate_template("inc/page-front/content.php"));
+include(locate_template("inc/page-front/secondary-banner.php"));
 ?>
 
 <?php

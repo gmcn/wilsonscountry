@@ -46,7 +46,6 @@
 ===================================*/
 .bx-wrapper {
   position: relative;
-  margin-bottom: 60px;
   padding: 0;
   *zoom: 1;
   -ms-touch-action: pan-y;
@@ -60,8 +59,14 @@
   margin: 0;
   padding: 0;
 }
-ul.bxslider {
+.bx-wrapper ul {
   list-style: none;
+  margin: 0;
+  padding: 0;
+}
+ul.slider_main li {
+  margin: 0;
+  padding: 0;
 }
 .bx-viewport {
   /*fix other elements on the page moving (on Chrome)*/
@@ -70,22 +75,23 @@ ul.bxslider {
 /** THEME
 ===================================*/
 .bx-wrapper {
-  -moz-box-shadow: 0 0 5px #ccc;
+  /* -moz-box-shadow: 0 0 5px #ccc;
   -webkit-box-shadow: 0 0 5px #ccc;
   box-shadow: 0 0 5px #ccc;
-  border: 5px solid #fff;
+  border: 5px solid #fff; */
   background: #fff;
 }
 .bx-wrapper .bx-pager,
 .bx-wrapper .bx-controls-auto {
   position: absolute;
-  bottom: -30px;
-  width: 100%;
+  bottom: 30px;
+  /* width: 100%; */
+  right: 130px;
 }
 /* LOADER */
 .bx-wrapper .bx-loading {
   min-height: 50px;
-  background: url('images/bx_loader.gif') center center no-repeat #ffffff;
+  background: url('../images/bx_loader.gif') center center no-repeat #ffffff;
   height: 100%;
   width: 100%;
   position: absolute;
@@ -117,7 +123,7 @@ ul.bxslider {
 .bx-wrapper .bx-pager.bx-default-pager a:hover,
 .bx-wrapper .bx-pager.bx-default-pager a.active,
 .bx-wrapper .bx-pager.bx-default-pager a:focus {
-  background: #000;
+  background: #fff;
 }
 .bx-wrapper .bx-pager-item,
 .bx-wrapper .bx-controls-auto .bx-controls-auto-item {
@@ -133,7 +139,7 @@ ul.bxslider {
 /* DIRECTION CONTROLS (NEXT / PREV) */
 .bx-wrapper .bx-prev {
   left: 10px;
-  background: url('images/controls.png') no-repeat 0 -32px;
+  background: url('../images/controls.png') no-repeat 0 -32px;
 }
 .bx-wrapper .bx-prev:hover,
 .bx-wrapper .bx-prev:focus {
@@ -141,7 +147,7 @@ ul.bxslider {
 }
 .bx-wrapper .bx-next {
   right: 10px;
-  background: url('images/controls.png') no-repeat -43px -32px;
+  background: url('../images/controls.png') no-repeat -43px -32px;
 }
 .bx-wrapper .bx-next:hover,
 .bx-wrapper .bx-next:focus {
@@ -170,7 +176,7 @@ ul.bxslider {
   width: 10px;
   height: 11px;
   outline: 0;
-  background: url('images/controls.png') -86px -11px no-repeat;
+  background: url('../images/controls.png') -86px -11px no-repeat;
   margin: 0 3px;
 }
 .bx-wrapper .bx-controls-auto .bx-start:hover,
@@ -184,7 +190,7 @@ ul.bxslider {
   width: 9px;
   height: 11px;
   outline: 0;
-  background: url('images/controls.png') -86px -44px no-repeat;
+  background: url('../images/controls.png') -86px -44px no-repeat;
   margin: 0 3px;
 }
 .bx-wrapper .bx-controls-auto .bx-stop:hover,

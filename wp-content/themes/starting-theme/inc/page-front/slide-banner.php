@@ -9,44 +9,45 @@
 <!-- BX Slider with Caption & Read More Link -->
 <div id="siteslides">
 
-<?php if (function_exists('get_field')) : ?>
-	<?php if(have_rows('banner_slides')): ?>
+	<?php if(have_rows('main_slider')): ?>
 
 		<ul class="slider_main">
 
-			<?php while(have_rows('banner_slides')) : the_row();
+			<?php while(have_rows('main_slider')) : the_row();
 
 					// ACF Sub fields
-					$slide_title = get_sub_field( 'slide_title' );
-					$slide_image = get_sub_field( 'slide_image' );
-					$slide_caption = get_sub_field( 'slide_caption' );
-					$slide_url = get_sub_field( 'slide_url' ); ?>
+					$background_img = get_sub_field( 'background_img' );
+					$slide_tagline1 = get_sub_field( 'slide_tagline_1' );
+					$slide_tagline2 = get_sub_field( 'slide_tagline_2' );
+					$slide_link = get_sub_field( 'slide_link' );
+					$slide_colour = get_sub_field( 'slide_colour' );
+					?>
 
-				<li class="slide" style="background:url(<?php echo $slide_image; ?>) center; background-size: cover">
+				<li class="slide" style="background:url(<?php echo $background_img; ?>) center; background-size: cover">
 
-          <div class="shadow">
-            <div class="container">
+            <div class="container-fluid">
 
-              <div class="col-sm-3 col-sm-offset-5">
+              <div class="col-sm-4 col-sm-offset-8 slide-wrapper">
 
-                <h2 class="bxslider__title wow fadeInLeft"><?php echo $slide_title; ?></h2>
+                <h1 style="background: <?php echo $slide_colour ?> ;" class="bxslider__title wow fadeInLeft"><?php echo $slide_tagline1; ?></h1>
 
-                </div>
+								<h1 style="background: <?php echo $slide_colour ?> ;" class="bxslider__title wow fadeInLeft"><?php echo $slide_tagline2; ?></h1>
+
+								<h2 class="wow fadeInRight clearfix" style="color: <?php echo $slide_colour ?>;">This is Wilson's Country</h2>
+
+								<?php if( $slide_link ): ?>
+									<a class="findout wow fadeInUp" href="<?php echo $slide_link ?>">{Find out more}</a>
+								<?php endif; ?>
+
+              </div>
 
             </div><!-- /.container -->
-          </div><!-- /.shadow -->
 
 				</li>
 
 			<?php endwhile; ?>
 
 		</ul>
-
-		<div class="scrolldown">
-			<img class="wow fadeInDown" src="<?php echo get_template_directory_uri(); ?>/images/down.png" alt="Scroll Down" />
-		</div>
-
-	<?php endif; ?>
 <?php endif; ?>
 
 </div>

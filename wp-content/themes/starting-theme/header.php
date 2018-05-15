@@ -15,7 +15,7 @@
 <meta charset="<?php bloginfo( 'charset' ); ?>">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="profile" href="http://gmpg.org/xfn/11">
-<link type="text/plain" rel="author" href="<?php echo get_template_directory_uri(); ?>/humans.txt" />
+<link type="text/plain" rel="robots" href="<?php echo get_template_directory_uri(); ?>/humans.txt" />
 <link type="text/plain" rel="author" href="<?php echo get_template_directory_uri(); ?>/robots.txt" />
 <link rel="icon" href="<?php echo get_template_directory_uri(); ?>/images/favicon.svg">
 <?php wp_head(); ?>
@@ -38,12 +38,32 @@
 					<nav class="navbar navbar-default">
 						<div class="container-fluid">
 							<div class="navbar-header">
+
+
+								<div id="myNav" class="overlay">
+								  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+								  <div class="overlay-content">
+
+										<div class="container">
+											<form role="search" method="get" class="search-form" action="<?php echo home_url( '/' ); ?>">
+									        <input type="search" class="search-field" placeholder="<?php echo esc_attr_x( 'Search …', 'placeholder' ) ?>" value="<?php echo get_search_query() ?>" name="s" title="<?php echo esc_attr_x( 'Search for:', 'label' ) ?>" />
+									    <input type="image" src="<?php echo get_template_directory_uri(); ?>/images/search-icon.svg" class="search-submit" value="<?php echo esc_attr_x( 'Search', 'submit button' ) ?>" />
+													<!-- <button type="submit" name="submit" value="submit"><img src="<?php echo get_template_directory_uri(); ?>/images/search-icon.svg" alt="submit"></button> -->
+											</form>
+										</div>
+
+
+								  </div>
+								</div>
+
 								<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
 									<span class="sr-only">Toggle navigation</span>
 									<span class="icon-bar"></span>
 									<span class="icon-bar"></span>
 									<span class="icon-bar"></span>
 								</button>
+								<!-- Use any element to open/show the overlay navigation menu -->
+								<span class="overplay-button hidden-md hidden-lg" style="" onclick="openNav()"><img src="<?php echo get_template_directory_uri(); ?>/images/search-icon-mob.svg" /></span>
 							</div>
 								<?php wp_nav_menu( array(
 									'theme_location' => 'menu-1',
@@ -71,7 +91,6 @@
 				</div>
 			</div><!-- /.row -->
 		</div><!-- /.container -->
-
 
 	</header><!-- #masthead -->
 
