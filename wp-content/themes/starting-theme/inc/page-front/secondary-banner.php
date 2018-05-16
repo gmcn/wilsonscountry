@@ -47,11 +47,11 @@
 
 										</div><!-- /.col-sm-4 -->
 
-										<div class="col-sm-1 wow fadeInUp matchheight">
+										<div class="col-md-1 col-xs-3 wow fadeInUp matchheight">
 											<img src="<?php echo get_template_directory_uri(); ?>/images/<?php echo $slide_icon ?>-icon.svg" alt="<?php echo $slide_tagline1; ?> <?php echo $slide_tagline2; ?>" />
 										</div><!-- /.col-sm-1 -->
 
-										<div class="col-sm-2 wow fadeInRight matchheight">
+										<div class="col-md-2 hidden-sm hidden-xs wow fadeInRight matchheight">
 											<img src="<?php echo get_template_directory_uri(); ?>/images/potato-icon.svg" alt="<?php echo $slide_tagline1; ?> <?php echo $slide_tagline2; ?>" />
 										</div><!-- /.col-sm-2 -->
 

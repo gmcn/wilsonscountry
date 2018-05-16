@@ -45,8 +45,18 @@ footer {
     font-weight: $primaryfont_bold;
     margin-bottom: 0;
   }
+  .social {
+    @include xxs {
+      text-align: center;
+    }
+    @include md {
+      text-align: left;
+    }
+  }
   .social img {
-    float: left;
+    @include md {
+      float: left;
+    }
     height: 60px;
   }
   span.cornell {

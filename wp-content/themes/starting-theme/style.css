@@ -692,19 +692,20 @@ a {
 
 /* line 6, sass/pages/_header.scss */
 header .container {
-  border-top: 5px solid #65B32E; }
+  border-top: 5px solid #65B32E;
+  margin-bottom: 15px; }
 
 @media screen and (min-width: 992px) {
-  /* line 10, sass/pages/_header.scss */
+  /* line 11, sass/pages/_header.scss */
   .navbar-nav > li {
     border-right: 1px solid #2A2F3E; } }
 
-/* line 16, sass/pages/_header.scss */
+/* line 17, sass/pages/_header.scss */
 .navbar-nav > li.current-menu-item a {
   color: #999A9E; }
 
 @media screen and (min-width: 992px) {
-  /* line 20, sass/pages/_header.scss */
+  /* line 21, sass/pages/_header.scss */
   .navbar-nav > li.current-menu-item::after {
     display: block;
     width: 100%;
@@ -714,41 +715,41 @@ header .container {
     content: '';
     border-right: none; } }
 
-/* line 33, sass/pages/_header.scss */
+/* line 34, sass/pages/_header.scss */
 .navbar-nav > li > a {
   padding-top: 0;
   color: #272C3B;
   font-weight: 500;
   font-size: 14px; }
   @media screen and (min-width: 360px) {
-    /* line 33, sass/pages/_header.scss */
+    /* line 34, sass/pages/_header.scss */
     .navbar-nav > li > a {
       text-align: center; } }
 
-/* line 43, sass/pages/_header.scss */
+/* line 44, sass/pages/_header.scss */
 .navbar-nav > li > a:hover {
   color: #999A9E; }
 
-/* line 47, sass/pages/_header.scss */
+/* line 48, sass/pages/_header.scss */
 .navbar-nav > li:last-of-type {
   border-right: none; }
 
-/* line 51, sass/pages/_header.scss */
+/* line 52, sass/pages/_header.scss */
 .right {
   margin-top: 45px; }
-  /* line 53, sass/pages/_header.scss */
+  /* line 54, sass/pages/_header.scss */
   .right img {
     float: right;
     height: 25px;
     margin: 5px 5px 0; }
-  /* line 58, sass/pages/_header.scss */
+  /* line 59, sass/pages/_header.scss */
   .right .search-form {
     background: grey;
     border-radius: 30px;
     width: 60%;
     padding: 5px;
     float: left; }
-    /* line 64, sass/pages/_header.scss */
+    /* line 65, sass/pages/_header.scss */
     .right .search-form input {
       background: none;
       border: none;
@@ -756,17 +757,17 @@ header .container {
       color: #fff;
       font-weight: 300;
       float: left; }
-    /* line 72, sass/pages/_header.scss */
+    /* line 73, sass/pages/_header.scss */
     .right .search-form ::placeholder {
       color: #fff;
       font-weight: 300; }
-    /* line 76, sass/pages/_header.scss */
+    /* line 77, sass/pages/_header.scss */
     .right .search-form input[type="image"] {
       width: 20%;
       float: right;
       margin-right: 5px; }
 
-/* line 84, sass/pages/_header.scss */
+/* line 85, sass/pages/_header.scss */
 .overlay {
   height: 0%;
   width: 100%;
@@ -779,18 +780,18 @@ header .container {
   overflow-y: hidden;
   transition: 0.5s; }
 
-/* line 97, sass/pages/_header.scss */
+/* line 98, sass/pages/_header.scss */
 .overlay-content {
   position: relative;
   top: 25%;
   width: 100%;
   text-align: center;
   margin-top: 30px; }
-  /* line 103, sass/pages/_header.scss */
+  /* line 104, sass/pages/_header.scss */
   .overlay-content .container {
     text-align: center;
     border-top: none; }
-  /* line 107, sass/pages/_header.scss */
+  /* line 108, sass/pages/_header.scss */
   .overlay-content input.search-field {
     width: 70%;
     border-radius: 0;
@@ -800,25 +801,25 @@ header .container {
     border-bottom: 3px solid #fff;
     color: #fff;
     font-size: 22px; }
-  /* line 117, sass/pages/_header.scss */
+  /* line 118, sass/pages/_header.scss */
   .overlay-content input[type="image"] {
     width: 50px;
     margin-right: 5px; }
-  /* line 121, sass/pages/_header.scss */
+  /* line 122, sass/pages/_header.scss */
   .overlay-content input.search-submit {
     padding-top: 50px; }
 
-/* line 126, sass/pages/_header.scss */
+/* line 127, sass/pages/_header.scss */
 .overplay-button {
   font-size: 30px;
   cursor: pointer; }
-  /* line 129, sass/pages/_header.scss */
+  /* line 130, sass/pages/_header.scss */
   .overplay-button img {
     width: 30px;
     float: right;
     margin: 10px; }
 
-/* line 136, sass/pages/_header.scss */
+/* line 137, sass/pages/_header.scss */
 .overlay a {
   padding: 8px;
   text-decoration: none;
@@ -827,11 +828,11 @@ header .container {
   display: block;
   transition: 0.3s; }
 
-/* line 145, sass/pages/_header.scss */
+/* line 146, sass/pages/_header.scss */
 .overlay a:hover, .overlay a:focus {
   color: #f1f1f1; }
 
-/* line 149, sass/pages/_header.scss */
+/* line 150, sass/pages/_header.scss */
 .overlay .closebtn {
   position: absolute;
   top: -15px;
@@ -839,15 +840,15 @@ header .container {
   font-size: 60px; }
 
 @media screen and (max-height: 450px) {
-  /* line 157, sass/pages/_header.scss */
+  /* line 158, sass/pages/_header.scss */
   .overlay {
     overflow-y: auto; }
 
-  /* line 158, sass/pages/_header.scss */
+  /* line 159, sass/pages/_header.scss */
   .overlay a {
     font-size: 20px; }
 
-  /* line 159, sass/pages/_header.scss */
+  /* line 160, sass/pages/_header.scss */
   .overlay .closebtn {
     font-size: 40px;
     top: -15px;
@@ -902,23 +903,34 @@ footer {
     font-size: 30px;
     font-weight: 700;
     margin-bottom: 0; }
-  /* line 48, sass/pages/_footer.scss */
+  @media screen and (min-width: 360px) {
+    /* line 48, sass/pages/_footer.scss */
+    footer .social {
+      text-align: center; } }
+  @media screen and (min-width: 992px) {
+    /* line 48, sass/pages/_footer.scss */
+    footer .social {
+      text-align: left; } }
+  /* line 56, sass/pages/_footer.scss */
   footer .social img {
-    float: left;
     height: 60px; }
-  /* line 52, sass/pages/_footer.scss */
+    @media screen and (min-width: 992px) {
+      /* line 56, sass/pages/_footer.scss */
+      footer .social img {
+        float: left; } }
+  /* line 62, sass/pages/_footer.scss */
   footer span.cornell {
     display: block;
     clear: left; }
     @media screen and (min-width: 992px) {
-      /* line 52, sass/pages/_footer.scss */
+      /* line 62, sass/pages/_footer.scss */
       footer span.cornell {
         padding-top: 130px; } }
-  /* line 61, sass/pages/_footer.scss */
+  /* line 71, sass/pages/_footer.scss */
   footer a {
     color: #fff;
     transition: 0.5s; }
-  /* line 65, sass/pages/_footer.scss */
+  /* line 75, sass/pages/_footer.scss */
   footer a:hover {
     color: #65B32E;
     text-decoration: none; }
@@ -1010,7 +1022,7 @@ footer {
   margin-top: 15px;
   margin-bottom: 15px; }
   /* line 88, sass/pages/_home.scss */
-  .nav-columns .row div {
+  .nav-columns .row .col-row {
     min-height: 400px; }
   /* line 92, sass/pages/_home.scss */
   .nav-columns h4 {
@@ -1140,12 +1152,14 @@ footer {
       padding-bottom: 10px;
       border-bottom: 1px solid #fff;
       opacity: 1; }
-  /* line 231, sass/pages/_home.scss */
-  .nav-columns .col-md-3 {
-    padding-right: 7.5px; }
-  /* line 235, sass/pages/_home.scss */
-  .nav-columns .col-md-4 {
-    padding-left: 7.5px; }
+  @media screen and (min-width: 992px) {
+    /* line 231, sass/pages/_home.scss */
+    .nav-columns .col-md-3 {
+      padding-right: 7.5px; } }
+  @media screen and (min-width: 992px) {
+    /* line 237, sass/pages/_home.scss */
+    .nav-columns .col-md-4 {
+      padding-left: 7.5px; } }
 
 /*--------------------------------------------------------------
 # Content

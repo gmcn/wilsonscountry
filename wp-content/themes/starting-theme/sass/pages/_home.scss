@@ -85,7 +85,7 @@
   margin-top: 15px;
   margin-bottom: 15px;
   .row {
-    div {
+    .col-row {
       min-height: 400px;
     }
   }
@@ -229,11 +229,15 @@
   }
 
   .col-md-3 {
-    padding-right: 7.5px;
+    @include md {
+      padding-right: 7.5px;
+    }
   }
 
   .col-md-4 {
-    padding-left: 7.5px;
+    @include md {
+      padding-left: 7.5px;
+    }
   }
 
 }
