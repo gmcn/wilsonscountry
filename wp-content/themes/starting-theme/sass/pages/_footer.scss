@@ -1,8 +1,7 @@
 footer {
-  background: url('images/footer_bg.png') center top;
+  background: $green;
   padding-top: 100px;
   color: #fff;
-  margin-top: -65px;
   z-index: 999999;
   position: relative;
   .site-info .row div {
@@ -34,7 +33,7 @@ footer {
     display: block;
   }
   p:first-of-type {
-    color: $green;
+    color: #C3D3AE;
     font-size: 22px;
     font-weight: $primaryfont_reg;
   }
@@ -57,7 +56,8 @@ footer {
     @include md {
       float: left;
     }
-    height: 60px;
+    height: 30px;
+    padding-right: 15px;
   }
   span.cornell {
     @include xxs {
@@ -67,13 +67,14 @@ footer {
     }
     display: block;
     clear: left;
+    a {
+      color: #fff;
+      transition: .5s
+    }
+    a:hover {
+      color: #C3D3AE;
+      text-decoration: none;
+    }
   }
-  a {
-    color: #fff;
-    transition: .5s
-  }
-  a:hover {
-    color: $green;
-    text-decoration: none;
-  }
+
 }

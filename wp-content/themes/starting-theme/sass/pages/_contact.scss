@@ -1,0 +1,189 @@
+.contact-columns {
+  margin-top: 15px;
+  margin-bottom: 15px;
+  color: #fff;
+  h4 {
+    color: $white;
+    font-size: 22px;
+    margin: 0;
+  }
+  .red {
+    background: #801427;
+    position: relative;
+    text-align: center;
+  }
+
+  .form-wrapper {
+    background: #BC2D47;
+    padding: 20px;
+    color: #fff;
+    .airplane {
+      border-right: 1px solid #fff;
+    }
+    label.frm_form_field{
+    color: #fff;
+    }
+    .frm_submit {
+      float: right;
+    }
+  }
+}
+
+.contact-columns {
+  position: relative;
+  a {
+    font-weight: 700;
+    color: #fff;
+    font-size: 20px;
+    transition: .5s;
+  }
+  a:hover {
+    color: #000;
+    text-decoration: none;
+  }
+  .social-wrapper {
+    @include md {
+      padding-left: 0;
+    }
+  }
+  .social {
+    background: url(images/contact-social_bg.png) #B61331;
+    background-size: cover;
+    text-align: center;
+    min-height: 300px;
+    font-size: 18px;
+    @include xxs {
+      margin-bottom: 15px;
+    }
+    @include md {
+      margin-bottom: 0;
+    }
+    img {
+      height: 50px;
+    }
+    .row {
+    }
+    .col-xs-6:first-of-type {
+      border-right: 1px solid #fff;
+      height: 100px;
+    }
+    .col-xs-6:last-of-type {
+      text-align: left;
+      height: 100px;
+    }
+  }
+}
+
+.contact {
+  @include xxs {
+    margin-bottom: 15px;
+  }
+  @include md {
+    margin-bottom: 0;
+  }
+  img {
+    height: 50px;
+  }
+  .row {
+    height: (50% - 2%);
+    position: relative;
+    background: #801427;
+    min-height: 144px;
+  }
+  .row:first-of-type {
+    margin-bottom: 2%;
+  }
+  .col-xs-3 {
+    text-align: center;
+  }
+}
+
+.address-wrapper {
+  .address {
+    background: #B61331;
+    height: 100%;
+    min-height: 300px;
+    img {
+      height: 50px;
+    }
+    .col-xs-3 {
+      border-right: 1px solid #fff;
+      height: 130px;
+      text-align: center;
+    }
+    .col-xs-9 {
+      height: 130px;
+    }
+  }
+}
+
+.form-columns {
+  margin-top: 15px;
+  margin-bottom: 15px;
+  h4 {
+    color: $white;
+    font-size: 22px;
+    margin: 0;
+  }
+  .red {
+    background: #801427;
+    position: relative;
+    text-align: center;
+  }
+
+  .g-recaptcha {
+    @include lg {
+      float: right !important;
+      margin-right: 25px;
+    }
+    .div:first-of-type {
+      width: 100%;
+    }
+  }
+
+  .frm_button_submit {
+    background: #791628 !important;
+    border-radius: 0 !important;
+    border: none !important;
+    color: #fff !important;
+    font-size: 18px !important;
+    box-shadow: none !important;
+    text-transform: uppercase;
+    font-family: $primaryfont !important;
+    font-weight: $primaryfont_reg !important;
+  }
+
+  .form-wrapper {
+    font-size: 18px;
+    font-family: $primaryfont !important;
+    background: #BC2D47;
+    padding: 20px;
+    color: #fff;
+      #frm_field_10_container {
+        @include md {
+          margin-top: -104px;
+        }
+    }
+    .airplane {
+      border-right: 1px solid #fff;
+    }
+    label.frm_primary_label {
+    color: #fff !important;
+    font-family: $primaryfont !important;
+    font-weight: $primaryfont_reg !important;
+    font-size: 18px;
+    }
+    .frm_required {
+      color: #fff;
+      font-family: $primaryfont !important;
+      font-weight: $primaryfont_reg !important;
+    }
+    .frm_submit {
+      float: right;
+    }
+  }
+}
+
+.map-border {
+  border-bottom: 3px solid $green;
+}

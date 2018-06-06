@@ -7,6 +7,8 @@
     $('.footermatch').matchHeight();
     $('.slide').matchHeight();
     $('.matchheight').matchHeight();
+    $('.contactformheight').matchHeight();
+    $('.contact-detailsheight').matchHeight();
   }
   window.onload = startMatchHeight;
 

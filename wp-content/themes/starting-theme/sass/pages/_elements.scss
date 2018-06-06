@@ -1,0 +1,65 @@
+.breadcrumbs {
+  background: $green;
+  text-align: right;
+  padding: 20px 0 70px;
+  color: #fff;
+  font-weight: $primaryfont_lte;
+  a {
+    color: #fff;
+  }
+  a:hover {
+    color: #fff;
+  }
+}
+
+.intro {
+  color: #536874;
+  .container {
+    margin-top: -30px;
+    background-color: #fff;
+    padding-top: 60px;
+    padding-bottom: 20px;
+  }
+  h1 {
+    font-weight: $primaryfont_bold;
+    opacity: .5;
+    @include xxs {
+      font-size: 45px;
+    }
+    @include md {
+      font-size: 55px;
+    }
+  }
+  p {
+    font-weight: $primaryfont_bold;
+    font-size: 22px;
+  }
+  p:first-of-type {
+    @include xxs {
+      width: 100%;
+      font-size: 35px;
+      line-height: 35px;
+    }
+    @include md {
+      width: 70%;
+      font-size: 55px;
+      line-height: 55px;
+    }
+  }
+}
+
+.vert-align {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+iframe {
+  display: block;
+  width: 100%;
+}
