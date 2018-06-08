@@ -1,7 +1,7 @@
 .breadcrumbs {
   background: $green;
   text-align: right;
-  padding: 20px 0 70px;
+  padding: 20px 0 31px;
   color: #fff;
   font-weight: $primaryfont_lte;
   a {
@@ -10,15 +10,49 @@
   a:hover {
     color: #fff;
   }
+  .child-pages {
+    p {
+      text-align: left;
+    }
+    ul {
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+    li {
+      float: left;
+      background: $white;
+      text-align: center;
+      padding: 10px 25px;
+      margin-right: 5px;
+      a {
+        color: $green;
+        font-weight: $primaryfont_bold;
+        text-transform: uppercase;
+      }
+      a:hover {
+        text-decoration: none;
+      }
+    }
+  }
 }
 
 .intro {
   color: #536874;
+
+  .imgbg {
+    @include xxs {
+      height: 250px;
+    }
+    @include md {
+      height: 450px;
+    }
+  }
   .container {
     margin-top: -30px;
-    background-color: #fff;
-    padding-top: 60px;
-    padding-bottom: 20px;
+    background-color: $white;
+    padding-top: 40px;
+    padding-bottom: 40px;
   }
   h1 {
     font-weight: $primaryfont_bold;
@@ -32,6 +66,50 @@
   }
   p {
     font-weight: $primaryfont_bold;
+    font-size: 22px;
+  }
+  p:first-of-type {
+    @include xxs {
+      width: 100%;
+      font-size: 35px;
+      line-height: 35px;
+    }
+    @include md {
+      width: 70%;
+      font-size: 55px;
+      line-height: 55px;
+    }
+  }
+}
+
+.intro-child-page {
+  background-color: $green;
+  .imgbg {
+    @include xxs {
+      height: 250px;
+    }
+    @include md {
+      height: 450px;
+    }
+  }
+  .container {
+    // margin-top: -30px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+  h1 {
+    font-weight: $primaryfont_bold;
+    color: $white;
+    @include xxs {
+      font-size: 45px;
+    }
+    @include md {
+      font-size: 55px;
+    }
+  }
+  p {
+    font-weight: $primaryfont_bold;
+    color: $white;
     font-size: 22px;
   }
   p:first-of-type {

@@ -1,6 +1,6 @@
 <?php
 /**
- * The template for displaying all pages
+ * Template Name: Child Page Template
  *
  * This is the template that displays all pages by default.
  * Please note that this is the WordPress construct of pages
@@ -16,9 +16,11 @@ get_header(); ?>
 
 	<?php
 	include(locate_template("inc/page-elements/breadcrumbs.php"));
-	include(locate_template("inc/page-elements/intro.php"));
+	include(locate_template("inc/page-elements/intro-child-page.php"));
 
-	include(locate_template("inc/page-about/content.php"));
+	include(locate_template("inc/page-about/history.php"));
+	include(locate_template("inc/page-about/growers.php"));
+
 	?>
 
 <?php

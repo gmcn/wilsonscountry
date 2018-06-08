@@ -1,0 +1,55 @@
+@font-face {
+    font-family: TOSCA;
+    src: url(fonts/TOSCA___.ttf);
+}
+
+.about-content {
+  .row {
+    @include md {
+      padding-bottom: 15px;
+    }
+  }
+  .col-md-6 {
+    @include xxs {
+      margin-bottom: 15px;
+    }
+    @include md {
+      margin-bottom: 0;
+    }
+  }
+  .row:first-of-type {
+    .green {
+      font-size: 22px;
+      font-weight: $primaryfont_bold;
+    }
+  }
+  .green {
+    @include xxs {
+      padding-top: 50px;
+      padding-bottom: 50px;
+    }
+    @include md {
+      padding: 50px;
+    }
+    background: $green;
+    color: $white;
+    font-size: 16px;
+  }
+  h3 {
+    font-size: 60px;
+    line-height: 50px;
+    font-family: TOSCA;
+  }
+  img {
+    width: 100%;
+  }
+  ul {
+    margin: 35px 0 0 0;
+    padding: 0;
+    font-size: 22px;
+    font-weight: $primaryfont_bold;
+  }
+  li {
+    margin-left: 20px;
+  }
+}

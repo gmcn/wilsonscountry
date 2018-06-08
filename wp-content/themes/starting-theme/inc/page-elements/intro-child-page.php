@@ -5,7 +5,7 @@ $introbg = get_field('page_header_image');
 
  ?>
 
- <div class="container-fluid intro">
+ <div class="container-fluid intro-child-page">
    <?php if ($introbg) : ?>
      <div class="container imgbg" style="background: url(<?php echo $introbg ?>) center top no-repeat; background-size: cover;">
      </div>

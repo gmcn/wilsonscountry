@@ -109,11 +109,13 @@ $acf_linked_in = get_field( 'acf_linked_in' );
               <div class="col-xs-9">
                 <div class="vert-align">
                   Come in and say hello…<br  />
-                  <?php echo $acf_address_line_1 ?><br  />
-                  <?php echo $acf_address_line_2 ?><br  />
-                  <?php echo $acf_address_line_3 ?><br  />
-                  <?php echo $acf_address_line_4 ?><br  />
-                  <?php echo $acf_post_code ?>
+                  <span>
+                    <?php echo $acf_address_line_1 ?><br  />
+                    <?php echo $acf_address_line_2 ?>
+                    <?php echo $acf_address_line_3 ?><br  />
+                    <?php echo $acf_address_line_4 ?><br  />
+                    <?php echo $acf_post_code ?>
+                  </span>
                 </div>
               </div>
             </div><!-- /.row -->

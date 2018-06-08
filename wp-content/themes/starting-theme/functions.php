@@ -175,6 +175,12 @@ echo '<link rel="stylesheet" type="text/css" href="' . get_bloginfo('stylesheet_
 }
 add_action('login_head', 'my_custom_login');
 
+// Move Yoast to bottom
+function yoasttobottom() {
+	return 'low';
+}
+add_filter( 'wpseo_metabox_prio', 'yoasttobottom');
+
 //* Enqueue script to activate WOW.js
 add_action('wp_enqueue_scripts', 'sk_wow_init_in_footer');
 function sk_wow_init_in_footer() {

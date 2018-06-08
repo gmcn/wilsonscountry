@@ -41,3 +41,14 @@ function openNav() {
 function closeNav() {
     document.getElementById("myNav").style.height = "0%";
 }
+
+$.getScript('//cdn.jsdelivr.net/isotope/1.5.25/jquery.isotope.min.js',function(){
+
+  /* activate jquery isotope */
+  $('#years').imagesLoaded( function(){
+    $('#years').isotope({
+      itemSelector : '.item'
+    });
+  });
+
+});
