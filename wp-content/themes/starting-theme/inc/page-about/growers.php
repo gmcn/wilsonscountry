@@ -1,6 +1,6 @@
-<div class="container growers">
-
   <?php if( have_rows('growers_tiles') ): ?>
+
+    <div class="container growers">
 
     <?php $i = 1; ?>
 
@@ -62,6 +62,6 @@
 
   	<?php $i++; endwhile; ?>
 
-  <?php endif; ?>
+    </div>
 
-</div>
+  <?php endif; ?>

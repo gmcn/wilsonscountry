@@ -4,6 +4,17 @@
   padding: 20px 0 31px;
   color: #fff;
   font-weight: $primaryfont_lte;
+  p#breadcrumbs {
+    opacity: .4;
+    font-size: 12px;
+    @include xxs {
+      text-align: center;
+      margin: 25px 0;
+    }
+    @include md {
+      text-align: right;
+    }
+  }
   a {
     color: #fff;
   }
@@ -20,11 +31,13 @@
       list-style: none;
     }
     li {
-      float: left;
+      @include xs {
+        float: left;
+        margin-right: 5px;
+      }
       background: $white;
       text-align: center;
       padding: 10px 25px;
-      margin-right: 5px;
       a {
         color: $green;
         font-weight: $primaryfont_bold;
@@ -64,11 +77,9 @@
       font-size: 55px;
     }
   }
-  p {
+
+  h2 {
     font-weight: $primaryfont_bold;
-    font-size: 22px;
-  }
-  p:first-of-type {
     @include xxs {
       width: 100%;
       font-size: 35px;
@@ -79,6 +90,12 @@
       font-size: 55px;
       line-height: 55px;
     }
+  }
+  p {
+    font-size: 22px;
+  }
+  p:first-of-type {
+    font-weight: $primaryfont_bold;
   }
 }
 
@@ -93,7 +110,7 @@
     }
   }
   .container {
-    // margin-top: -30px;
+    margin-top: -30px;
     padding-top: 40px;
     padding-bottom: 40px;
   }
@@ -112,7 +129,9 @@
     color: $white;
     font-size: 22px;
   }
-  p:first-of-type {
+  h2 {
+    color: $white;
+    font-weight: $primaryfont_bold;
     @include xxs {
       width: 100%;
       font-size: 35px;
@@ -120,6 +139,64 @@
     }
     @include md {
       width: 70%;
+      font-size: 55px;
+      line-height: 55px;
+    }
+  }
+
+  p:last-of-type {
+    font-weight:$primaryfont_lte;
+    border-top: 1px solid $white;
+    margin-top: 50px;
+    padding-top: 50px;
+  }
+}
+
+.intro-page-convenience {
+  background-color: #492365;
+  .no-gutter {
+    margin-top: 50px;
+  }
+  .imgbg {
+    @include xxs {
+      height: 250px;
+    }
+    @include md {
+      height: 450px;
+    }
+  }
+  .container {
+    margin-top: -30px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+  h1 {
+    font-weight: $primaryfont_bold;
+    color: $white;
+    @include xxs {
+      font-size: 45px;
+    }
+    @include md {
+      font-size: 55px;
+    }
+  }
+  p {
+    font-weight: $primaryfont_bold;
+    color: $white;
+    font-size: 22px;
+  }
+  h2 {
+    color: $white;
+    background: #34164B;
+    padding: 20px;
+    font-weight: $primaryfont_bold;
+    transform: rotate(-2deg);
+    margin-bottom: 30px;
+    @include xxs {
+      font-size: 35px;
+      line-height: 35px;
+    }
+    @include md {
       font-size: 55px;
       line-height: 55px;
     }

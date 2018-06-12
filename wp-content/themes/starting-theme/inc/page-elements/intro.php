@@ -12,11 +12,11 @@ $introbg = get_field('page_header_image');
    <?php endif; ?>
    <div class="container">
      <h1><?php the_title(); ?></h1>
-     <p>
+     <h2>
        <?php echo $intro ?>
-     </p>
-     <p>
+     </h2>
+
        <?php the_content(); ?>
-     </p>
+       
    </div>
  </div>

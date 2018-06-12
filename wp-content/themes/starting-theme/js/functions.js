@@ -9,6 +9,9 @@
     $('.matchheight').matchHeight();
     $('.contactformheight').matchHeight();
     $('.contact-detailsheight').matchHeight();
+    $('.productmatch').matchHeight();
+
+
   }
   window.onload = startMatchHeight;
 
