@@ -1021,7 +1021,7 @@ footer {
     @media screen and (min-width: 992px) {
       /* line 81, sass/pages/_elements.scss */
       .intro h2 {
-        width: 70%;
+        width: 80%;
         font-size: 55px;
         line-height: 55px; } }
   /* line 94, sass/pages/_elements.scss */
@@ -1077,7 +1077,7 @@ footer {
     @media screen and (min-width: 992px) {
       /* line 132, sass/pages/_elements.scss */
       .intro-child-page h2 {
-        width: 70%;
+        width: 80%;
         font-size: 55px;
         line-height: 55px; } }
   /* line 147, sass/pages/_elements.scss */
@@ -1641,6 +1641,100 @@ iframe {
 /* line 18, sass/pages/_range-convenience.scss */
 .page-id-178 .products .wrapper {
   border-bottom: 1px solid #fff; }
+
+/* line 1, sass/pages/_recipes.scss */
+.recipes {
+  margin-bottom: 50px; }
+  /* line 3, sass/pages/_recipes.scss */
+  .recipes .wrapper {
+    text-align: center;
+    height: 400px; }
+  /* line 7, sass/pages/_recipes.scss */
+  .recipes .recipe {
+    margin-bottom: 15px; }
+  /* line 10, sass/pages/_recipes.scss */
+  .recipes .title {
+    width: 50%;
+    margin: 0 auto;
+    background: #2E231D;
+    text-align: left;
+    padding: 20px 20px 20px 20px; }
+    /* line 16, sass/pages/_recipes.scss */
+    .recipes .title h3 {
+      color: #fff;
+      padding: 0;
+      margin: 0 0 20px 0; }
+    /* line 21, sass/pages/_recipes.scss */
+    .recipes .title a {
+      color: #fff;
+      opacity: .5;
+      border-bottom: 1px solid #fff;
+      display: block;
+      padding: 20px 0;
+      font-style: italic;
+      font-size: 14px; }
+
+/* line 33, sass/pages/_recipes.scss */
+.recipe {
+  font-size: 22px;
+  margin-bottom: 50px; }
+  /* line 36, sass/pages/_recipes.scss */
+  .recipe .recipematch {
+    min-height: 300px; }
+  /* line 39, sass/pages/_recipes.scss */
+  .recipe .prep-time, .recipe .feed-amount {
+    color: #fff;
+    padding: 20px 20px 20px 120px;
+    margin-bottom: 15px;
+    font-family: "Rubik", sans-serif;
+    font-weight: 700; }
+  /* line 46, sass/pages/_recipes.scss */
+  .recipe .prep-time {
+    background: url("images/prep-time.svg") #06838F no-repeat;
+    background-size: 45px 70px;
+    background-position: 20px; }
+  /* line 51, sass/pages/_recipes.scss */
+  .recipe .feed-amount {
+    background: url("images/feeds-amount.svg") #06838F no-repeat;
+    background-size: 50px 70px;
+    background-position: 20px; }
+  /* line 56, sass/pages/_recipes.scss */
+  .recipe .ingredients {
+    background: url("images/ingredients_bg.png") #06838F no-repeat bottom;
+    height: 600px;
+    color: #fff;
+    padding: 20px; }
+    /* line 61, sass/pages/_recipes.scss */
+    .recipe .ingredients p {
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 16px;
+      font-weight: 500; }
+    /* line 66, sass/pages/_recipes.scss */
+    .recipe .ingredients ul {
+      padding: 0;
+      margin: 20px; }
+      /* line 69, sass/pages/_recipes.scss */
+      .recipe .ingredients ul li {
+        font-weight: 500; }
+
+/* line 76, sass/pages/_recipes.scss */
+.instructions {
+  color: #536874;
+  margin-bottom: 50px;
+  font-weight: 300; }
+  /* line 80, sass/pages/_recipes.scss */
+  .instructions .col-sm-6 {
+    margin-bottom: 25px; }
+  /* line 83, sass/pages/_recipes.scss */
+  .instructions h3 {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 25px; }
+  /* line 88, sass/pages/_recipes.scss */
+  .instructions h4 {
+    text-transform: uppercase;
+    font-size: 26px;
+    font-weight: 700; }
 
 /* line 1, sass/pages/_contact.scss */
 .contact-columns {

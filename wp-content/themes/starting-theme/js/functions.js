@@ -10,7 +10,8 @@
     $('.contactformheight').matchHeight();
     $('.contact-detailsheight').matchHeight();
     $('.productmatch').matchHeight();
-
+    $('.recipematch').matchHeight();
+    $('.ingredientsmatch').matchHeight();
 
   }
   window.onload = startMatchHeight;
