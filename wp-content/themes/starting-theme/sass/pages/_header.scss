@@ -6,10 +6,8 @@
 header .container {
 }
 
-.navbar-nav > li {
-  @include md {
-    border-right: 1px solid #2A2F3E;
-  }
+.navbar-nav > li:last-of-type a {
+  border-right: none;
 }
 
 .navbar-nav > li.current-menu-item a {
@@ -33,11 +31,13 @@ header .container {
   @include xxs {
     text-align: center;
   }
+  border-right: 1px solid #2A2F3E;
   padding-top: 0;
   color: #272C3B;
   font-weight: $primaryfont_med;
   font-size: 14px;
 }
+
 
 .navbar-nav > li > a:hover {
   color: #999A9E

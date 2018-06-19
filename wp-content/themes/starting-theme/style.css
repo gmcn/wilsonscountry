@@ -690,17 +690,16 @@ a {
   padding-right: 0;
   padding-left: 0; }
 
-@media screen and (min-width: 992px) {
-  /* line 9, sass/pages/_header.scss */
-  .navbar-nav > li {
-    border-right: 1px solid #2A2F3E; } }
+/* line 9, sass/pages/_header.scss */
+.navbar-nav > li:last-of-type a {
+  border-right: none; }
 
-/* line 15, sass/pages/_header.scss */
+/* line 13, sass/pages/_header.scss */
 .navbar-nav > li.current-menu-item a {
   color: #999A9E; }
 
 @media screen and (min-width: 992px) {
-  /* line 19, sass/pages/_header.scss */
+  /* line 17, sass/pages/_header.scss */
   .navbar-nav > li.current-menu-item::after {
     display: block;
     width: 100%;
@@ -710,14 +709,15 @@ a {
     content: '';
     border-right: none; } }
 
-/* line 32, sass/pages/_header.scss */
+/* line 30, sass/pages/_header.scss */
 .navbar-nav > li > a {
+  border-right: 1px solid #2A2F3E;
   padding-top: 0;
   color: #272C3B;
   font-weight: 500;
   font-size: 14px; }
   @media screen and (min-width: 360px) {
-    /* line 32, sass/pages/_header.scss */
+    /* line 30, sass/pages/_header.scss */
     .navbar-nav > li > a {
       text-align: center; } }
 
@@ -1080,50 +1080,58 @@ footer {
         width: 80%;
         font-size: 55px;
         line-height: 55px; } }
-  /* line 147, sass/pages/_elements.scss */
+  /* line 146, sass/pages/_elements.scss */
+  .intro-child-page p:nth-of-type(1) {
+    font-weight: 700 !important;
+    color: #fff !important;
+    font-size: 22px !important;
+    border-top: none !important;
+    margin-top: 0 !important;
+    padding-top: 0 !important; }
+  /* line 155, sass/pages/_elements.scss */
   .intro-child-page p:last-of-type {
     font-weight: 300;
     border-top: 1px solid #fff;
     margin-top: 50px;
     padding-top: 50px; }
 
-/* line 155, sass/pages/_elements.scss */
+/* line 163, sass/pages/_elements.scss */
 .intro-page-convenience {
   background-color: #492365; }
-  /* line 157, sass/pages/_elements.scss */
+  /* line 165, sass/pages/_elements.scss */
   .intro-page-convenience .no-gutter {
     margin-top: 50px; }
   @media screen and (min-width: 360px) {
-    /* line 160, sass/pages/_elements.scss */
+    /* line 168, sass/pages/_elements.scss */
     .intro-page-convenience .imgbg {
       height: 250px; } }
   @media screen and (min-width: 992px) {
-    /* line 160, sass/pages/_elements.scss */
+    /* line 168, sass/pages/_elements.scss */
     .intro-page-convenience .imgbg {
       height: 450px; } }
-  /* line 168, sass/pages/_elements.scss */
+  /* line 176, sass/pages/_elements.scss */
   .intro-page-convenience .container {
     margin-top: -30px;
     padding-top: 40px;
     padding-bottom: 40px; }
-  /* line 173, sass/pages/_elements.scss */
+  /* line 181, sass/pages/_elements.scss */
   .intro-page-convenience h1 {
     font-weight: 700;
     color: #fff; }
     @media screen and (min-width: 360px) {
-      /* line 173, sass/pages/_elements.scss */
+      /* line 181, sass/pages/_elements.scss */
       .intro-page-convenience h1 {
         font-size: 45px; } }
     @media screen and (min-width: 992px) {
-      /* line 173, sass/pages/_elements.scss */
+      /* line 181, sass/pages/_elements.scss */
       .intro-page-convenience h1 {
         font-size: 55px; } }
-  /* line 183, sass/pages/_elements.scss */
+  /* line 191, sass/pages/_elements.scss */
   .intro-page-convenience p {
     font-weight: 700;
     color: #fff;
     font-size: 22px; }
-  /* line 188, sass/pages/_elements.scss */
+  /* line 196, sass/pages/_elements.scss */
   .intro-page-convenience h2 {
     color: #fff;
     background: #34164B;
@@ -1132,17 +1140,17 @@ footer {
     transform: rotate(-2deg);
     margin-bottom: 30px; }
     @media screen and (min-width: 360px) {
-      /* line 188, sass/pages/_elements.scss */
+      /* line 196, sass/pages/_elements.scss */
       .intro-page-convenience h2 {
         font-size: 35px;
         line-height: 35px; } }
     @media screen and (min-width: 992px) {
-      /* line 188, sass/pages/_elements.scss */
+      /* line 196, sass/pages/_elements.scss */
       .intro-page-convenience h2 {
         font-size: 55px;
         line-height: 55px; } }
 
-/* line 206, sass/pages/_elements.scss */
+/* line 214, sass/pages/_elements.scss */
 .vert-align {
   position: absolute;
   top: 50%;
@@ -1153,7 +1161,7 @@ footer {
   -o-transform: translateY(-50%);
   transform: translateY(-50%); }
 
-/* line 217, sass/pages/_elements.scss */
+/* line 225, sass/pages/_elements.scss */
 iframe {
   display: block;
   width: 100%; }
@@ -1735,6 +1743,167 @@ iframe {
     text-transform: uppercase;
     font-size: 26px;
     font-weight: 700; }
+
+/* line 2, sass/pages/_careers.scss */
+.careers .job {
+  margin-bottom: 15px; }
+  /* line 4, sass/pages/_careers.scss */
+  .careers .job .jobwrapper {
+    padding: 20px 20px 40px 20px;
+    background: rgba(118, 188, 33, 0.18);
+    font-weight: 700; }
+  /* line 9, sass/pages/_careers.scss */
+  .careers .job h3 {
+    color: #536874;
+    font-size: 35px;
+    font-weight: 700; }
+  /* line 14, sass/pages/_careers.scss */
+  .careers .job p {
+    color: rgba(82, 104, 116, 0.45);
+    font-size: 22px; }
+  /* line 18, sass/pages/_careers.scss */
+  .careers .job a {
+    text-transform: uppercase;
+    color: rgba(83, 104, 116, 0.35);
+    font-size: 16px;
+    transition: .5s;
+    padding: 5px; }
+  /* line 25, sass/pages/_careers.scss */
+  .careers .job a:hover {
+    background-color: #76BC21;
+    color: #fff;
+    text-decoration: none; }
+
+/* line 33, sass/pages/_careers.scss */
+.career {
+  margin: 15px 0;
+  color: #536874;
+  font-size: 16px; }
+  @media screen and (min-width: 360px) {
+    /* line 37, sass/pages/_careers.scss */
+    .career .closingdate {
+      text-align: center;
+      font-weight: 700; } }
+  @media screen and (min-width: 992px) {
+    /* line 37, sass/pages/_careers.scss */
+    .career .closingdate {
+      text-align: left; } }
+  @media screen and (min-width: 360px) {
+    /* line 46, sass/pages/_careers.scss */
+    .career .posteddate {
+      text-align: center; } }
+  @media screen and (min-width: 992px) {
+    /* line 46, sass/pages/_careers.scss */
+    .career .posteddate {
+      text-align: right; } }
+  /* line 54, sass/pages/_careers.scss */
+  .career .col-md-8 {
+    background: rgba(118, 188, 33, 0.12);
+    padding-top: 15px;
+    padding-bottom: 15px; }
+  /* line 59, sass/pages/_careers.scss */
+  .career h1 {
+    font-size: 22px;
+    font-weight: 700; }
+  /* line 63, sass/pages/_careers.scss */
+  .career h2 {
+    padding: 20px 0;
+    font-size: 75px;
+    font-weight: 700; }
+  /* line 68, sass/pages/_careers.scss */
+  .career h3 {
+    font-size: 35px;
+    font-weight: 700; }
+  /* line 72, sass/pages/_careers.scss */
+  .career h4 {
+    font-size: 22px;
+    font-weight: 700; }
+  /* line 76, sass/pages/_careers.scss */
+  .career .details {
+    padding: 20px;
+    margin: 20px 0;
+    color: #fff;
+    background: #536874;
+    font-size: 20px;
+    font-weight: 300; }
+    /* line 83, sass/pages/_careers.scss */
+    .career .details span {
+      font-weight: 500; }
+  /* line 87, sass/pages/_careers.scss */
+  .career .applywrapper {
+    background: url(images/apply_bg.png) no-repeat #76BC21;
+    background-position: bottom 100px right 0;
+    height: 100%;
+    padding: 15px;
+    color: #fff; }
+    /* line 93, sass/pages/_careers.scss */
+    .career .applywrapper p {
+      font-weight: 300;
+      margin-bottom: 30px; }
+    /* line 97, sass/pages/_careers.scss */
+    .career .applywrapper p:first-of-type {
+      font-weight: 500; }
+    /* line 100, sass/pages/_careers.scss */
+    .career .applywrapper p:last-of-type {
+      font-weight: 500; }
+    /* line 103, sass/pages/_careers.scss */
+    .career .applywrapper a {
+      color: #fff;
+      transition: .5s; }
+    /* line 107, sass/pages/_careers.scss */
+    .career .applywrapper a:hover {
+      color: #536874;
+      text-decoration: none; }
+    /* line 111, sass/pages/_careers.scss */
+    .career .applywrapper a.download {
+      background: #536874;
+      color: #fff;
+      padding: 8px;
+      font-size: 14px;
+      text-transform: uppercase;
+      font-weight: 500; }
+    /* line 119, sass/pages/_careers.scss */
+    .career .applywrapper a.download:hover {
+      background: #fff;
+      color: #76BC21; }
+    /* line 124, sass/pages/_careers.scss */
+    .career .applywrapper .wpcf7 p {
+      margin-bottom: 10px; }
+    /* line 127, sass/pages/_careers.scss */
+    .career .applywrapper .wpcf7 input {
+      border-radius: 0;
+      border: none;
+      color: #76BC21; }
+    /* line 132, sass/pages/_careers.scss */
+    .career .applywrapper .wpcf7 .wpcf7-file {
+      color: #fff; }
+    /* line 135, sass/pages/_careers.scss */
+    .career .applywrapper .wpcf7 .wpcf7-submit {
+      background: #fff;
+      color: #76BC21;
+      font-size: 16px;
+      margin-top: 15px;
+      transition: .5s; }
+    /* line 142, sass/pages/_careers.scss */
+    .career .applywrapper .wpcf7 .wpcf7-submit:hover {
+      background: #536874;
+      color: #fff; }
+    /* line 146, sass/pages/_careers.scss */
+    .career .applywrapper .wpcf7 ::-webkit-input-placeholder {
+      /* Chrome/Opera/Safari */
+      color: #76BC21; }
+    /* line 149, sass/pages/_careers.scss */
+    .career .applywrapper .wpcf7 ::-moz-placeholder {
+      /* Firefox 19+ */
+      color: #76BC21; }
+    /* line 152, sass/pages/_careers.scss */
+    .career .applywrapper .wpcf7 :-ms-input-placeholder {
+      /* IE 10+ */
+      color: #76BC21; }
+    /* line 155, sass/pages/_careers.scss */
+    .career .applywrapper .wpcf7 :-moz-placeholder {
+      /* Firefox 18- */
+      color: #76BC21; }
 
 /* line 1, sass/pages/_contact.scss */
 .contact-columns {

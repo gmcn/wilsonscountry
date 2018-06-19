@@ -18,10 +18,21 @@ get_header(); ?>
 	include(locate_template("inc/page-elements/breadcrumbs.php"));
 	include(locate_template("inc/page-elements/intro.php"));
 
-	include(locate_template("inc/page-about/content.php"));
-
-	include(locate_template("inc/page-recipes/recipes.php"));
 	?>
+
+	<?php if (is_page( 'about-us' )) :  ?>
+
+		<?php include(locate_template("inc/page-about/content.php")); ?>
+
+	<?php elseif (is_page( 'recipes' )) : ?>
+
+		<?php include(locate_template("inc/page-recipes/recipes.php")); ?>
+
+	<?php elseif (is_page( 'careers' )) : ?>
+
+		<?php include(locate_template("inc/page-careers/careers.php")); ?>
+
+	<?php endif ?>
 
 <?php
 //get_sidebar();

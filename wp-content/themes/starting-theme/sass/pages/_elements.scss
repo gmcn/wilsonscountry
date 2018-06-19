@@ -143,6 +143,14 @@
       line-height: 55px;
     }
   }
+  p:nth-of-type(1) {
+    font-weight: $primaryfont_bold !important;
+    color: $white !important;
+    font-size: 22px !important;
+    border-top: none !important;
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
 
   p:last-of-type {
     font-weight:$primaryfont_lte;

@@ -12,6 +12,7 @@
     $('.productmatch').matchHeight();
     $('.recipematch').matchHeight();
     $('.ingredientsmatch').matchHeight();
+    $('.careermatch').matchHeight();
 
   }
   window.onload = startMatchHeight;

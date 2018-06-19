@@ -28,7 +28,7 @@
 
 		<div class="container">
 			<div class="row no-gutter">
-				<div class="col-xs-4 col-sm-2 col-md-1 wow fadeInDown">
+				<div class="col-xs-3 col-sm-2 col-md-1 wow fadeInDown">
 					<a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
 						<img src="<?php echo get_template_directory_uri(); ?>/images/wilsonscountry_logo.svg" alt="<?php bloginfo( 'name' ); ?>" />
 					</a>
