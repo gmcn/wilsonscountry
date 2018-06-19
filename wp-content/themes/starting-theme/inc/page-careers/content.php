@@ -6,9 +6,10 @@ $careerlocation = get_field('location');
 $careersalary = get_field('salary');
 $careertype = get_field('type');
 $application_form = get_field('application_form');
+$monitoring_form = get_field('monitoring_form');
 
 // make date object
-$careerclosing = new DateTime($date);
+$careerclosing = new DateTime($careerclosing);
 
 
  ?>
@@ -54,12 +55,18 @@ $careerclosing = new DateTime($date);
         </p>
 
         <p>
-          Alternatively send your application to <a href="mailto:careers@wilsonscountry.com?Subject=<?php the_title(); ?>">careers@wilsonscountry.com</a>
+          Alternatively send your application to <a href="mailto:jobs@wilsonscountry.com?Subject=<?php the_title(); ?>">jobs@wilsonscountry.com</a>
         </p>
 
         <?php if ($application_form) : ?>
 
-          <a href="#" class="download">Download Form</a>
+          <a href="<?php echo $application_form ?>" class="download" download>Download Application Form</a>
+
+        <?php endif; ?>
+
+        <?php if ($monitoring_form) : ?>
+
+          <a href="<?php echo $monitoring_form ?>" class="download" download>Download Monitoring Form</a>
 
         <?php endif; ?>
 

@@ -1,6 +1,10 @@
 .careers {
   .job {
     margin-bottom: 15px;
+    @include md {
+      padding-right: 7.5px;
+      padding-left: 7.5px;
+    }
     .jobwrapper {
       padding: 20px 20px 40px 20px;
       background: $lightgreen;
@@ -25,6 +29,46 @@
     a:hover {
       background-color: $green;
       color: $white;
+      text-decoration: none;
+    }
+  }
+  .terms {
+    color: #536874;
+    margin: 50px 0;
+    font-size: 18px;
+  }
+  .novacancy {
+    border-top: 10px solid #536874;
+    color: #536874;
+    padding-top: 50px;
+    padding-bottom: 100px;
+    font-size: 22px;
+    .col-md-6:first-of-type {
+      font-weight: $primaryfont_bold;
+    }
+    .col-md-6:last-of-type {
+      color: rgba(83, 104, 116, .47);
+      font-weight: $primaryfont_bold;
+      p:last-of-type {
+        font-weight: $primaryfont_reg;
+        font-size: 14px;
+        padding-top: 30px;
+      }
+    }
+    a {
+      @include xs {
+        font-size: 22px;
+      }
+      @include md {
+        font-size: 35px;
+      }
+      transition: .5s;
+      color: #536874;
+      margin-top: 25px;
+      display: block;
+    }
+    a:hover {
+      color: $green;
       text-decoration: none;
     }
   }
@@ -115,6 +159,8 @@
       font-size: 14px;
       text-transform: uppercase;
       font-weight: $primaryfont_med;
+      display: inline-block;
+      margin-bottom: 10px;
     }
     a.download:hover {
       background: $white;
@@ -128,6 +174,7 @@
         border-radius: 0;
         border: none;
         color: #76BC21;
+        max-width: 100%;
       }
       .wpcf7-file {
         color: $white;

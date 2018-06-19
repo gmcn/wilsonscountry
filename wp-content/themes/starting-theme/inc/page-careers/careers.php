@@ -14,7 +14,7 @@
 
     <div class="row">
 
-    <?php while ( $child_query->have_posts() ) : $child_query->the_post();
+    <?php if ( $child_query->have_posts() ) : while ( $child_query->have_posts() ) : $child_query->the_post();
 
     $careerintro = get_field('intro');
 
@@ -38,9 +38,51 @@
 
     </div>
 
-    <?php endwhile; wp_reset_postdata(); ?>
+    <?php endwhile; wp_reset_postdata(); else : ?>
+
+      <!-- No records -->
+
+    <?php endif; ?>
 
     </div><!-- /.row -->
+
+    <div class="terms">
+
+      <p>
+        By submitting an application or C.V. you are requesting to take part in a recruitment process and we need to process your personal data to facilitate this.
+      </p>
+
+      <p>
+        We take the security of your data seriously and we’re committed to being transparent about how we collect and use this data and how we meet our data protection obligations.
+      </p>
+
+      <p>
+        You are under no obligation to provide data to us during the recruitment process. However, if you don’t, please accept that we may not be able to process your application properly or at all.
+      </p>
+
+      <p>
+        <strong>Further information can be found in our Privacy Notice (Job Applicants) in the ‘Our Policies’ section below.</strong>
+      </p>
+
+    </div>
+
+    <div class="row novacancy">
+
+      <div class="col-md-6">
+        <p>
+          If these vacancies don’t tick the box for you but you think we’re right for you, please feel free to email an enquiry to:
+        </p>
+
+        <a href="mailto:jobs@wilsonscountry.com">jobs@wilsonscountry.com</a>
+      </div>
+
+      <div class="col-md-6">
+        <p>or send us your CV along with a cover letter telling us about your skills and experience and what you’re looking for.</p>
+
+        <p>Please note that we are an Equal Opportunity Employer.</p>
+      </div>
+
+    </div>
 
 
   </div><!-- /.container -->
