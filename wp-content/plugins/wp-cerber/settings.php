@@ -41,6 +41,7 @@ define('CERBER_OPT_U','cerber-users');
 define('CERBER_OPT_C','cerber-recaptcha');
 define('CERBER_OPT_N','cerber-notifications');
 define('CERBER_OPT_T','cerber-traffic');
+define('CERBER_OPT_S','cerber-scanner');
 
 /**
  * A set of Cerber setting (WP options)
@@ -49,7 +50,7 @@ define('CERBER_OPT_T','cerber-traffic');
  */
 
 function cerber_get_setting_list() {
-	return array( CERBER_OPT, CERBER_OPT_H, CERBER_OPT_U, CERBER_OPT_C, CERBER_OPT_N, CERBER_OPT_T );
+	return array( CERBER_OPT, CERBER_OPT_H, CERBER_OPT_U, CERBER_OPT_C, CERBER_OPT_N, CERBER_OPT_T, CERBER_OPT_S );
 }
 
 /*
@@ -74,14 +75,14 @@ function cerber_settings_init(){
 	add_settings_field('attempts',__('Attempts','wp-cerber'),'cerberus_field_show','cerber-'.$tab,'cerber',array('group'=>$tab,'option'=>'attempts','type'=>'attempts'));
 	add_settings_field('lockout',__('Lockout duration','wp-cerber'),'cerberus_field_show','cerber-'.$tab,'cerber',array('group'=>$tab,'option'=>'lockout','type'=>'text','label'=>__('minutes','wp-cerber'),'size'=>3));
 	add_settings_field('aggressive',__('Aggressive lockout','wp-cerber'),'cerberus_field_show','cerber-'.$tab,'cerber',array('group'=>$tab,'option'=>'aggressive','type'=>'aggressive'));
-	add_settings_field('limitwhite',__('White IP Access List','wp-cerber'),'cerberus_field_show','cerber-'.$tab,'cerber',array('group'=>$tab,'option'=>'limitwhite','type'=>'checkbox','label'=>__('Apply limit login rules to IP addresses in the White IP Access List','wp-cerber')));
+	add_settings_field('limitwhite',__('Use White IP Access List','wp-cerber'),'cerberus_field_show','cerber-'.$tab,'cerber',array('group'=>$tab,'option'=>'limitwhite','type'=>'checkbox','label'=>__('Apply limit login rules to IP addresses in the White IP Access List','wp-cerber')));
 	add_settings_field('notify',__('Notifications','wp-cerber'),'cerberus_field_show','cerber-'.$tab,'cerber',array('group'=>$tab,'type'=>'notify','option'=>'notify'));
 	add_settings_field('proxy',__('Site connection','wp-cerber'),'cerberus_field_show','cerber-'.$tab,'cerber',array('group'=>$tab,'option'=>'proxy','type'=>'checkbox','label'=>__('My site is behind a reverse proxy','wp-cerber')));
 
 	add_settings_section('proactive', __('Proactive security rules','wp-cerber'), 'cerber_sapi_section', 'cerber-' . $tab);
 	add_settings_field('subnet',__('Block subnet','wp-cerber'),'cerberus_field_show','cerber-'.$tab,'proactive',array('group'=>$tab,'option'=>'subnet','type'=>'checkbox','label'=>__('Always block entire subnet Class C of intruders IP','wp-cerber')));
 	add_settings_field('nonusers',__('Non-existent users','wp-cerber'),'cerberus_field_show','cerber-'.$tab,'proactive',array('group'=>$tab,'option'=>'nonusers','type'=>'checkbox','label'=>__('Immediately block IP when attempting to login with a non-existent username','wp-cerber')));
-	add_settings_field('noredirect',__('Redirect dashboard requests','wp-cerber'),'cerberus_field_show','cerber-'.$tab,'proactive',array('group'=>$tab,'option'=>'noredirect','type'=>'checkbox','label'=>__('Disable automatic redirecting to the login page when /wp-admin/ is requested by an unauthorized request','wp-cerber')));
+	add_settings_field('noredirect',__('Disable dashboard redirection','wp-cerber'),'cerberus_field_show','cerber-'.$tab,'proactive',array('group'=>$tab,'option'=>'noredirect','type'=>'checkbox','label'=>__('Disable automatic redirection to the login page when /wp-admin/ is requested by an unauthorized request','wp-cerber')));
 	add_settings_field('wplogin',__('Request wp-login.php','wp-cerber'),'cerberus_field_show','cerber-'.$tab,'proactive',array('group'=>$tab,'option'=>'wplogin','type'=>'checkbox','label'=>__('Immediately block IP after any request to wp-login.php','wp-cerber')));
 	add_settings_field('page404',__('Display 404 page','wp-cerber'),'cerberus_field_show','cerber-'.$tab,'proactive',array('group'=>$tab, 'option'=>'page404', 'type'=>'select', 'set' => array(__('Use 404 template from the active theme','wp-cerber'), __('Display simple 404 page','wp-cerber'))));
 
@@ -264,6 +265,12 @@ function cerber_settings_init(){
 		       'setting' => 'tienabled',
 		       'type'   => 'checkbox',
 		) );
+	// Do not inspect whitelisted IPs
+	add_settings_field( 'tiipwhite', __( 'Use White IP Access List', 'wp-cerber' ), 'cerber_field_show', CERBER_OPT_T, 'tmain',
+		array( 'group'  => $group,
+		       'setting' => 'tiipwhite',
+		       'type'   => 'checkbox',
+		) );
 	add_settings_field( 'tiwhite', __( 'Request whitelist', 'wp-cerber' ), 'cerber_field_show', CERBER_OPT_T, 'tmain',
 		array( 'group'  => $group,
 		       'setting' => 'tiwhite',
@@ -341,6 +348,57 @@ function cerber_settings_init(){
 		       'label'  => __( 'days', 'wp-cerber' ),
 		       'size'   => 4
 		) );
+
+	// Security Scanner -----------------------------------------------------------------------------
+
+	$group = 'scanner'; // 'cerber-scanner' settings
+	register_setting( 'cerberus-' . $group, CERBER_OPT_S );
+
+	add_settings_section( 'smain', __( 'Scanner settings', 'wp-cerber' ), 'cerber_sapi_section', CERBER_OPT_S );
+	add_settings_field( 'scan_cpt', __( 'Custom signatures', 'wp-cerber' ), 'cerber_field_show', CERBER_OPT_S, 'smain',
+		array( 'group'  => $group,
+		       'setting' => 'scan_cpt',
+		       'type'   => 'textarea',
+		       'delimiter'   => "\n",
+		       'list'        => true,
+		       'label' => __( 'Specify custom PHP code signatures. One item per line. To specify a REGEX pattern, enclose a whole line in two braces.', 'wp-cerber' ) . ' <a target="_blank" href="https://wpcerber.com/malware-scanner-settings/">Read more</a>'
+		) );
+	add_settings_field( 'scan_uext', __( 'Unwanted file extensions', 'wp-cerber' ), 'cerber_field_show', CERBER_OPT_S, 'smain',
+		array( 'group'  => $group,
+		       'setting' => 'scan_uext',
+		       'type'   => 'textarea',
+		       'delimiter'   => ",",
+		       'list'        => true,
+		       'label' => __( 'Specify file extensions to search for. Full scan only. Use comma to separate items.', 'wp-cerber' )
+		) );
+	add_settings_field( 'scan_exclude', __( 'Directories to exclude', 'wp-cerber' ), 'cerber_field_show', CERBER_OPT_S, 'smain',
+		array( 'group'  => $group,
+		       'setting' => 'scan_exclude',
+		       'type'   => 'textarea',
+		       'delimiter'   => "\n",
+		       'list'        => true,
+		       'label' => __( 'Specify directories to exclude from scanning. One item per line. Use with caution.', 'wp-cerber' )
+		) );
+	add_settings_field( 'scan_tmp', __( 'Scan temporary directory', 'wp-cerber' ), 'cerber_field_show', CERBER_OPT_S, 'smain',
+		array(
+			'group'   => $group,
+			'setting' => 'scan_tmp',
+			'type'    => 'checkbox',
+		) );
+	add_settings_field( 'scan_sess', __( 'Scan session directory', 'wp-cerber' ), 'cerber_field_show', CERBER_OPT_S, 'smain',
+		array(
+			'group'   => $group,
+			'setting' => 'scan_sess',
+			'type'    => 'checkbox',
+		) );
+	add_settings_field( 'scan_qcleanup', __( 'Delete quarantined files after', 'wp-cerber' ), 'cerber_field_show', CERBER_OPT_S, 'smain',
+		array(
+			'group'   => $group,
+			'setting' => 'scan_qcleanup',
+			'type'    => 'text',
+			'label'   => __( 'days', 'wp-cerber' ),
+			'size'    => 3
+		) );
 }
 /*
 	Generate HTML for each sections on a settings page
@@ -355,7 +413,7 @@ function cerber_sapi_section($args){
 			    echo '<span style="color:#DF0000;">' . __( 'Please enable Permalinks to use this feature. Set Permalink Settings to something other than Default.', 'wp-cerber' ) . '</span>';
 		    }
 		    else {
-			    _e( 'Be careful when enabling this options. If you forget the custom login URL you will not be able to login.', 'wp-cerber' );
+			    echo __( 'Be careful about enabling these options.', 'wp-cerber' ) . ' ' . __( 'If you forget your Custom login URL, you will be unable to log in.', 'wp-cerber' );
 		    }
 		    break;
 	    case 'citadel':
@@ -383,7 +441,7 @@ function cerber_settings_page(){
 	$tab = cerber_get_tab('dashboard', array('main','acl','activity','lockouts','messages','help','hardening','users','notifications'));
 
 	?>
-	<div class="wrap">
+	<div class="wrap crb-admin">
 
 		<h2><?php _e('WP Cerber Security','wp-cerber') ?></h2>
 
@@ -400,7 +458,7 @@ function cerber_settings_page(){
 
 			echo '<a href="' . cerber_admin_link('main') . '" class="nav-tab ' . ( $tab == 'main' ? 'nav-tab-active' : '') . '"><span class="dashicons dashicons-admin-settings"></span> ' . __('Main Settings','wp-cerber') . '</a>';
 
-			$total = $wpdb->get_var('SELECT count(ip) FROM '. CERBER_ACL_TABLE);
+			$total = cerber_db_get_var('SELECT count(ip) FROM '. CERBER_ACL_TABLE);
 			echo '<a href="' . cerber_admin_link('acl') . '" class="nav-tab ' . ( $tab == 'acl' ? 'nav-tab-active' : '') . '"><span class="dashicons dashicons-admin-network"></span> ' . __('Access Lists','wp-cerber') . ' <sup class="acltotal">' . $total . '</sup></a>';
 
 			echo '<a href="' . cerber_admin_link('hardening') . '" class="nav-tab ' . ( $tab == 'hardening' ? 'nav-tab-active' : '') . '"><span class="dashicons dashicons-shield-alt"></span> ' . __('Hardening','wp-cerber') . '</a>';
@@ -524,7 +582,7 @@ function cerberus_field_show($args){
 		case 'reglimit':
 			$html=sprintf(__('%s allowed registrations in %s minutes from one IP','wp-cerber'),
 				'<input type="text" id="reglimit-num" name="cerber-'.$args['group'].'[reglimit_num]" value="'.$settings['reglimit_num'].'" size="3" maxlength="3" />',
-				'<input type="text" id="reglimit-min" name="cerber-'.$args['group'].'[reglimit_min]" value="'.$settings['reglimit_min'].'" size="3" maxlength="3" />');
+				'<input type="text" id="reglimit-min" name="cerber-'.$args['group'].'[reglimit_min]" value="'.$settings['reglimit_min'].'" size="4" maxlength="4" />');
 			break;
 		case 'aggressive':
 			$html=sprintf(__('Increase lockout duration to %s hours after %s lockouts in the last %s hours','wp-cerber'),
@@ -978,6 +1036,25 @@ function cerber_sanitize_t($new, $old, $option) {
 
 	return $new;
 }
+
+/*
+    Sanitizing/checking user input for Security Scanner settings
+*/
+add_filter( 'pre_update_option_' . CERBER_OPT_S, 'cerber_sanitize_s', 10, 3 );
+function cerber_sanitize_s( $new, $old, $option ) {
+
+	$list = cerber_text2array( $new['scan_exclude'], "\n" );
+	$list = array_filter( $list, function ( $item ) {
+		return @is_dir( $item );
+	} );
+	$new['scan_exclude'] = $list;
+
+	$new['scan_cpt']  = cerber_text2array( $new['scan_cpt'], "\n" );
+	$new['scan_uext'] = cerber_text2array( $new['scan_uext'], "," );
+
+	return $new;
+}
+
 /**
  * Let's sanitize them all
  * @since 4.1
@@ -1158,7 +1235,7 @@ function cerber_get_defaults($field = null) {
 			'nofeeds'  => 0,
 			'norest'  => 0,
 			'restauth'  => 0,
-			'restwhite' => '',
+			'restwhite' => 'oembed',
 			'hashauthor'  => 0,
 			'cleanhead'  => 1,
 		),
@@ -1208,6 +1285,7 @@ function cerber_get_defaults($field = null) {
 		),
 		CERBER_OPT_T => array(
 			'tienabled' => '1',
+			'tiipwhite' => 0,
 			'tiwhite'   => '',
 			'timode'    => '1',
 			'tinocrabs'  => '1',
@@ -1218,7 +1296,15 @@ function cerber_get_defaults($field = null) {
 			'ticandy'  => 0,
 			'tithreshold'  => '',
 			'tikeeprec' => 7,
-        )
+        ),
+		CERBER_OPT_S => array(
+			'scan_cpt' => '',
+			'scan_uext' => '',
+			'scan_exclude' => '',
+			'scan_tmp'  => '1',
+			'scan_sess' => '1',
+			'scan_qcleanup' => '30',
+		)
 		);
 	if ( $field ) {
 		foreach ( $all_defaults as $option ) {

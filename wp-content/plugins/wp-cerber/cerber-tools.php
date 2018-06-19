@@ -38,7 +38,7 @@ function cerber_tools_page() {
 	$tab = cerber_get_tab( 'imex', array( 'imex', 'diagnostic', 'license', 'help' ) );
 
 	?>
-	<div class="wrap">
+	<div class="wrap crb-admin">
 
 		<h2><?php _e( 'Tools', 'wp-cerber' ) ?></h2>
 
@@ -311,14 +311,14 @@ function cerber_show_lic() {
             <tr>
                 <th scope="row">License key for PRO version</th>
                 <td>
-                    <input name="cerber_license" style="font-family: Consolas, Monaco, monospace;" value="<?php echo $lic; ?>" size="<?php echo LAB_KEY_LENGTH; ?>" maxlength="<?php echo LAB_KEY_LENGTH; ?>" type="text">
+                    <input name="cerber_license" style="font-family: Menlo, Consolas, Monaco, monospace;" value="<?php echo $lic; ?>" size="<?php echo LAB_KEY_LENGTH; ?>" maxlength="<?php echo LAB_KEY_LENGTH; ?>" type="text">
                     <?php echo '<p>'.$valid.'</p>'; ?>
                 </td>
             </tr>
             <tr>
                 <th scope="row">Site ID</th>
                 <td>
-		            <?php echo '<p style="font-family: Consolas, Monaco, monospace;">'.$key[0].'</p>'; ?>
+		            <?php echo '<p style="font-family: Menlo, Consolas, Monaco, monospace;">'.$key[0].'</p>'; ?>
                 </td>
             </tr>
             <tbody>
@@ -339,7 +339,7 @@ function cerber_show_lic() {
  */
 function cerber_recaptcha_page() {
 	?>
-    <div class="wrap">
+    <div class="wrap crb-admin">
         <h2><?php _e( 'Antispam and bot detection settings', 'wp-cerber' ) ?></h2>
 		<?php
 		cerber_show_aside( 'recaptcha' );
@@ -352,24 +352,30 @@ function cerber_recaptcha_page() {
 }
 
 function cerber_show_wp_diag(){
-	global $wp_version, $wpdb;
+	global $wpdb;
 
 	$ret = array();
 
 	$ret[] = cerber_make_plain_table( array(
-	        array('WordPress version', $wp_version),
-			array('Options DB table', $wpdb->prefix.'options'),
-			array('Server platform', PHP_OS),
-        ) );
+		array( 'WordPress version', cerber_get_wp_version() ),
+		array( 'Options DB table', $wpdb->prefix . 'options' ),
+		array( 'Server platform', PHP_OS ),
+		array( 'Memory limit', @ini_get( 'memory_limit' ) )
+	) );
 
 	$uploads = wp_upload_dir();
 
 	$folders = array(
 		array( 'WordPress root folder (ABSPATH) ', ABSPATH ),
 		array( 'Uploads folder', $uploads['path'] ),
-		array( 'Content folder (WP_CONTENT_DIR) ', WP_CONTENT_DIR ),
-		array( 'Plugins folder (WP_PLUGIN_DIR) ', WP_PLUGIN_DIR ),
+		//array( 'Content folder (WP_CONTENT_DIR) ', WP_CONTENT_DIR ),
+		array( 'Content folder', dirname( cerber_get_plugins_dir() ) ),
+		//array( 'Plugins folder (WP_PLUGIN_DIR) ', WP_PLUGIN_DIR ),
+		array( 'Plugins folder', cerber_get_plugins_dir() ),
 		array( 'Must use plugin folder (WPMU_PLUGIN_DIR) ', WPMU_PLUGIN_DIR ),
+		array( 'Folder for temporary files', ini_get( 'upload_tmp_dir' ) ),
+		array( 'Folder for session data', session_save_path() ),
+		array( 'Security scanner quarantine folder', cerber_get_the_folder() . 'quarantine' . DIRECTORY_SEPARATOR ),
 	);
 
 	foreach ( $folders as &$folder ) {
@@ -379,14 +385,28 @@ function cerber_show_wp_diag(){
 	        if ( wp_is_writable( $folder[1] ) ) {
 		        $folder[2] = 'Writable';
 	        }
+	        else {
+		        $folder[2] = 'Write protected';
+            }
 	        $folder[3] = cerber_get_chmod($folder[1]);
         }
         else {
 	        $folder[2] = 'Not found';
         }
 	}
+	if ( file_exists( ABSPATH . 'wp-config.php' )) {
+	    $config = ABSPATH . 'wp-config.php';
+	}
+    elseif ( file_exists( dirname( ABSPATH ) . '/wp-config.php' ) ) {
+		$config = dirname( ABSPATH ) . '/wp-config.php';
+	}
+	else {
+		$config = 'None?';
+    }
+	$folders[] = array( 'WordPress config file', $config );
+	$folders[] = array( 'Directory separator', DIRECTORY_SEPARATOR );
 
-	$ret[] = '<p>Folders</p>'.cerber_make_plain_table( $folders );
+	$ret[] = '<p>File system</p>'.cerber_make_plain_table( $folders );
 
 	$pls = array();
 	$list = get_option('active_plugins');

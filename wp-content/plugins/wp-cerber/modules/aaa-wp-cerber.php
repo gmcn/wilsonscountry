@@ -38,6 +38,6 @@ function cerber_mode(){
 	return 1;
 }
 
-if ( ( include_once WP_PLUGIN_DIR . '/wp-cerber/wp-cerber.php' ) == true ) {
+if ( ( @include_once WP_PLUGIN_DIR . '/wp-cerber/wp-cerber.php' ) == true ) {
 	define( 'CERBER_MODE', 1 );
 }

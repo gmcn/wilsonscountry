@@ -1,3 +1,6 @@
+/**
+ *	Copyright (C) 2015-18 CERBER TECH INC., https://wpcerber.com
+ */
 jQuery(document).ready(function ($) {
 
     /* WP Comments page */
@@ -14,7 +17,7 @@ jQuery(document).ready(function ($) {
         //cerberLoadData('country');
     }
 
-    /* Load data with AJAX */
+    /* Load IP address data with AJAX */
 
     if ($(".crb-no-country").length) {
         cerberLoadData('country');
@@ -104,18 +107,20 @@ jQuery(document).ready(function ($) {
 
     /* Traffic */
 
-    $('#crb-traffic tr.crb-toggle td.crb-request').click(function () {
+    var crb_traffic = $('#crb-traffic');
+
+    crb_traffic.find('tr.crb-toggle td.crb-request').click(function () {
         var request_details = $(this).parent().next();
         //request_details.slideToggle(100);
         request_details.toggle();
         //request_details.data('session-id');
     });
 
-    $('#crb-traffic tr').mouseenter(function() {
+    crb_traffic.find('tr').mouseenter(function() {
         $(this).find('a.crb-traffic-more').show();
     });
 
-    $('#crb-traffic tr').mouseleave(function() {
+    crb_traffic.find('tr').mouseleave(function() {
         $(this).find('a.crb-traffic-more').hide();
     });
 

@@ -23,7 +23,7 @@
  * ╚══════╝╚══════╝╚═╝  ╚═╝  ╚═══╝  ╚═╝     ╚═╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝
  */
 
-// include all the files that you want to load in here
+// Include all the files that you want to load in here
 require_once AI1WMUE_CONTROLLER_PATH .
 			DIRECTORY_SEPARATOR .
 			'class-ai1wmue-main-controller.php';

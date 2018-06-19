@@ -1,14 +1,14 @@
-=== Cerber Security & Antispam ===
+=== Cerber Security, Antispam & Malware Scan ===
 Contributors: gioni
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=SR8RJXFU35EW8
-Tags: security, login, custom login url, antispam, limit login attempts, firewall, recaptcha, captcha, activity, log, logging, whitelist, blacklist, access list
-Requires at least: 4.4
-Requires PHP: 5.3
+Tags: security, malware scanner, antispam, firewall, limit login attempts, custom login url, login, recaptcha, captcha, activity, log, logging, whitelist, blacklist, access list
+Requires at least: 4.5
+Requires PHP: 5.4
 Tested up to: 4.9
-Stable tag: 6.7
+Stable tag: 7.0
 License: GPLv2
 
-Protection against hacker attacks and bots. Restrict access with IP access lists, track user and bot activity. reCAPTCHA. Limit login attempts.
+Protection against hacker attacks and bots. Malware scanner & integrity checker. Monitor user activity. Antispam reCAPTCHA. Limit login attempts.
 
 == Description ==
 
@@ -17,6 +17,7 @@ Restricts access with the Black IP Access List and the White IP Access List.
 Tracks user and intruder activity with powerful email, mobile and desktop notifications.
 Stop spam: activates Cerber antispam engine and Google reCAPTCHA for protecting registration, contact and comments forms.
 Hardening WordPress with a set of security rules and comprehensive algorithms.
+Malware scanner & integrity checker.
 
 **Features you will love**
 
@@ -26,6 +27,7 @@ Hardening WordPress with a set of security rules and comprehensive algorithms.
 * Create **Custom login URL** ([rename wp-login.php](https://wpcerber.com/how-to-rename-wp-login-php/)).
 * Cerber antispam engine for protecting any contact form. Automatically detects and moves spam comments to trash or deny it completely.
 * Log users, bots, hacker and other suspicious activities.
+* Scan and verify the integrity of all WordPress files, plugins and themes.
 * Cool notifications with powerful event filters.
 * Hide wp-login.php, wp-signup.php and wp-register.php from possible attacks.
 * Hide wp-admin (dashboard) when a user isn't logged in.
@@ -60,6 +62,10 @@ WP Cerber blocks intruders by IP or subnet from making further attempts after a 
 You will be able to create a **Black IP Access List** or **White IP Access List** to block or allow logins from a particular IP address, IP address range or a subnet any class (A,B,C).
 
 Moreover, you can create your Custom login page and forget about automatic attacks to the default wp-login.php, which takes your attention and consumes a lot of server resources. If an attacker tries to access wp-login.php they will be blocked and get a 404 Error response.
+
+= Malware scanner & integrity checker. =
+
+The main purpose of the scanner is to provide a handy diagnostic tool to monitor all files on a website, verify the integrity of WordPress, plugins, themes and to detect and remove malware. [Read more about malware scanner](https://wpcerber.com/wordpress-security-scanner/).
 
 = Log, filter out and export activities =
 
@@ -113,6 +119,7 @@ It’s compatible with virtually any form you have. Tested with Caldera Forms, G
 * Український, thanks to [Nadia](https://profiles.wordpress.org/webbistro)
 * Русский, thanks to [Yui](https://profiles.wordpress.org/fierevere/)
 * Italian, thanks to [Francesco Venuti](http://www.algostream.it/)
+* Swedish, thanks to Fredrik Näslund
 
 Thanks to [POEditor.com](https://poeditor.com) for helping to translate this project.
 
@@ -286,6 +293,12 @@ To get access to your dashboard you need to copy the WP Cerber Reset folder to t
 
 
 == Changelog ==
+
+= 6.7.5 =
+* A new button View Activity has been added to the user edit page in the WordPress dashboard.
+* Miscellaneous code optimizations: performance of database routines and SQL queries are improved.
+* A new Swedish translation has been added. Thanks to Fredrik Näslund.
+* Bug fixed: The wildcard *.*.*.* entry (all IPv4 addresses) to the Black IP Access List, doesn't work as intended.
 
 = 6.7 =
 * New: Regular expressions are now available for the Traffic Inspector Request whitelist and Antispam Query whitelist.

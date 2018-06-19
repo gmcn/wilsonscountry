@@ -1,5 +1,17 @@
 /* Reset some WP styles */
 
+.crb-admin {
+    font-family: 'Roboto', sans-serif;
+}
+
+.crb-admin b, .crb-admin strong {
+    font-weight: 500;
+}
+
+.crb-admin h2, .crb-admin h3 {
+    font-weight: 500;
+}
+
 .crb-main a:focus,
 #crb-aside a:focus {
     -webkit-box-shadow: none !important;
@@ -35,7 +47,7 @@
 #crb-kpi {
     width: 100%;
     background-color: #fff;
-    color: #111;
+    color: #333;
     border-collapse: collapse;
     border: 6px solid #e9e9e9;
 }
@@ -45,8 +57,8 @@
 #crb-kpi td:nth-child(odd) {
     text-align: right;
     font-size: 200%;
-    color: #555;
-    font-weight: bold;
+    color: #111;
+    /*font-weight: bold;*/
     min-width: 5%;
     /*border-left: #555 solid 3px;*/
     border-left-width: 3px;
@@ -79,7 +91,7 @@
 #crb-aside {
     float: right;
     width: 290px;
-    margin: 1em 0;
+    margin: 1em 0 0 1em;
 }
 
 @media (max-width: 1300px) {
@@ -284,6 +296,10 @@ td.crb-traffic-details{
 td.crb-traffic-details td{
     padding: 6px;
 }
+td.crb-traffic-details table td:nth-child(2) {
+    font-family: Menlo, Consolas, Monaco, monospace;
+}
+
 /*
 td.crb-traffic-details div{
     overflow: auto;
@@ -367,6 +383,7 @@ td.crb-traffic-details div{
 #crb-traffic-form label {
     font-weight: bold;
     color: #333;
+    font-family: 'Roboto', sans-serif;
 }
 
 /* IP info like WHOIS details */
@@ -577,7 +594,7 @@ p.act-url{
 .acl-table td:first-child {
     width: 25%;
     white-space: pre;
-    font-family: Consolas, Monaco, monospace;
+    font-family: Menlo, Consolas, Monaco, monospace;
     font-size: 110%;
 }
 .acl-table td:nth-child(2) {
@@ -608,15 +625,21 @@ p.act-url{
 a.nav-tab:first-child{
     margin-left: 0 !important;
 }
+.cerber-tabs {
+    font-weight: normal;
+}
 .cerber-tabs span.dashicons {
     display: inline-block;
     vertical-align: middle;
     line-height: 18px;
 }
-
+.cerber-tabs .nav-tab {
+    font-weight: normal;
+}
 .cerber-tabs .nav-tab-active {
-    color: #804040;
+    /* color: #804040;*/
     color: rgb(0, 103, 153);
+    font-weight: 500;
 }
 
 /* Preserve line-height for tabs */
@@ -646,8 +669,238 @@ a.nav-tab:first-child{
 
 /* Scanner page */
 
+body.wp-cerber_page_cerber-integrity {
+    overflow-y: scroll; /* workaround for jumping page when thickbox popup is active */
+}
+
 #crb-scanner {
     text-align: center;
+}
+#crb-scan-display, #crb-scan-details {
+    /*width: 97%;*/
+    overflow: auto;
+    padding: 20px 10px 10px 10px;
+    background-color: #f9f9f9;
+    border: solid #E5E5E5 2px;
+    border-bottom: none;
+    /*margin-bottom: 10px;*/
+}
+#crb-scan-details {
+    padding: 0;
+    border: solid #E5E5E5 2px;
+    min-height: 20vh;
+    max-height: 50vh;
+    overflow: auto;
+    -webkit-transition: height 2s; /* Safari */
+    transition: height 2s;
+}
+div.scan-tile {
+    float: left;
+    width: 19%;
+    text-align: center;
+}
+div.scan-tile div {
+    display: inline-block;
+    text-align: left;
+}
+#crb-scan-display div div p:first-of-type {
+    font-size: 200%;
+    line-height: 160%;
+    /*font-family: Menlo, Consolas, Monaco, monospace;*/
+    color: #000;
+    margin: 0;
+}
+
+#crb-scan-info {
+    width: 23%;
+    text-align: left !important;
+}
+
+#crb-scan-info table {
+    width: 100%;
+}
+
+@media (max-width: 600px) {
+    #crb-scan-display div.scan-tile,
+    #crb-scan-info {
+        float: none;
+        width: 100%;
+    }
+
+    #crb-scan-display div.scan-tile div {
+        text-align: center;
+    }
+}
+
+#crb-browse-files {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #E5E5E5;
+}
+
+#crb-browse-files td {
+    color: #333;
+    text-align: left;
+    padding: 10px;
+}
+
+#crb-browse-files .crb-scan-container {
+    display: none;
+}
+/*
+#crb-browse-files .crb-scan-container td {
+    font-size: 120%;
+    color: #444;
+    padding-top: 1em;
+    padding-bottom: 1em;
+}*/
+
+#crb-browse-files td.cursor-pointer {
+    cursor: pointer;
+}
+#crb-browse-files td.cursor-pointer:hover {
+    text-decoration: underline;
+}
+
+#crb-browse-files tr.crb-item-file td:nth-child(2) {
+    font-family: Menlo, Consolas, Monaco, monospace;
+    /*cursor: pointer;*/
+}
+
+#crb-browse-files tr.crb-scan-section td {
+    padding: 15px 0 15px 10px;
+    border-top: 1px dashed #aaa;
+    font-size: 105%;
+}
+#crb-browse-files tr.crb-scan-section td span:first-child {
+    font-weight: bold;
+    color: #333;
+    /*margin-right: 0.5em;*/
+}
+
+#crb-browse-files tr.section-crb-plugins td span:first-child:after {
+    content: ' plugin';
+}
+#crb-browse-files tr.section-crb-themes td span:first-child:after {
+    content: ' theme';
+}
+#crb-browse-files tr.section-crb-wordpress td span:first-child:after {
+    content: ' files';
+}
+
+#crb-browse-files .crb-scan-section .crb-it-1 {
+    background-color: #00ae65cc;
+    color: #fff;
+    margin-left: 6px;
+    display: inline-block;
+    line-height: 1em;
+    padding: 3px 5px;
+    font-size: 92%;
+}
+#crb-browse-files .crb-scan-section .crb-it-5,
+#crb-browse-files .crb-scan-section .crb-it-6,
+#crb-browse-files .crb-scan-section .crb-it-7,
+#crb-browse-files .crb-scan-section .crb-it-8{
+    color: #dd1320;
+}
+
+#crb-browse-files .risk3 span{
+    /*background-color: #c91619;*/
+    /* background-color: #dd1320; */
+    background-color: #dc2f34;
+    color: #fff;
+    display: inline-block;
+    line-height: 1em;
+    padding: 3px 5px;
+    font-size: 92%;
+}
+#crb-browse-files .risk2{
+    /*color: yellow;*/
+}
+
+#crb-browse-files .scan-ilabel {
+}
+
+#crb-scan-controls {
+    width: 100%;
+    margin-top: 10px;
+    background-color: #f1f1f1;
+}
+#crb-scan-controls td{
+    text-align: center;
+    width: 50%;
+}
+#crb-scan-controls td:first-child{
+    width: 25%;
+    text-align: left;
+}
+#crb-scan-controls td:last-child{
+    width: 25%;
+    text-align: right;
+}
+#crb-scan-controls .button {
+    margin-right: 1em;
+}
+#crb-file-controls input,
+#crb-scan-controls a{
+    display: none;
+}
+
+#crb-scan-progress {
+    display: none;
+    padding: 10px 5px 0 5px;
+    clear: both;
+}
+
+#crb-scan-progress > div {
+    text-align: left;
+    clear: both;
+    width: 100%;
+    height: 5px;
+    background-color: #E5E5E5;
+}
+
+#the-scan-bar {
+    display: block;
+    width: 10px;
+    height: 5px;
+    background-color: #00ae65cc;
+}
+
+#crb-scan-message {
+    clear: both;
+    color: #A00D5C;
+}
+
+#ref-section-name {
+    font-weight: bold;
+}
+
+/* end of Scanner page */
+
+.crb-popup-inner {
+    margin-top: 1em;
+    overflow: auto;
+}
+.crb-popup-inner div {
+    margin-bottom: 10px;
+}
+.crb-popup-inner p {
+    padding-top: 0;
+    margin-top: 0;
+    margin-bottom: 1em;
+}
+
+.crb-popup-inner div div {
+    border-left: solid 2px #dd1320;
+    padding-left: 10px;
+    margin-bottom: 20px;
+}
+.crb-popup-inner div div p{
+    margin-top: 1em;
+}
+.crb-popup-inner div div code {
+    line-height: 180%;
 }
 
 /* Widgets */
@@ -849,6 +1102,33 @@ div#whois:hover {
     margin-right: 0.5em;
 }
 
+/*  Fonts  */
+
+@font-face {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 300;
+    src: local('Roboto Light'), local('Roboto-Light'), url(fonts/roboto/Roboto-Light.woff) format('woff');
+}
+@font-face {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Roboto'), local('Roboto-Regular'), url(fonts/roboto/Roboto-Regular.woff) format('woff');
+}
+@font-face {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 500;
+    src: local('Roboto Medium'), local('Roboto-Medium'), url(fonts/roboto/Roboto-Medium.woff) format('woff');
+}
+@font-face {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    src: local('Roboto Bold'), local('Roboto-Bold'), url(fonts/roboto/Roboto-Bold.woff) format('woff');
+}
+
 @font-face {
     font-family: "cerber-icon";
     src:  url('fonts/cerber.eot');
@@ -874,6 +1154,7 @@ div#whois:hover {
 }
 
 /* Avatars */
+
 table.crb-avatar{
     margin: 0.2em 0 0.2em 0;
     border-collapse: collapse;
@@ -929,6 +1210,7 @@ table#admin-help img{
 table#admin-help p{
     margin-top: 0.5em;
     margin-bottom: 1em;
+    line-height: 1.7;
 }
 table#admin-help span{
     vertical-align: middle;

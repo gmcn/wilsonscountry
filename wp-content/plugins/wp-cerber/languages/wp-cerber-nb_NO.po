@@ -84,7 +84,7 @@ msgstr "Terskel"
 msgid "Duration"
 msgstr "Varighet"
 
-#: ../cerber-load.php:4100 ../settings.php:78 ../settings.php:102 ../settings.php:
+#: ../cerber-load.php:4111 ../settings.php:78 ../settings.php:102 ../settings.php:
 #: 411
 msgid "Notifications"
 msgstr "Varsling"
@@ -93,12 +93,12 @@ msgstr "Varsling"
 msgid "Send notification to admin email"
 msgstr "Send varsel til admins e-postadresse"
 
-#: ../cerber-load.php:4097 ../settings.php:404 ../cerber-tools.php:92 ../cerber-
+#: ../cerber-load.php:4108 ../settings.php:404 ../cerber-tools.php:92 ../cerber-
 #: tools.php:101 ../cerber-tools.php:182
 msgid "Access Lists"
 msgstr "Tilgangsliste"
 
-#: ../dashboard.php:1239 ../dashboard.php:1467 ../cerber-load.php:3844 ..
+#: ../dashboard.php:1239 ../dashboard.php:1467 ../cerber-load.php:3855 ..
 #: /settings.php:104 ../settings.php:395
 msgid "Activity"
 msgstr "Aktivitet"
@@ -116,7 +116,7 @@ msgid "Enable after %s failed login attempts in last %s minutes"
 msgstr "Aktivér etter %s mislykkede innloggingsforsøk på %s minutter"
 
 #: ../dashboard.php:129 ../dashboard.php:695 ../dashboard.php:2848 ../cerber-load.
-#: php:3853
+#: php:3864
 msgid "IP"
 msgstr "IP-adresse"
 
@@ -128,7 +128,7 @@ msgstr "Dato"
 msgid "Local User"
 msgstr "Lokal bruker"
 
-#: ../dashboard.php:534 ../dashboard.php:701 ../cerber-load.php:3861
+#: ../dashboard.php:534 ../dashboard.php:701 ../cerber-load.php:3872
 msgid "Username used"
 msgstr "Brukernavn brukt"
 
@@ -182,7 +182,7 @@ msgid "Lockout for %s was removed"
 msgstr "Utestengelse for %s ble fjernet"
 
 #: ../dashboard.php:167 ../dashboard.php:670 ../dashboard.php:873 ../dashboard.
-#: php:1219 ../dashboard.php:2679 ../cerber-load.php:4089 ../settings.php:77 ..
+#: php:1219 ../dashboard.php:2679 ../cerber-load.php:4100 ../settings.php:77 ..
 #: /settings.php:365
 msgid "White IP Access List"
 msgstr "Hvit IP-tilgangsliste"
@@ -204,7 +204,7 @@ msgstr "Adressen %s ble lagt til den hvite IP-tilgangslisten"
 msgid "Address %s was added to Black IP Access List"
 msgstr "Adressen %s ble lagt til den svarte IP-tilgangslisten"
 
-#: ../cerber-load.php:3326
+#: ../cerber-load.php:3337
 msgid "Citadel mode is activated after %d failed login attempts in %d minutes."
 msgstr "Vakttårnsmodus ble aktivert etter %d mislykkede innloggingsforsøk på %d minutter"
 
@@ -252,11 +252,7 @@ msgstr "Gjør din beskyttelse smartere!"
 msgid "Please enable Permalinks to use this feature. Set Permalink Settings to something other than Default."
 msgstr "Vennligst "
 
-#: ../settings.php:358
-msgid "Be careful when enabling this options. If you forget the custom login URL you will not be able to login."
-msgstr "Vær forsiktig når du velger dette alternativet. Glemmer du din nye URL for innlogging, vil du ikke kunne logge deg inn."
-
-#: ../cerber-load.php:4096 ../settings.php:401
+#: ../cerber-load.php:4107 ../settings.php:401
 msgid "Main Settings"
 msgstr "Hovedinnstillinger"
 
@@ -302,11 +298,11 @@ msgstr "Disse IP-er vil aldri bli utestengt"
 msgid "Your IP"
 msgstr "Din IP"
 
-#: ../cerber-load.php:3327
+#: ../cerber-load.php:3338
 msgid "Last failed attempt was at %s from IP %s with user login: %s."
 msgstr "Siste mislykkede forsøk var %s fra IP %s med brukernavn %s."
 
-#: ../cerber-load.php:4056
+#: ../cerber-load.php:4067
 msgid "Can't activate WP Cerber due to a database error."
 msgstr "Kunne ikke aktivere WP Cerber på grunn av en databasefeil."
 
@@ -355,19 +351,19 @@ msgstr "Kommentarer"
 msgid "Update to version %s of WP Cerber"
 msgstr "Oppdatér til versjon %s av WP Cerber"
 
-#: ../cerber-load.php:3328 ../cerber-load.php:3885
+#: ../cerber-load.php:3339 ../cerber-load.php:3896
 msgid "View activity in dashboard"
 msgstr "Se aktivitet i kontrollpanelet"
 
-#: ../cerber-load.php:3358
+#: ../cerber-load.php:3369
 msgid "Number of active lockouts"
 msgstr "Antall aktive utestengelser"
 
-#: ../cerber-load.php:3362
+#: ../cerber-load.php:3373
 msgid "View lockouts in dashboard"
 msgstr "Se utestengelser i kontrollpanelet"
 
-#: ../cerber-load.php:3444
+#: ../cerber-load.php:3455
 msgid "This message was sent by"
 msgstr "Denne meldingen ble sendt av"
 
@@ -514,23 +510,23 @@ msgstr "Ny versjon er tilgjengelig"
 msgid "WP Cerber"
 msgstr "WP Cerber"
 
-#: ../cerber-load.php:3302
+#: ../cerber-load.php:3313
 msgid "WP Cerber notify"
 msgstr "WP Cerber-varsling"
 
-#: ../cerber-load.php:3324
+#: ../cerber-load.php:3335
 msgid "Citadel mode is activated"
 msgstr "Vakttårns-modus er aktivert"
 
-#: ../cerber-load.php:3398
+#: ../cerber-load.php:3409
 msgid "New Custom login URL"
 msgstr "Ny egendefinert innloggings-URL"
 
-#: ../cerber-load.php:4043
+#: ../cerber-load.php:4054
 msgid "The WP Cerber requires PHP %s or higher. You are running"
 msgstr "WP Cerber krever PHP versjon %s eller høyere. Du kjører"
 
-#: ../cerber-load.php:4047
+#: ../cerber-load.php:4058
 msgid "The WP Cerber requires WordPress %s or higher. You are running"
 msgstr "WP Cerber krever WordPress versjon %s eller høyere. Du kjører"
 
@@ -546,7 +542,7 @@ msgstr "Skriv mislykkede innloggingsforsøk til filen"
 msgid "Deactivate"
 msgstr "Deaktivér"
 
-#: ../dashboard.php:133 ../cerber-load.php:3360
+#: ../dashboard.php:133 ../cerber-load.php:3371
 msgid "Reason"
 msgstr "Grunn"
 
@@ -570,11 +566,11 @@ msgstr "Grensen for innloggingsforsøk er nådd"
 msgid "Attempt to log in with non-existent username"
 msgstr "Forsøk på å logge inn med ikke-eksisterende brukernavn"
 
-#: ../cerber-load.php:3359
+#: ../cerber-load.php:3370
 msgid "Last lockout was added: %s for IP %s"
 msgstr "Siste utestengelse ble lagt til: %s for IP %s"
 
-#: ../cerber-load.php:4099 ../settings.php:406
+#: ../cerber-load.php:4110 ../settings.php:406
 msgid "Hardening"
 msgstr "Forsterking"
 
@@ -634,7 +630,7 @@ msgstr "Disse innstillingene påvirker ikke verter fra "
 msgid "<strong>ERROR</strong>: please enter a valid email address."
 msgstr "<strong>FEIL</strong>: vennligst skriv inn en gyldig e-postadresse"
 
-#: ../cerber-load.php:3390 ../cerber-load.php:4088
+#: ../cerber-load.php:3401 ../cerber-load.php:4099
 msgid "WP Cerber is now active and has started protecting your site"
 msgstr "WP Cerber er nå aktiv og har begynt å beskytte siden din"
 
@@ -678,9 +674,9 @@ msgstr "Gregory"
 
 #: ../common.php:203 ../common.php:260 ../common.php:265 ../common.php:270 ..
 #: /cerber-load.php:666 ../cerber-load.php:678 ../cerber-load.php:685 ../cerber-
-#: load.php:926 ../cerber-load.php:1143 ../cerber-load.php:1149 ../cerber-load.
-#: php:1154 ../cerber-load.php:1159 ../cerber-load.php:1165 ../cerber-load.php:
-#: 1172 ../cerber-load.php:1272 ../cerber-load.php:1409 ../settings.php:793 ..
+#: load.php:932 ../cerber-load.php:1149 ../cerber-load.php:1155 ../cerber-load.
+#: php:1160 ../cerber-load.php:1165 ../cerber-load.php:1171 ../cerber-load.php:
+#: 1178 ../cerber-load.php:1278 ../cerber-load.php:1415 ../settings.php:793 ..
 #: /settings.php:864
 msgid "ERROR:"
 msgstr "FEIL:"
@@ -689,67 +685,67 @@ msgstr "FEIL:"
 msgid "Human verification failed. Please click the square box in the reCAPTCHA block below."
 msgstr "Bekreftelse av menneskelighet feilet. Vennligst klikk den firkantige boksen i reCAPTCHA-blokken under."
 
-#: ../cerber-load.php:938
+#: ../cerber-load.php:944
 msgid "<strong>ERROR</strong>: The password you entered for the username %s is incorrect."
 msgstr "<strong>FEIL</strong>: Passordet du skrev inn for brukernavnet %s er ugyldig."
 
-#: ../cerber-load.php:1160
+#: ../cerber-load.php:1166
 msgid "Username is not allowed. Please choose another one."
 msgstr "Brukernavnet er ikke tillatt. Vennligst velg et annet brukernavn."
 
-#: ../cerber-load.php:3353
+#: ../cerber-load.php:3364
 msgid "unspecified"
 msgstr "uspesifisert"
 
-#: ../cerber-load.php:3356
+#: ../cerber-load.php:3367
 msgid "Number of lockouts is increasing"
 msgstr "Antallet utestengelser stiger"
 
-#: ../cerber-load.php:3361
+#: ../cerber-load.php:3372
 msgid "View activity for this IP"
 msgstr "Se aktivitet for denne IP"
 
-#: ../cerber-load.php:3365 ../cerber-load.php:3367
+#: ../cerber-load.php:3376 ../cerber-load.php:3378
 msgid "A new version of WP Cerber is available to install"
 msgstr "En ny versjon av WP Cerber er tilgjengelig for installasjon"
 
-#: ../cerber-load.php:3366
+#: ../cerber-load.php:3377
 msgid "Hi!"
 msgstr "Hei!"
 
-#: ../cerber-load.php:3369 ../cerber-load.php:3380
+#: ../cerber-load.php:3380 ../cerber-load.php:3391
 msgid "Website"
 msgstr "Webside"
 
-#: ../cerber-load.php:3372 ../cerber-load.php:3373
+#: ../cerber-load.php:3383 ../cerber-load.php:3384
 msgid "The WP Cerber security plugin has been deactivated"
 msgstr "Sikkerhetstillegget WP Cerber har blitt deaktivert"
 
-#: ../cerber-load.php:3375
+#: ../cerber-load.php:3386
 msgid "Not logged in"
 msgstr "Ikke innlogget"
 
-#: ../cerber-load.php:3381
+#: ../cerber-load.php:3392
 msgid "By user"
 msgstr "Etter brukernavn"
 
-#: ../cerber-load.php:3382
+#: ../cerber-load.php:3393
 msgid "From IP address"
 msgstr "Fra IP-adresse"
 
-#: ../cerber-load.php:3385
+#: ../cerber-load.php:3396
 msgid "From country"
 msgstr "Fra land"
 
-#: ../cerber-load.php:3389
+#: ../cerber-load.php:3400
 msgid "The WP Cerber security plugin is now active"
 msgstr "Sikkerhetstillegget WP Cerber er nå aktivt"
 
-#: ../cerber-load.php:4089
+#: ../cerber-load.php:4100
 msgid "Your IP address is added to the"
 msgstr "Din IP-adresse ble lagt til"
 
-#: ../cerber-load.php:4101
+#: ../cerber-load.php:4112
 msgid "Import settings"
 msgstr "Importer innstillinger"
 
@@ -962,19 +958,19 @@ msgstr "Du abbonerer"
 msgid "You've unsubscribed"
 msgstr "Du har avsluttet abonnementet"
 
-#: ../cerber-load.php:3402 ../cerber-load.php:3403
+#: ../cerber-load.php:3413 ../cerber-load.php:3414
 msgid "A new activity has been recorded"
 msgstr "En ny aktivitet har blitt registrert"
 
-#: ../cerber-load.php:3857
+#: ../cerber-load.php:3868
 msgid "User"
 msgstr "Bruker"
 
-#: ../cerber-load.php:3865
+#: ../cerber-load.php:3876
 msgid "Search string"
 msgstr "Søkeord"
 
-#: ../cerber-load.php:3886
+#: ../cerber-load.php:3897
 msgid "To unsubscribe click here"
 msgstr "Klikk her for å avslutte abbonementet"
 
@@ -1086,8 +1082,8 @@ msgstr "Utestengelser"
 msgid "All suspicious activity"
 msgstr "All mistenkelig aktivitet"
 
-#: ../cerber-load.php:1144 ../cerber-load.php:1150 ../cerber-load.php:1166 ..
-#: /cerber-load.php:1173
+#: ../cerber-load.php:1150 ../cerber-load.php:1156 ../cerber-load.php:1172 ..
+#: /cerber-load.php:1179
 msgid "You are not allowed to register."
 msgstr "Du har ikke tilgang til å registrere deg"
 
@@ -1111,7 +1107,7 @@ msgstr "Mistenkelige aktiviteter redusert"
 msgid "Cerber antispam settings"
 msgstr "Cerber antispam-innstillinger"
 
-#: ../dashboard.php:63 ../dashboard.php:1241 ../cerber-load.php:4098 ../settings.
+#: ../dashboard.php:63 ../dashboard.php:1241 ../cerber-load.php:4109 ../settings.
 #: php:196
 msgid "Antispam"
 msgstr "Antispam"
@@ -1148,7 +1144,7 @@ msgstr "Lisens"
 msgid "Antispam and bot detection settings"
 msgstr "Innstillinger for antispam og bot-oppdagelse"
 
-#: ../cerber-load.php:1409
+#: ../cerber-load.php:1415
 msgid "Sorry, human verification failed."
 msgstr "Beklager, menneskeverifisering feilet"
 
@@ -1241,7 +1237,7 @@ msgstr "Deg"
 msgid "Spam form submissions denied"
 msgstr "Innsending av skjema nektet pga. spam"
 
-#: ../dashboard.php:1520 ../cerber-load.php:3392 ../cerber-load.php:4091
+#: ../dashboard.php:1520 ../cerber-load.php:3403 ../cerber-load.php:4102
 msgid "Getting Started Guide"
 msgstr "Hurtigstartsguide"
 
@@ -1438,23 +1434,23 @@ msgctxt "preposition of time"
 msgid "at"
 msgstr "klokken"
 
-#: ../cerber-load.php:3408
+#: ../cerber-load.php:3419
 msgid "Weekly report"
 msgstr "Ukentlig rapport"
 
-#: ../cerber-load.php:3411
+#: ../cerber-load.php:3422
 msgid "To change reporting settings visit"
 msgstr "For å endre rapporteringsinnstillingene, besøk"
 
-#: ../cerber-load.php:3437
+#: ../cerber-load.php:3448
 msgid "Your login page:"
 msgstr "Din innloggingsside"
 
-#: ../cerber-load.php:3441
+#: ../cerber-load.php:3452
 msgid "Your license is valid until"
 msgstr "Din lisens er gyldig inntil"
 
-#: ../cerber-load.php:3552
+#: ../cerber-load.php:3563
 msgid "Activity details"
 msgstr "Aktivitetsdetaljer"
 
@@ -1495,7 +1491,7 @@ msgstr "Valgte land er ikke tillatt å %s, andre land er tillatt å"
 msgid "Protects site from brute force attacks, bots and hackers. Antispam protection with the Cerber antispam engine and reCAPTCHA. Comprehensive control of user activity. Restrict login by IP access lists. Limit login attempts. Know more: <a href=\"https://wpcerber.com\">wpcerber.com</a>."
 msgstr "Beskytter siden mot brute force-angrep, botter og hackere. Antispam-beskyttelse via Cerbers eget system og reCAPTCHA. Omfattende kontroll av brukeraktivitet. Begrens innlogging etter IP-adresselister. Begrens innloggingsforsøk. Finn ut mer: <a href=\"https://wpcerber.com\">wpcerber.com</a>."
 
-#: ../cerber-load.php:3540
+#: ../cerber-load.php:3551
 msgid "Weekly Report"
 msgstr "Ukentlig rapport"
 
@@ -1519,11 +1515,11 @@ msgstr "hvis feltet er tomt, vil e-postadressen fra varselinnstillingene bli bru
 msgid "Enable reporting"
 msgstr "Aktivér rapportering"
 
-#: ../cerber-load.php:3465
+#: ../cerber-load.php:3476
 msgid "Your last sign-in was %s from %s"
 msgstr "Din siste innlogging var %s fra %s"
 
-#: ../cerber-load.php:3566
+#: ../cerber-load.php:3577
 msgid "Attempts to log in with non-existent username"
 msgstr "Forsøk på å logge inn med ikke-eksisterende brukernavn"
 
@@ -1539,7 +1535,7 @@ msgstr "Valgfri kommentar for denne oppføringen"
 msgid "You cannot add your IP address or network"
 msgstr "Du kan ikke legge til din IP-adresse eller nettverk"
 
-#: ../cerber-news.php:165
+#: ../cerber-news.php:173
 msgid "Cool!"
 msgstr "Kult!"
 
@@ -1691,7 +1687,7 @@ msgstr "Søker etter sårbar PHP-kode"
 msgid "Any"
 msgstr "Enhver"
 
-#: ../cerber-load.php:3192
+#: ../cerber-load.php:3203
 msgid "We're sorry, you are not allowed to proceed"
 msgstr "Beklager, du har ikke tillatelse til å fortsette"
 
@@ -1763,11 +1759,6 @@ msgstr "Standardmodus"
 msgid "Plugin initialization mode has not been changed"
 msgstr "Initialisering av plugin er ikke forandret"
 
-#. Name of the plugin
-#: 
-msgid "WP Cerber boot module"
-msgstr "WP Cerber oppstartsmodul"
-
 #. Description of the plugin
 #: 
 msgid "This is a standard boot module for WP Cerber Security & Antispam plugin. It was installed when you set the plugin initialization mode to Standard. Know more: <a href=\"https://wpcerber.com\">wpcerber.com</a>."
@@ -1787,14 +1778,18 @@ msgid "Protects WordPress against brute force attacks, bots and hackers. Antispa
 msgstr ""
 
 #: ../settings.php:94
-msgid "Custom login URL may contain only: letters, numbers, dashes and underscores"
-msgstr ""
-
-#: ../settings.php:94
 msgid "Custom login URL may contain only letters, numbers, dashes and underscores"
 msgstr ""
 
 #: ../settings.php:174 ../settings.php:273
 msgid "To specify a REGEX pattern, enclose a whole line in two braces."
+msgstr ""
+
+#: ../settings.php:358
+msgid "Be careful about enabling these options."
+msgstr ""
+
+#: ../settings.php:358
+msgid "If you forget your Custom login URL, you will be unable to log in."
 msgstr ""
 

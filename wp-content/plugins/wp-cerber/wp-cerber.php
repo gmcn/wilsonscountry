@@ -1,11 +1,11 @@
 <?php
 /*
-	Plugin Name: WP Cerber Security & Antispam
+	Plugin Name: WP Cerber Security, Antispam & Malware Scan
 	Plugin URI: https://wpcerber.com
 	Description: Protects WordPress against brute force attacks, bots and hackers. Antispam protection with the Cerber antispam engine and reCAPTCHA. Comprehensive control of user and bot activity. Restrict login by IP access lists. Limit login attempts. Know more: <a href="https://wpcerber.com">wpcerber.com</a>.
 	Author: Gregory
 	Author URI: https://wpcerber.com
-	Version: 6.7
+	Version: 7.0
 	Text Domain: wp-cerber
 	Domain Path: /languages
 	Network: true
@@ -31,22 +31,57 @@
 
 */
 
-define( 'CERBER_VER', '6.7' );
+define( 'CERBER_VER', '7.0' );
 
 function cerber_plugin_file() {
 	return __FILE__;
 }
+
 function cerber_plug_in() {
 	return plugin_basename( __FILE__ );
 }
+
 function cerber_plugin_data() {
 	return get_plugin_data( __FILE__ );
 }
+
 function cerber_plugin_dir_url() {
-	return plugin_dir_url( __FILE__ );
+	static $ret = null;
+	if ( $ret === null ) {
+		$ret = plugin_dir_url( __FILE__ );
+	}
+
+	return $ret;
 }
+
 function cerber_get_plugins_dir() {
-	return dirname( __FILE__ , 2 );
+	static $dir = null;
+
+	if ( $dir === null ) {
+		$dir = cerber_dirname( __FILE__, 2 );
+	}
+
+	return $dir;
+}
+
+function cerber_get_themes_dir() {
+	static $dir = null;
+
+	if ( $dir === null ) {
+		$dir = dirname( cerber_get_plugins_dir() ) . DIRECTORY_SEPARATOR . 'themes';
+	}
+
+	return $dir;
+}
+
+function cerber_get_upload_dir() {
+	static $dir = null;
+	if ( $dir === null ) {
+		$wp_upload_dir = wp_upload_dir();
+		$dir           = $wp_upload_dir['path'];
+	}
+
+	return $dir;
 }
 
 require_once( dirname( __FILE__ ) . '/cerber-load.php' );

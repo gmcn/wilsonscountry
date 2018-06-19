@@ -1,3 +1,15 @@
+= 7.0 =
+* Cerber Security Scanner: system integrity checker, malware detector and malware removal tool.
+* New: a new setting for Traffic Inspector: Use White IP Access List.
+* Update: the redirection from /wp-admin/ to the login page is not blocked for a user that has been logged in once before.
+* Bug fixed: the limit to the number of new user registrations is calculated the way that allows one additional registration within a given period of time.
+
+= 6.7.5 =
+* A new button View Activity has been added to the user edit page in the WordPress dashboard.
+* Miscellaneous code optimizations: performance of database routines and SQL queries are improved.
+* A new Swedish translation has been added. Thanks to Fredrik Näslund.
+* Bug fixed: The wildcard *.*.*.* entry (all IPv4 addresses) to the Black IP Access List, doesn't work as intended.
+
 = 6.7 =
 * New: Regular expressions are now available for the Traffic Inspector Request whitelist and Antispam Query whitelist.
 * Update: Antispam engine algorithms have been updated to improve AJAX requests handling and reduce false positives.

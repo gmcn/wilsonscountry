@@ -143,6 +143,9 @@ function cerber_push_the_news( $version ) {
 	$news['6.7'][] = 'Bug fixed: the Safe antispam mode doesn\'t work correctly on some website configurations. That may leads to false positives and erroneous spam form submission detection.';
 	$news['6.7'][] = 'Norwegian Bokmål and Dutch language translations have updated. Thanks to Jos Knippen and Eirik Vorland.';
 
+	$news['7.0'][] = 'We’re proud to announce a new version of the plugin with a new security tool: Cerber Security Scanner. The main purpose of the scanner is to provide a handy diagnostic tool to monitor all files on a website, verify the integrity of WordPress, plugins, themes and to detect and remove malware.';
+	$news['7.0'][] = 'A new setting has been added for Traffic Inspector: Use White IP Access List. When enabled it allows any requests from IP addresses in the White IP access list to bypass all Traffic Inspector security rules.';
+	$news['7.0'][] = 'Since v 7.0 the redirection from /wp-admin/ to the login page is not blocked if a not logged in user has been logged in once before.';
 
 	if ( ! empty( $news[ $version ] ) ) {
 		//$text = '<h3>What\'s new in WP Cerber '.$version.'</h3>';

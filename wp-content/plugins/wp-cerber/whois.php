@@ -167,7 +167,9 @@ function cerber_parse_whois_data($txt){
  *
  */
 function make_whois_request($server, $ip) {
-	if (!$f = fsockopen( $server, 43, $errno, $errstr, WHOIS_IO_TIMEOUT )) return array('error'=>$errstr.' (WHOIS: '.$server.').');
+	if ( ! $f = @fsockopen( $server, 43, $errno, $errstr, WHOIS_IO_TIMEOUT ) ) {
+		return array( 'error' => 'Network error: ' . $errstr . ' (WHOIS server: ' . $server . ').' );
+	}
 	#Set the timeout for answering
 	if (!stream_set_timeout($f,WHOIS_IO_TIMEOUT)) return array('error'=>'WHOIS: Unable to set IO timeout.');
 	#Send the IP address to the whois server
@@ -238,7 +240,7 @@ function cerber_country_name( $code ) {
 		}
 	}
 
-	$ret = $wpdb->get_var( 'SELECT country_name FROM ' . CERBER_GEO_TABLE . ' WHERE country = "'.$code.'" AND locale = "'.$locale.'"' );
+	$ret = cerber_db_get_var( 'SELECT country_name FROM ' . CERBER_GEO_TABLE . ' WHERE country = "'.$code.'" AND locale = "'.$locale.'"' );
 
 	if ($ret) {
 		$cache[ $code ] = $ret;
