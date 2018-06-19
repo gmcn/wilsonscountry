@@ -31,9 +31,11 @@ global $page;
 
      <?php endif; ?>
 
+     <?php if( $intro ): ?>
      <h2>
        <?php echo $intro ?>
      </h2>
+   <?php endif; ?>
 
      <?php if ( $id == '284' ) : ?>
 

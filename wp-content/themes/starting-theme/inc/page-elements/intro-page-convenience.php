@@ -16,9 +16,11 @@ $introbg = get_field('page_header_image');
      <div class="row no-gutter">
 
        <div class="col-md-6 wow fadeInLeft">
+         <?php if( $intro ): ?>
          <h2>
            <?php echo $intro ?>
          </h2>
+       <?php endif; ?>
          <?php the_content(); ?>
        </div>
 

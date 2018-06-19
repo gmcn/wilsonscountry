@@ -32,6 +32,10 @@ get_header(); ?>
 
 		<?php include(locate_template("inc/page-careers/careers.php")); ?>
 
+	<?php elseif (is_page( 'our-policies' )) : ?>
+
+		<?php include(locate_template("inc/page-policies/content.php")); ?>
+
 	<?php endif ?>
 
 <?php

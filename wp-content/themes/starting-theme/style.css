@@ -2143,6 +2143,44 @@ iframe {
 .map-border {
   border-bottom: 3px solid #76BC21; }
 
+/* line 2, sass/pages/_policies.scss */
+.policies .policy {
+  margin: 20px 0; }
+  @media screen and (min-width: 992px) {
+    /* line 2, sass/pages/_policies.scss */
+    .policies .policy {
+      padding-left: 7.5px;
+      padding-right: 7.5px; } }
+/* line 9, sass/pages/_policies.scss */
+.policies h2 {
+  background: #586D86;
+  color: #fff;
+  font-size: 25px;
+  margin: 0;
+  padding: 15px 20px;
+  font-weight: 500; }
+/* line 17, sass/pages/_policies.scss */
+.policies p {
+  padding: 20px;
+  font-size: 16px; }
+/* line 21, sass/pages/_policies.scss */
+.policies a {
+  font-weight: 700;
+  color: #3E3E3E;
+  font-size: 16px;
+  transition: .5s; }
+/* line 27, sass/pages/_policies.scss */
+.policies a:hover {
+  color: #76BC21;
+  text-decoration: none; }
+/* line 31, sass/pages/_policies.scss */
+.policies .row {
+  padding: 0 20px; }
+/* line 34, sass/pages/_policies.scss */
+.policies img {
+  height: 45px;
+  float: right; }
+
 /*--------------------------------------------------------------
 ## Posts and pages
 --------------------------------------------------------------*/
