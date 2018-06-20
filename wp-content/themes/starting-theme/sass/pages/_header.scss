@@ -10,18 +10,17 @@ header .container {
   border-right: none;
 }
 
-.navbar-nav > li.current-menu-item a {
+.navbar-nav > li.current-menu-item a, .navbar-nav > li.current-page-ancestor a {
   color: #999A9E;
 }
 
-.navbar-nav > li.current-menu-item::after {
+.navbar-nav > li.current-menu-item::after, .navbar-nav > li.current-page-ancestor::after {
   @include md {
     display: block;
     width: 100%;
-    height: 24px;
+    height: 23px;
     margin-top: 30px;
     background: url("images/after-graphic.png") right no-repeat;
-    // content: url(images/after-graphic.png);
     content: '';
     border-right: none;
   }

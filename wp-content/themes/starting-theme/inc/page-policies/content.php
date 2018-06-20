@@ -13,7 +13,7 @@
 
     		?>
 
-    		<div class="col-md-6 policy">
+    		<div class="col-md-6 policy wow fadeInDown">
 
           <h2><?php echo $policy_title ?></h2>
 

@@ -1,0 +1,95 @@
+.page-id-364 {
+  .intro {
+    background: url(images/edu-zone_bg.jpg) top;
+    background-size: cover;
+    .container {
+      background: transparent;
+    }
+    h1 {
+      color: $white;
+      opacity: .65;
+    }
+    h2 {
+      color: #fff;
+    }
+    p {
+      color: #fff;
+    }
+  }
+  .edu_download {
+    height: 370px;
+    margin: 50px 0;
+    h2 {
+      font-size: 25px;
+      line-height: 25px;
+      max-width: 160px;
+      margin: 0 auto;
+    }
+    .wrapper {
+      padding: 40px 0;
+      background: url(images/edu-download_bg.png) center top no-repeat;
+      text-align: center;
+      color: $white;
+      height: 100%;
+      img {
+        padding-top: 20px;
+      }
+      button {
+        border: none;
+        border-color: none;
+        border-radius: 0;
+        background: transparent;
+        line-height: 1;
+        padding: 0;
+      }
+    }
+    span {
+      font-size: 95px;
+      line-height: 95px;
+      padding: 0;
+      margin: 0;
+      font-weight: $primaryfont_bold;
+    }
+  }
+
+  .additionalinfo {
+  .collapse {
+    border-top: 10px solid rgba(83, 104, 116, 0.5);
+    padding-top: 50px;
+  }
+  .well {
+    background-color: rgba(255,255,255,.61);
+    min-height: 20px;
+    padding: 19px;
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    .col-md-4 {
+      margin-bottom: 30px;
+    }
+    .title {
+      width: 50%;
+      margin: 0 auto;
+      background: rgba(46,35,29, 1);
+      text-align: left;
+      padding: 20px 20px 20px 20px;
+      h3 {
+        color: $white;
+        padding: 0;
+        margin: 0 0 20px 0;
+      }
+      a {
+        color: $white;
+        opacity: .5;
+        border-bottom: 1px solid $white;
+        display: block;
+        padding: 20px 0;
+        font-style: italic;
+        font-size: 14px;
+      }
+    }
+  }
+}
+}

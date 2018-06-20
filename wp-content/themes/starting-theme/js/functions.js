@@ -13,6 +13,7 @@
     $('.recipematch').matchHeight();
     $('.ingredientsmatch').matchHeight();
     $('.careermatch').matchHeight();
+    $('.blogmatch').matchHeight();
 
   }
   window.onload = startMatchHeight;
@@ -37,7 +38,13 @@
   pause: 5000,
   });
 
+  jQuery('button').click( function(e) {
+    jQuery('.collapse').collapse('hide');
+});
+
 } ) (jQuery);
+
+
 
 function openNav() {
     document.getElementById("myNav").style.height = "100%";

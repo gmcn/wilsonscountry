@@ -36,6 +36,10 @@ get_header(); ?>
 
 		<?php include(locate_template("inc/page-policies/content.php")); ?>
 
+	<?php elseif (is_page( 'news-blog' )) : ?>
+
+		<?php include(locate_template("inc/page-blog/blog.php")); ?>
+
 	<?php endif ?>
 
 <?php
