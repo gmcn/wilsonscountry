@@ -38,7 +38,7 @@ $the_query = new WP_Query( $args ); ?>
         <?php //the_content() ?>
         <a class="more" href="<?php the_permalink(); ?>">Read More ></a>
       </div>
-      <div class="col-md-6 blogmatch" style="background: url('<?php echo $thumb['0'];?>') center; background-size: cover;">
+      <div class="col-md-6 blogmatch" style="background: url('<?php echo $thumb['0'];?>') #EDEDED center; background-size: cover;">
         <span>
           <?php the_date('d.m.y'); ?>
         </span>

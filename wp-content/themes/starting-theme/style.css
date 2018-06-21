@@ -1827,18 +1827,17 @@ iframe {
 
 /* line 90, sass/pages/_blog.scss */
 .box img.play {
-  width: 50px;
   position: absolute;
-  width: 62px;
+  width: 60px;
   top: 5%;
-  right: 30%; }
+  left: 40%; }
 
-/* line 97, sass/pages/_blog.scss */
+/* line 96, sass/pages/_blog.scss */
 .gal-item a:focus {
   outline: none; }
 
-/* line 101, sass/pages/_blog.scss */
-.gal-item:first-of-type a:after {
+/* line 100, sass/pages/_blog.scss */
+.gal-item .featuredimg a:after {
   content: "\e003";
   font-family: 'Glyphicons Halflings';
   opacity: 0;
@@ -1856,7 +1855,7 @@ iframe {
   -moz-transition: all 0.5s ease-in-out 0s;
   transition: all 0.5s ease-in-out 0s; }
 
-/* line 121, sass/pages/_blog.scss */
+/* line 120, sass/pages/_blog.scss */
 .gal-item a:after {
   content: "\e003";
   font-family: 'Glyphicons Halflings';
@@ -1875,19 +1874,19 @@ iframe {
   -moz-transition: all 0.5s ease-in-out 0s;
   transition: all 0.5s ease-in-out 0s; }
 
-/* line 140, sass/pages/_blog.scss */
+/* line 139, sass/pages/_blog.scss */
 .gal-item a:hover:after {
   opacity: 1; }
 
-/* line 143, sass/pages/_blog.scss */
+/* line 142, sass/pages/_blog.scss */
 .modal-open .gal-container .modal {
   background-color: rgba(0, 0, 0, 0.4); }
 
-/* line 146, sass/pages/_blog.scss */
+/* line 145, sass/pages/_blog.scss */
 .modal-open .gal-item .modal-body {
   padding: 0px; }
 
-/* line 149, sass/pages/_blog.scss */
+/* line 148, sass/pages/_blog.scss */
 .modal-open .gal-item button.close {
   position: absolute;
   width: 25px;
@@ -1901,11 +1900,11 @@ iframe {
   font-size: 15px;
   line-height: 25px; }
 
-/* line 166, sass/pages/_blog.scss */
+/* line 165, sass/pages/_blog.scss */
 .modal-open .gal-item button.close:focus {
   outline: none; }
 
-/* line 169, sass/pages/_blog.scss */
+/* line 168, sass/pages/_blog.scss */
 .modal-open .gal-item button.close span {
   position: relative;
   top: -3px;
@@ -1913,16 +1912,16 @@ iframe {
   text-shadow: none;
   background-color: #76BC21; }
 
-/* line 176, sass/pages/_blog.scss */
+/* line 175, sass/pages/_blog.scss */
 .modal-open .gal-item button.close span:hover {
   background-color: #fff;
   color: #76BC21; }
 
-/* line 180, sass/pages/_blog.scss */
+/* line 179, sass/pages/_blog.scss */
 .gal-container .modal-dialogue {
   width: 80%; }
 
-/* line 183, sass/pages/_blog.scss */
+/* line 182, sass/pages/_blog.scss */
 .gal-container .description {
   position: relative;
   height: 40px;
@@ -1932,14 +1931,14 @@ iframe {
   color: #fff;
   text-align: left; }
 
-/* line 192, sass/pages/_blog.scss */
+/* line 191, sass/pages/_blog.scss */
 .gal-container .description h4 {
   margin: 0px;
   font-size: 15px;
   font-weight: 300;
   line-height: 20px; }
 
-/* line 198, sass/pages/_blog.scss */
+/* line 197, sass/pages/_blog.scss */
 .gal-container .modal.fade .modal-dialog {
   -webkit-transform: scale(0.1);
   -moz-transform: scale(0.1);
@@ -1951,7 +1950,7 @@ iframe {
   -moz-transition: all 0.3s;
   transition: all 0.3s; }
 
-/* line 210, sass/pages/_blog.scss */
+/* line 209, sass/pages/_blog.scss */
 .gal-container .modal.fade.in .modal-dialog {
   -webkit-transform: scale(1);
   -moz-transform: scale(1);
@@ -1962,12 +1961,12 @@ iframe {
   opacity: 1; }
 
 @media (min-width: 768px) {
-  /* line 220, sass/pages/_blog.scss */
+  /* line 219, sass/pages/_blog.scss */
   .gal-container .modal-dialog {
     width: 55%;
     margin: 50 auto; } }
 @media (max-width: 768px) {
-  /* line 226, sass/pages/_blog.scss */
+  /* line 225, sass/pages/_blog.scss */
   .gal-container .modal-content {
     height: 250px; } }
 /* line 2, sass/pages/_educational-zone.scss */

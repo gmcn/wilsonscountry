@@ -88,16 +88,15 @@
 	-o-object-fit:cover;
 }
 .box img.play {
-  width: 50px;
   position: absolute;
-  width: 62px;
+  width: 60px;
   top: 5%;
-  right: 30%;
+  left: 40%;
 }
 .gal-item a:focus{
 	outline: none;
 }
-.gal-item:first-of-type {
+.gal-item .featuredimg {
   a:after{
   	content:"\e003";
   	font-family: 'Glyphicons Halflings';
