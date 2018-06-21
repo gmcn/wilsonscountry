@@ -28,11 +28,15 @@ $the_query = new WP_Query( $args ); ?>
       <div class="col-md-6 blogmatch">
         <h2><?php the_title(); ?></h2>
         <?php the_content() ?>
+        <a class="back" href="/news-blog">Back to Blog ></a>
       </div>
       <div class="col-md-6">
         <section>
             <div class="gal-container">
               <div class="col-sm-12 co-xs-12 gal-item">
+                <span>
+                  <?php the_date('d.m.y'); ?>
+                </span>
                 <div class="box">
                   <a href="#" data-toggle="modal" data-target="#1">
                     <?php echo the_post_thumbnail(); ?>

@@ -27,10 +27,18 @@ $the_query = new WP_Query( $args ); ?>
     <div class="row entry">
       <div class="col-md-6 blogmatch">
         <h2><?php the_title(); ?></h2>
-        <?php the_content() ?>
-        <a href="<?php the_permalink(); ?>">Read More ></a>
+
+        <p>
+          <?php
+          echo wp_trim_words( get_the_content(), 60, '...' );
+          ?>
+        </p>
+
+
+        <?php //the_content() ?>
+        <a class="more" href="<?php the_permalink(); ?>">Read More ></a>
       </div>
-      <div class="col-md-6 blogmatch" style="background-image: url('<?php echo $thumb['0'];?>'); background-size: cover;">
+      <div class="col-md-6 blogmatch" style="background: url('<?php echo $thumb['0'];?>') center; background-size: cover;">
         <span>
           <?php the_date('d.m.y'); ?>
         </span>
