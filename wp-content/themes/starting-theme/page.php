@@ -20,11 +20,9 @@ get_header(); ?>
 
 	?>
 
-	<?php if (is_page( 'about-us' )) :  ?>
+	<?php include(locate_template("inc/page-about/content.php")); ?>
 
-		<?php include(locate_template("inc/page-about/content.php")); ?>
-
-	<?php elseif (is_page( 'recipes' )) : ?>
+	<?php if (is_page( 'recipes' )) : ?>
 
 		<?php include(locate_template("inc/page-recipes/recipes.php")); ?>
 
