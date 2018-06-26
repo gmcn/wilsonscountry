@@ -9,12 +9,18 @@ $thumb                = wp_get_attachment_url( get_post_thumbnail_id($post->ID) 
 <div class="container recipe">
   <div class="row">
     <div class="col-sm-4 recipematch wow fadeInRight">
-      <div class="prep-time">
-        <?php echo $recipe_prep_time ?>
-      </div>
-      <div class="feed-amount">
-        <?php echo $recipe_feed_amount ?>
-      </div>
+
+      <?php if($recipe_prep_time) : ?>
+        <div class="prep-time">
+          <?php echo $recipe_prep_time ?>
+        </div>
+      <?php endif; ?>
+
+      <?php if ($recipe_feed_amount) : ?>
+        <div class="feed-amount">
+          <?php echo $recipe_feed_amount ?>
+        </div>
+      <?php endif; ?>
 
         <?php if( have_rows('recipe_ingredients') ): ?>
           <div class="ingredients">

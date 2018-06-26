@@ -326,7 +326,7 @@ class FrmForm {
 			FrmDb::get_where_clause_and_values( $where );
 			array_unshift( $where['values'], $status );
 
-			$query_results = $wpdb->query( $wpdb->prepare( 'UPDATE ' . $wpdb->prefix . 'frm_forms SET status = %s ' . $where['where'], $where['values'] ) );
+			$query_results = $wpdb->query( $wpdb->prepare( 'UPDATE ' . $wpdb->prefix . 'frm_forms SET status = %s ' . $where['where'], $where['values'] ) ); // WPCS: unprepared SQL ok.
         } else {
 			$query_results = $wpdb->update( $wpdb->prefix . 'frm_forms', array( 'status' => $status ), array( 'id' => $id ) );
 			$wpdb->update( $wpdb->prefix . 'frm_forms', array( 'status' => $status ), array( 'parent_form_id' => $id ) );
@@ -571,6 +571,11 @@ class FrmForm {
      */
 	public static function getAll( $where = array(), $order_by = '', $limit = '' ) {
 		if ( is_array( $where ) && ! empty( $where ) ) {
+			if ( isset( $where['is_template'] ) && $where['is_template'] && ! isset( $where['status'] ) ) {
+				// don't get trashed templates
+				$where['status'] = array( null, '', 'published' );
+			}
+
 			$results = FrmDb::get_results( 'frm_forms', $where, '*', array(
 				'order_by' => $order_by,
 				'limit'    => $limit,
@@ -580,7 +585,7 @@ class FrmForm {
 
 			// the query has already been prepared if this is not an array
 			$query = 'SELECT * FROM ' . $wpdb->prefix . 'frm_forms' . FrmDb::prepend_and_or_where( ' WHERE ', $where ) . FrmDb::esc_order( $order_by ) . FrmDb::esc_limit( $limit );
-			$results = $wpdb->get_results( $query );
+			$results = $wpdb->get_results( $query ); // WPCS: unprepared SQL ok.
 		}
 
 		if ( $results ) {
@@ -693,7 +698,7 @@ class FrmForm {
 			return $frm_vars['form_params'][ $form->id ];
 		}
 
-		$action_var = isset( $_REQUEST['frm_action'] ) ? 'frm_action' : 'action';
+		$action_var = isset( $_REQUEST['frm_action'] ) ? 'frm_action' : 'action'; // WPCS: CSRF ok.
 		$action = apply_filters( 'frm_show_new_entry_page', FrmAppHelper::get_param( $action_var, 'new', 'get', 'sanitize_title' ), $form );
 
 		$default_values = array(
@@ -732,7 +737,7 @@ class FrmForm {
 			}
 		}
 
-		if ( in_array( $values['action'], array( 'create', 'update' ) ) && ( ! $_POST || ( ! isset( $_POST['action'] ) && ! isset( $_POST['frm_action'] ) ) ) ) {
+		if ( in_array( $values['action'], array( 'create', 'update' ) ) && ( ! $_POST || ( ! isset( $_POST['action'] ) && ! isset( $_POST['frm_action'] ) ) ) ) { // WPCS: CSRF ok.
 			$values['action'] = 'new';
 		}
 

@@ -24,7 +24,7 @@ class FrmAddonsController {
 	public static function license_settings() {
 		$plugins = apply_filters( 'frm_installed_addons', array() );
 		if ( empty( $plugins ) ) {
-			_e( 'There are no plugins on your site that require a license', 'formidable' );
+			esc_html_e( 'There are no plugins on your site that require a license', 'formidable' );
 			return;
 		}
 
@@ -229,7 +229,6 @@ class FrmAddonsController {
 				'url'   => home_url(),
 			),
 			'timeout'   => 15,
-			'sslverify' => false,
 			'user-agent' => 'Formidable/' . FrmAppHelper::$plug_version . '; ' . home_url(),
 		);
 
@@ -262,13 +261,13 @@ class FrmAddonsController {
 				'id'       => 0,
 				'download' => 19367001,
 				'price'    => '99.00',
-				'name'     => 'Professional',
+				'name'     => 'Creator',
 			),
 			'smallbusiness' => array(
 				'id'       => 0,
 				'download' => 19366995,
 				'price'    => '199.00',
-				'name'     => 'Small Business',
+				'name'     => 'Business',
 			),
 			'enterprise'   => array(
 				'id'       => 0,

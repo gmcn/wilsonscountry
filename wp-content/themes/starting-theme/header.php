@@ -19,6 +19,28 @@
 <link type="text/plain" rel="author" href="<?php echo get_template_directory_uri(); ?>/robots.txt" />
 <link rel="icon" href="<?php echo get_template_directory_uri(); ?>/images/favicon.svg">
 <?php wp_head(); ?>
+<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css" />
+<script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js"></script>
+<script>
+window.addEventListener("load", function(){
+window.cookieconsent.initialise({
+  "palette": {
+    "popup": {
+      "background": "#6bb31f",
+      "text": "#ffffff"
+    },
+    "button": {
+      "background": "#ffffff",
+      "text": "#6bb31f"
+    }
+  },
+  "theme": "classic",
+  "position": "bottom-right",
+  "content": {
+    "href": "/our-policies/"
+  }
+})});
+</script>
 </head>
 
 <body <?php body_class(); ?>>

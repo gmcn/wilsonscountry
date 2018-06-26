@@ -12,25 +12,29 @@ $introbg = get_field('page_header_image');
    <?php endif; ?>
    <div class="container">
 
-     <?php if (is_single()) : ?>
-       <h1>News/Blog</h1>
-     <?php else : ?>
-       <h1><?php the_title(); ?></h1>
-     <?php endif; ?>
+     <div class="row">
+       <?php if (is_single()) : ?>
+         <h1>News/Blog</h1>
+       <?php else : ?>
+         <h1><?php the_title(); ?></h1>
+       <?php endif; ?>
 
-     <?php if( $intro ): ?>
-     <h2>
-       <?php echo $intro ?>
-     </h2>
-   <?php endif; ?>
+       <?php if( $intro ): ?>
+       <h2>
+         <?php echo $intro ?>
+       </h2>
+       <?php endif; ?>
 
-   <?php if (is_single()) : ?>
+       <?php if (is_single()) : ?>
 
-   <?php else : ?>
+       <?php else : ?>
 
-       <?php the_content(); ?>
+         <?php the_content(); ?>
 
-     <?php endif; ?>
+       <?php endif; ?>
+     </div>
+
+
 
    </div>
    <?php if (is_page(364)) : ?>

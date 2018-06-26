@@ -21,16 +21,16 @@
 
       		?>
 
-            <div class="col-md-6 col-xs-12 wow <?php if($i % 2) : ?> fadeInLeft <?php else : ?> fadeInRight <?php endif ?>matchheight">
+            <div class="col-md-6 col-xs-12 wow hary<?php if($i % 2) : ?> fadeInLeft <?php else : ?> fadeInRight <?php endif ?>matchheight">
 
               <div class="wrapper productmatch" style="border-top: 5px solid <?php echo $product_colour ?>">
                 <div class="row">
 
-                  <div class="col-xs-6">
+                  <div class="col-xs-6 col-xxs-12">
                     <img src="<?php echo $product_img ?>" alt="<?php echo $product_title ?>" />
                   </div>
 
-                  <div class="col-xs-6">
+                  <div class="col-xs-6 col-xxs-12">
                     <h3 style="background: <?php echo $product_colour ?>"><?php echo $product_title; ?></h3>
                     <p>
                       <?php echo $product_text ?>

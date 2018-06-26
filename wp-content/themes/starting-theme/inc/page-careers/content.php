@@ -72,14 +72,6 @@ $careerclosing = new DateTime($careerclosing);
 
         <h2>Upload</h2>
 
-        <p class="wpcf7">
-          <label> Role <br>
-            <span class="wpcf7-form-control-wrap your-name">
-              <input type="text" name="your-name" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false" placeholder="<?php echo the_title() ?>" disabled>
-            </span>
-          </label>
-        </p>
-
         <?php echo do_shortcode('[contact-form-7 id="328" title="Upload Applications"]'); ?>
 
       </div>

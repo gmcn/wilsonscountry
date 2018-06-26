@@ -41,6 +41,18 @@
     <?php endwhile; wp_reset_postdata(); else : ?>
 
       <!-- No records -->
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 intro job">
+            <div class="jobwrapper">
+              <h1>Sorry, we’re not recruiting just now but many thanks for your interest.</h1>
+              <p>
+                Please check again soon!
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
 
     <?php endif; ?>
 
@@ -61,7 +73,7 @@
       </p>
 
       <p>
-        <strong>Further information can be found in our Privacy Notice (Job Applicants) in the ‘Our Policies’ section below.</strong>
+        <strong>Further information can be found in our Privacy Notice (Job Applicants) in the <a href="/our-policies/">Our Policies</a> section below.</strong>
       </p>
 
     </div>

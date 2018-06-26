@@ -4,14 +4,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 class FrmAppHelper {
-	public static $db_version = 87; //version of the database we are moving to
+	public static $db_version = 88; //version of the database we are moving to
 	public static $pro_db_version = 37; //deprecated
 	public static $font_version = 3;
 
 	/**
 	 * @since 2.0
 	 */
-	public static $plug_version = '3.01.01';
+	public static $plug_version = '3.02.02';
 
     /**
      * @since 1.07.02
@@ -429,6 +429,11 @@ class FrmAppHelper {
 	 * @since 2.05.03
 	 */
 	private static function safe_html() {
+		$allow_class = array(
+			'class' => array(),
+			'id'    => array(),
+		);
+
 		return array(
 			'a' => array(
 				'class' => array(),
@@ -464,16 +469,13 @@ class FrmAppHelper {
 			'dl'  => array(),
 			'dt'  => array(),
 			'em'  => array(),
-			'h1'  => array(),
-			'h2'  => array(),
-			'h3'  => array(),
-			'h4'  => array(),
-			'h5'  => array(),
-			'h6'  => array(),
-			'i'   => array(
-				'class' => array(),
-				'id'    => array(),
-			),
+			'h1'  => $allow_class,
+			'h2'  => $allow_class,
+			'h3'  => $allow_class,
+			'h4'  => $allow_class,
+			'h5'  => $allow_class,
+			'h6'  => $allow_class,
+			'i'   => $allow_class,
 			'img' => array(
 				'alt'    => array(),
 				'class'  => array(),
@@ -482,18 +484,9 @@ class FrmAppHelper {
 				'src'    => array(),
 				'width'  => array(),
 			),
-			'li' => array(
-				'class' => array(),
-				'id'    => array(),
-			),
-			'ol' => array(
-				'class' => array(),
-				'id'    => array(),
-			),
-			'p'   => array(
-				'class' => array(),
-				'id'    => array(),
-			),
+			'li'  => $allow_class,
+			'ol'  => $allow_class,
+			'p'   => $allow_class,
 			'pre' => array(),
 			'q'   => array(
 				'cite' => array(),
@@ -507,10 +500,7 @@ class FrmAppHelper {
 			),
 			'strike' => array(),
 			'strong' => array(),
-			'ul' => array(
-				'class' => array(),
-				'id'    => array(),
-			),
+			'ul' => $allow_class,
 		);
 	}
 
@@ -774,7 +764,7 @@ class FrmAppHelper {
             if ( 'hide' == $show_message ) {
                 $permission_error = '';
             }
-			wp_die( $permission_error );
+			wp_die( esc_html( $permission_error ) );
         }
     }
 
@@ -1680,7 +1670,7 @@ class FrmAppHelper {
 
 		$wp_list_table = _get_list_table( 'WP_Plugins_List_Table' );
 		echo '<tr class="plugin-update-tr active"><th colspan="' . absint( $wp_list_table->get_column_count() ) . '" class="check-column plugin-update colspanchange"><div class="update-message">' .
-        __( 'You are running an outdated version of Formidable. This plugin may not work correctly if you do not update Formidable.', 'formidable' ) .
+        esc_html__( 'You are running an outdated version of Formidable. This plugin may not work correctly if you do not update Formidable.', 'formidable' ) .
         '</div></td></tr>';
     }
 

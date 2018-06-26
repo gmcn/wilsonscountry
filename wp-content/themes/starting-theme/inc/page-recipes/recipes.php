@@ -23,7 +23,7 @@
 
     ?>
 
-    <div class="col-md-4 recipe wow fadeInUp">
+    <div class="col-sm-4 recipe wow fadeInUp">
 
       <div class="wrapper" style="background: url('<?php echo $thumb ?>'); background-size: cover;">
 
