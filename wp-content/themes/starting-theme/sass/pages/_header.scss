@@ -10,12 +10,24 @@ header .container {
   border-right: none;
 }
 
+.navbar-default .navbar-nav > li.menu-item-has-children a {
+  /*padding-right: 50px;*/
+}
+
+.navbar-default .navbar-nav > li.menu-item-has-children a:after {
+  content: " ";
+  color: #fff;
+  padding: 0 0 0 13px;
+  background-image: url(../images/nav_arrow_down.png);
+  background-repeat: no-repeat;
+}
+
 .navbar-nav > li.current-menu-item a, .navbar-nav > li.current-page-ancestor a {
   color: #999A9E;
 }
 
 .navbar-nav > li.current-menu-item::after, .navbar-nav > li.current-page-ancestor::after {
-  @include md {
+  @include lg {
     display: block;
     width: 100%;
     height: 23px;
@@ -26,11 +38,38 @@ header .container {
   }
 }
 
+@include md {
+  ul.nav li.menu-item-has-children:hover > ul.dropdown-menu {
+    display: block !important;
+  }
+}
+
+.navbar-header {
+  margin-top: 39px;
+}
+
+.nav > li > a {
+  @include xs {
+    padding: 10px 5px;
+  }
+  @include lg {
+    padding: 10px 15px;
+  }
+}
+
+.navbar-nav > li {
+  @include lg {
+    margin-top: 50px;
+  }
+}
+
 .navbar-nav > li > a {
   @include xxs {
     text-align: center;
   }
-  border-right: 1px solid #2A2F3E;
+  @include lg {
+    border-right: 1px solid #2A2F3E;
+  }
   padding-top: 0;
   color: #272C3B;
   font-weight: $primaryfont_med;

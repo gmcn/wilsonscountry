@@ -78,6 +78,14 @@
   margin: 15px 0;
   color: #536874;
   font-size: 16px;
+  .careermatch:first-of-type {
+    @include xxs {
+    margin-bottom: 15px;
+    }
+    @include md {
+      margin-bottom: 0;
+    }
+  }
   .closingdate {
     @include xxs {
       text-align: center;

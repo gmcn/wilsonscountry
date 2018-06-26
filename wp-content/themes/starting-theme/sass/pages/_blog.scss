@@ -1,6 +1,17 @@
 .blog {
   .entry {
     margin-bottom: 30px;
+    .blogmatch:first-of-type {
+      @include xs {
+        margin-bottom: 20px;
+      }
+      @include md {
+        margin-bottom: 0;
+      }
+    }
+    .blogmatch {
+      min-height: 200px;
+    }
     a.back {
       background: $green;
       color: $white;

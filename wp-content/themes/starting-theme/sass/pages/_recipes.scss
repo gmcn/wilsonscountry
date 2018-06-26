@@ -36,6 +36,14 @@
   .recipematch {
     min-height: 300px;
   }
+  .recipematch:first-of-type {
+    @include xxs {
+    margin-bottom: 15px;
+    }
+    @include md {
+      margin-bottom: 0;
+    }
+  }
   .prep-time, .feed-amount {
     color: $white;
     padding: 20px 20px 20px 120px;
@@ -55,7 +63,7 @@
   }
   .ingredients {
     background: url('images/ingredients_bg.png') #06838F no-repeat bottom;
-    height: 600px;
+    min-height: 600px;
     color: $white;
     padding: 20px;
     p {
