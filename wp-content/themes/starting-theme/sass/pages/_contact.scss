@@ -52,6 +52,7 @@
     text-align: center;
     min-height: 300px;
     font-size: 18px;
+    position: relative;
     @include xxs {
       margin-bottom: 15px;
     }
@@ -103,12 +104,14 @@
     background: #B61331;
     height: 100%;
     min-height: 300px;
+    position: relative;
     span {
       font-weight: 700;
       color: #fff;
       font-size: 16px;
       padding: 10px 0;
       display: block;
+      max-width: 90%;
     }
     img {
       height: 50px;

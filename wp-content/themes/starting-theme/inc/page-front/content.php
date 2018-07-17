@@ -1,6 +1,6 @@
 <div class="container-fluid nav-columns">
   <div class="row">
-    <div class="col-md-1 hidden-xs matchheight grey">
+    <div class="col-md-1 hidden-sm matchheight grey">
       <!-- empty column -->
     </div>
     <div class="col-md-2 matchheight wow fadeInLeft column-1">
@@ -8,7 +8,7 @@
         include(locate_template("inc/page-front/content-col-1.php"));
        ?>
     </div>
-    <div class="col-md-1 hidden-xs matchheight grey">
+    <div class="col-md-1 hidden-sm matchheight grey">
       <div class="vert-align">
         <a href="mailto:info@wilsonscountry.com">
           <img class="wow fadeInDown" src="<?php echo get_template_directory_uri(); ?>/images/contact-icon.svg"  />
@@ -32,7 +32,7 @@
        ?>
 
     </div>
-    <div class="col-md-1 hidden-xs matchheight grey">
+    <div class="col-md-1 hidden-sm matchheight grey">
       <!-- empty column -->
     </div>
   </div>

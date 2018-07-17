@@ -27,22 +27,22 @@ $acf_linked_in = get_field( 'acf_linked_in' );
       <div class="col-md-3 social-wrapper contact-detailsheight wow fadeInLeft">
         <div class="social">
           <div class="vert-align">
-            <div class="row">
+            <div>
               <div class="col-xs-6">
                 <div class="vert-align">
-                <a href="<?php echo $acf_facebook ?>" target="_blank">
-                  <img src="<?php echo get_template_directory_uri(); ?>/images/facebook_icon.svg" />
-                </a>
-              </div>
+                  <a href="<?php echo $acf_facebook ?>" target="_blank">
+                    <img src="<?php echo get_template_directory_uri(); ?>/images/facebook_icon.svg" />
+                  </a>
+                </div>
               </div>
               <div class="col-xs-6">
                 <div class="vert-align">
-                Lets get social<br  />
-                <a href="<?php echo $acf_facebook ?>" target="_blank">Facebook</a>
-              </div>
+                  Lets get social<br  />
+                  <a href="<?php echo $acf_facebook ?>" target="_blank">Facebook</a>
+                </div>
               </div>
             </div>
-            <div class="row">
+            <div>
               <div class="col-xs-6">
                 <div class="vert-align">
                 <a href="<?php echo $acf_twitter ?>" target="_blank">
@@ -100,7 +100,7 @@ $acf_linked_in = get_field( 'acf_linked_in' );
       <div class="col-md-4 address-wrapper contact-detailsheight wow fadeInup">
         <div class="address">
           <div class="vert-align">
-            <div class="row">
+            <!-- <div class="row"> -->
               <div class="col-xs-3">
                 <div class="vert-align">
                   <img src="<?php echo get_template_directory_uri(); ?>/images/address-icon.svg" />
@@ -118,8 +118,8 @@ $acf_linked_in = get_field( 'acf_linked_in' );
                   </span>
                 </div>
               </div>
-            </div><!-- /.row -->
-            <div class="row">
+            <!-- </div> -->
+            <!-- <div class="row"> -->
               <div class="col-xs-3">
                 <div class="vert-align">
                   <img src="<?php echo get_template_directory_uri(); ?>/images/fax-icon.svg" />
@@ -133,7 +133,7 @@ $acf_linked_in = get_field( 'acf_linked_in' );
                   </a>
                 </div>
               </div>
-            </div><!-- /.row -->
+            <!-- </div> -->
           </div><!-- /.vert-align -->
         </div><!-- /.address -->
       </div><!-- /.col-md-4 contact-detailsheight wow fadeInup-->

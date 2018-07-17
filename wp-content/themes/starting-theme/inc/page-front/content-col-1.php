@@ -3,13 +3,27 @@
   <?php while( have_rows('column_1') ): the_row();
 
     // vars
+    $background_colour = get_sub_field('background_colour');
     $background_image = get_sub_field('background_image');
     $box_title = get_sub_field('box_title');
     $box_link = get_sub_field('box_link');
 
     ?>
 
-  <div class="col-row" style="background: url(<?php echo $background_image; ?>) no-repeat; background-size: cover; height: 300px;">
+  <div class="col-row" style="background: url(<?php echo $background_image; ?>)  no-repeat; background-size: 100%; height: 300px;
+
+    <?php if ($background_colour) : ?>
+
+      background-color: <?php echo $background_colour; ?>;
+      background-size: 100%;
+
+    <?php else : ?>
+
+      background-size: cover;
+
+    <?php endif; ?>
+
+    ">
 
     <?php if( $box_title ): ?>
 

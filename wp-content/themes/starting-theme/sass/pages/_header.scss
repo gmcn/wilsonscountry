@@ -4,6 +4,7 @@
 }
 
 header .container {
+  max-width: 100%;
 }
 
 .navbar-nav > li:last-of-type a {
@@ -67,13 +68,17 @@ header .container {
   @include xxs {
     text-align: center;
   }
+  @include md {
+    font-size: 12px;
+  }
   @include lg {
     border-right: 1px solid #2A2F3E;
+
+    font-size: 14px;
   }
   padding-top: 0;
   color: #272C3B;
   font-weight: $primaryfont_med;
-  font-size: 14px;
 }
 
 

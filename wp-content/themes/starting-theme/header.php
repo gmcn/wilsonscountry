@@ -17,7 +17,8 @@
 <link rel="profile" href="http://gmpg.org/xfn/11">
 <link type="text/plain" rel="robots" href="<?php echo get_template_directory_uri(); ?>/humans.txt" />
 <link type="text/plain" rel="author" href="<?php echo get_template_directory_uri(); ?>/robots.txt" />
-<link rel="icon" href="<?php echo get_template_directory_uri(); ?>/images/favicon.svg">
+<link rel="icon" href="<?php echo get_template_directory_uri(); ?>/images/favicon.png">
+<link rel="shortcut icon" href="<?php echo get_template_directory_uri(); ?>/images/favicon.png">
 <?php wp_head(); ?>
 <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css" />
 <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js"></script>
