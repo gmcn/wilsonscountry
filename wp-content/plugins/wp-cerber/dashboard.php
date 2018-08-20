@@ -45,7 +45,7 @@ else {
 }
 function cerber_admin_menu() {
 
-	if ( cerber_is_admin_page( false ) ) {
+	if ( cerber_is_admin_page() ) {
 		cerber_check_environment();
 	}
 
@@ -416,7 +416,7 @@ function cerber_admin_request(){
 		if ( $test = cerber_get_get( 'testnotify' ) ) {
 			//$to = implode(', ',cerber_get_email());
 			$to = cerber_get_email( $test );
-			if ( cerber_send_notify( $test ) ) {
+			if ( cerber_send_email( $test ) ) {
 				cerber_admin_message( __( 'Email has been sent to', 'wp-cerber' ) . ' ' . $to );
 			}
 			else {
@@ -1031,7 +1031,7 @@ function cerber_user_extra_view( $user_id, $context = 'activity' ) {
 /*
 	Check if currently displayed page is a Cerber admin dashboard page with optional checking a set of GET params
 */
-function cerber_is_admin_page( $force = true, $params = array() ) {
+function cerber_is_admin_page( $force = false, $params = array() ) {
 
 	if ( ! is_admin() ) {
 		return false;
@@ -1237,9 +1237,10 @@ function cerber_quick_w(){
 	$status = ( '' === crb_get_settings( 'tienabled' ) ) ? '<span style="color: red;">'.__('disabled','wp-cerber').'</span>' : __('enabled','wp-cerber');
 	echo '<tr class="with-padding"><td>'.__('Traffic Inspector','wp-cerber').'</td><td><b>'.$status.'</b></td></tr>';
 
-	if (lab_lab()){
-	    $status = ( !lab_is_cloud_ok() ) ? '<span style="color: red;">'.__('no connection','wp-cerber').'</span>' : __('active','wp-cerber');
-	    echo '<tr><td>Cloud Protection</td><td><b>'.$status.'</b></td></tr>';
+	$lab = lab_lab();
+	if ( $lab ) {
+		$status = ( ! lab_is_cloud_ok() ) ? '<span style="color: red;">' . __( 'no connection', 'wp-cerber' ) . '</span>' : __( 'active', 'wp-cerber' );
+		echo '<tr><td>Cloud Protection</td><td><b>' . $status . '</b></td></tr>';
 	}
 
 	$s = '';
@@ -1247,7 +1248,15 @@ function cerber_quick_w(){
 	if ( WEEK_IN_SECONDS < ( time() - $scan['finished'] ) ) {
 		$s = 'style="color: red;"';
 	}
-	echo '<tr ' . $s . '><td>Malware scan</td><td><b><a href="'.cerber_admin_link( 'scanner' ).'">' . cerber_auto_date( $scan['finished'] ) . '</a></b></td></tr>';
+
+	echo '<tr ' . $s . '><td>Last malware scan</td><td><a href="' . cerber_admin_link( 'scanner' ) . '">' . $scan['mode_h'] . ' ' . cerber_auto_date( $scan['started'] ) . '</a></td></tr>';
+
+	$link = cerber_admin_link( 'scan_schedule' );
+	$q = ( ! $lab ) ? __( 'Disabled', 'wp-cerber' ) : cerber_get_qs( crb_get_settings( 'scan_aquick' ) );
+	echo '<tr><td>' . __( 'Quick Scan', 'wp-cerber' ) . '</td><td><a href="' . $link . '">' . $q . '</a></td></tr>';
+	$f = ( ! $lab || !crb_get_settings( 'scan_afull-enabled' ) ) ? __( 'Disabled', 'wp-cerber' ) : crb_get_settings( 'scan_afull' );
+	echo '<tr><td>' . __( 'Full Scan', 'wp-cerber' ) . '</td><td><a href="' . $link . '">' . $f . '</a></td></tr>';
+
 
 	/*
 	$dev = crb_get_settings('pbdevice');
@@ -1288,30 +1297,42 @@ function cerber_show_scan_help() {
 
                     <h2>Using the scanner</h2>
 
-                    <p>To start scanning, click either the Start quick scan button, or the Start full scan button. Do not close the browser window while the scan in progress. You may just open a new browser tab to do something else on the website. Once the scan is finished you can close the windows, the results are stored in the local database until the next scan.</p>
+                    <p>To start scanning, click either the Start Quick Scan button or the Start Full Scan button. Do not close the browser window while the scan is in progress. You may just open a new browser tab to do something else on the website. Once the scan is finished you can close the window, the results are stored in the DB until the next scan.</p>
 
-                    <p>Depending on server performance and the number of files, the Quick Scan may take about 3-5 minutes and the Full Scan can take about ten minutes or less.</p>
+                    <p>Depending on server performance and the number of files, the Quick scan may take about 3-5 minutes and the Full scan can take about five minutes or less.</p>
 
-                    <p>During the scan, the plugin verifies plugins, themes, and WordPress by trying to download checksum data from the wordpress.org. If the integrity data is not available, you can upload appropriate source ZIP archive for a plugin or a theme. The plugin will use it to detect changes in files. You need to do it once, after the first scan.</p>
+                    <p>During the scan, the plugin verifies plugins, themes, and WordPress by trying to retrieve checksum data from wordpress.org. If the integrity data is not available, you can upload an appropriate source ZIP archive for a plugin or a theme. The plugin will use it to detect changes in files. You need to do it once, after the first scan.</p>
+
+                    <p>Read more: <a href="https://wpcerber.com/malware-scanner-settings/" target="_blank">Cerber Security Scanner Settings</a></p>
 
                     <h2>What's the Quick Scan?</h2>
 
-                    <p>During the Quick Scan, the scanner verifies the integrity and inspects code of all files with executable extensions only.</p>
+                    <p>During the Quick Scan, the scanner verifies the integrity and inspects the code of all files with executable extensions only.</p>
 
                     <h2>What's the Full Scan?</h2>
 
-                    <p>During the Full Scan, the scanner verifies the integrity and examines the content of all files on the website.</p>
+                    <p>During the Full Scan, the scanner verifies the integrity and inspects the contents of all files on the website.</p>
 
-                    <p><a href="https://wpcerber.com/wordpress-security-scanner/" target="_blank">Read more on www.wpcerber.com</a></p>
+                    <p>Read more: <a href="https://wpcerber.com/wordpress-security-scanner-scan-malware-detect/" target="_blank">What Cerber Security Scanner scans and detects</a>
+
+                    <h2>Configure scheduled scans</h2>
+
+                    <p>In the Automated recurring scan schedule section you set up your schedule. Select desired frequency of the Quick Scan and specify the time of the Full Scan.</p>
+
+                    <p>The Scan results reporting section is about reporting. Here you can easily and flexible configure a set of conditions for generating and sending reports.</p>
+
+                    <p>The email report will only include issues that match conditions in the Report an issue if any of the following is true filter. So this setting works as a filter for issues you want to get in a email report. The report will only be sent if there are issues to report and the following condition is true.</p>
+
+                    <p>The second condition is configured with Send email report. The report will be sent if a selected condition is true. The last option is the most restrictive.</p>
+
+                    <p>Read more: <a href="https://wpcerber.com/automated-recurring-malware-scans/" target="_blank">Automated recurring scans and email reporting</a></p>
 
                 </td>
                 <td>
 
                     <h2>Interpreting scan results</h2>
 
-                    <p>The scanner will show you a list of issues and possible actions you can take. If the integrity of an object has been verified, you see a green mark Verified. If you see the "Integrity data not found" message, please upload a reference ZIP archive by clicking "Resolve issue". For the rest of issues, click on an appropriate issue link. To view the content of a file, click on its name.</p>
-
-                    <p>The scanner shows you short file names, to view full file names with absolute path, click the Show full paths link.</p>
+                    <p>The scanner shows you a list of issues and possible actions you can take. If the integrity of an object has been verified, you see a green mark Verified. If you see the “Integrity data not found” message, you need to upload a reference ZIP archive by clicking “Resolve issue”. For all other issues, click on an appropriate issue link. To view the content of a file, click on its name.</p>
 
                     <h2>Deleting files</h2>
 
@@ -1319,13 +1340,15 @@ function cerber_show_scan_help() {
 
                     <h2>Restoring deleted files</h2>
 
-                    <p>If you delete an important file by chance, you can restore the file from a quarantine folder. The location of the folder is shown on the Tools / Diagnostic page. This folder is not accessible from the Internet. To restore a deleted file you need to use a file manager in you hosting control panel. The original name and location of the deleted file is saved in the .restore file. It’s a text file so you can open it in a browser or a file viewer.</p>
+                    <p>If you delete an important file by chance, you can restore the file from a quarantine folder. The location of the folder is shown on the Tools / Diagnostic page. This folder is not accessible from the Internet. To restore a deleted file you need to use a file manager in your hosting control panel. The original name and location of the deleted file is saved in the .restore file. It's a text file so you can open it in a browser or a file viewer.</p>
 
                     <h2>Troubleshooting</h2>
 
                     <p>If the scanner window stops responding or updating, it may mean the process of scanning on the server is hung. It may happen due to many reasons. Try to disable scanning the session directory or the temp directory (or both) on the Settings tab. Open the browser console (F12 key) and check it for CERBER ERROR messages.</p>
 
                     <p>The scanner requires the CURL library to be enabled for PHP scripts. Usually, it's enabled by default.</p>
+
+                    <p>Read more: <a href="https://wpcerber.com/wordpress-security-scanner/" target="_blank">Malware Scanner & Integrity Checker</a></p>
 
                 </td>
             </tr>
@@ -1375,6 +1398,14 @@ function cerber_show_general_help() {
                         <h3>Search plugin documentation on wpcerber.com</h3>
                         <input type="text" style="width: 80%;" name="s" placeholder="Enter term to search"><input type="submit" value="Search" class="button button-primary">
                     </form>
+
+                    <h3>Troubleshooting</h3>
+
+                    <p><a href="https://wpcerber.com/antispam-exception-for-specific-http-request/">Configuring HTTP request exceptions for the antispam engine</a></p>
+
+                    <p><a href="https://wpcerber.com/wordpress-probing-for-vulnerable-php-code/">I’m getting "Probing for vulnerable PHP code"</a></p>
+
+                    <p><a href="https://wpcerber.com/firewall-http-requests-are-being-blocked/">Some legitimate HTTP requests are being blocked</a></p>
 
                     <h3>Traffic Inspector</h3>
 
@@ -1673,8 +1704,11 @@ function cerber_show_aside($page){
 	$aside[] = '<div class="crb-box" id = "crb-blog">
 			<div class="crb-box-inner">
 			<!-- <h3><span class="dashicons-before dashicons-lightbulb"></span> Read Cerber\'s blog</h3> --> 
-			<h3>Security tips & recipes</h3>
+			<h3>Documentation & How to</h3>
 						
+			<p><a href="https://wpcerber.com/wordpress-security-scanner-scan-malware-detect/" target="_blank">What Cerber Security Scanner scans and detects</a>
+			<p><a href="https://wpcerber.com/automated-recurring-malware-scans/" target="_blank">Automated recurring scans and email reporting</a>
+			<p><a href="https://wpcerber.com/wordpress-security-scanner/" target="_blank">Malware Scanner & Integrity Checker</a>
 			<p><a href="https://wpcerber.com/wordpress-traffic-inspector-how-to/" target="_blank">Quick tips for Traffic Inspector</a>
 			<p><a href="https://wpcerber.com/traffic-inspector-in-a-nutshell/" target="_blank">Traffic Inspector in a nutshell</a>
 			<p><a href="https://wpcerber.com/wordpress-ip-address-detection/" target="_blank">Solving problem with incorrect IP address detection</a>
@@ -1717,7 +1751,7 @@ function cerber_show_admin_notice(){
 		     '</p></div>';
 	}
 
-	if ( ! cerber_is_admin_page() ) {
+	if ( ! cerber_is_admin_page( true ) ) {
 		return;
 	}
 
@@ -1757,7 +1791,7 @@ function cerber_show_admin_notice(){
 	update_site_option('cerber_admin_notice', null);
 	update_site_option('cerber_admin_message', null);
 
-	if ( ! cerber_is_admin_page( false ) ) {
+	if ( ! cerber_is_admin_page() ) {
 		return;
 	}
 
@@ -2022,16 +2056,24 @@ function cerber_admin_assets() {
 
 	$crb_assets_url = plugin_dir_url( __FILE__ ) . 'assets/';
 
-	if ( cerber_is_admin_page( false ) ) {
+	if ( cerber_is_admin_page() ) {
+
 		wp_register_style( 'crb_multi_css', $crb_assets_url . 'multi/multi.css', null, CERBER_VER );
 		wp_enqueue_style( 'crb_multi_css' );
 		wp_enqueue_script( 'crb_multi_js', $crb_assets_url . 'multi/multi.min.js', array(), CERBER_VER );
+
+		wp_register_style( 'crb_tpicker_css', $crb_assets_url . 'tpicker/jquery.timepicker.min.css', null, CERBER_VER );
+		wp_enqueue_style( 'crb_tpicker_css' );
+		wp_enqueue_script( 'crb_tpicker', $crb_assets_url . 'tpicker/jquery.timepicker.min.js', array(), CERBER_VER );
+
 		add_thickbox();
 	}
 
 	if ( ! defined( 'CERBER_BETA' ) ) {
 		wp_enqueue_script( 'cerber_js', $crb_assets_url . 'admin.js', array( 'jquery' ), CERBER_VER, true );
-		wp_enqueue_script( 'cerber_scan', $crb_assets_url . 'scanner.js', array( 'jquery' ), CERBER_VER, true );
+		if ( cerber_is_admin_page( false, array( 'page' => 'cerber-integrity' ) ) ) {
+			wp_enqueue_script( 'cerber_scan', $crb_assets_url . 'scanner.js', array( 'jquery' ), CERBER_VER, true );
+		}
 	}
 
 	wp_register_style( 'cerber_css', $crb_assets_url . 'admin.css', null, CERBER_VER );
@@ -2051,20 +2093,15 @@ function cerber_admin_assets() {
 add_action('admin_head', 'cerber_admin_head' );
 add_action('customize_controls_print_scripts', 'cerber_admin_head' ); // @since 5.8.1
 function cerber_admin_head(){
-    global $assets_url, $crb_assets_url, $crb_ajax_loader;
+    global $crb_assets_url, $crb_ajax_loader;
 
-    $assets_url = cerber_plugin_dir_url() . 'assets/';
+    //$assets_url = cerber_plugin_dir_url() . 'assets/';
 
     $crb_assets_url = cerber_plugin_dir_url() . 'assets/';
 	$crb_ajax_loader = $crb_assets_url . 'ajax-loader.gif';
 	$crb_ajax_nonce = wp_create_nonce( 'crb-ajax-admin' );
 
-	if (lab_lab()) {
-		$crb_lab_available = 'true';
-	}
-	else {
-		$crb_lab_available = 'false';
-	}
+	$crb_lab_available = ( lab_lab() ) ? 'true' : 'false';
 
 	?>
 
@@ -2074,8 +2111,8 @@ function cerber_admin_head(){
         crb_lab_available = <?php echo $crb_lab_available; ?>;
 
         crb_scan_msg_steps = <?php echo json_encode( cerber_step_desc() ); ?>;
-        crb_scan_msg_issues = <?php echo json_encode( cerber_get_issue_desc() ); ?>;
-        crb_scan_msg_risks = <?php echo json_encode( cerber_get_risk_desc() ); ?>;
+        crb_scan_msg_issues = <?php echo json_encode( cerber_get_issue_label() ); ?>;
+        crb_scan_msg_risks = <?php echo json_encode( cerber_get_risk_label() ); ?>;
     </script>
 
     <?php
@@ -2131,7 +2168,7 @@ function cerber_admin_head(){
         <?php
     endif;
 
-	if ( !cerber_is_admin_page( false ) ) {
+	if ( ! cerber_is_admin_page() ) {
 		return;
 	}
 
@@ -2198,10 +2235,47 @@ function cerber_admin_footer() {
 
 	// ------------------------------------------------------
 
-	if ( defined( 'CERBER_BETA' ) && cerber_is_admin_page( false ) ) :
+	if ( ! cerber_is_admin_page() ) {
+		return;
+	}
+
+	if ( defined( 'CERBER_BETA' ) ) :
 		?>
         <script type="text/javascript">
 			<?php readfile( dirname( __FILE__ ) . '/assets/admin.js' ); ?>
+			<?php readfile( dirname( __FILE__ ) . '/assets/scanner.js' ); ?>
+        </script>
+		<?php
+	endif;
+
+	// Time pickers
+	$format = 'H:i';
+	if ( cerber_is_ampm() ) {
+		$format = 'h:i A';
+	}
+	?>
+    <script type="text/javascript">
+        jQuery(document).ready(function ($) {
+            $('.crb-tpicker').timepicker({
+                'step': 20,
+                'forceRoundTime': true,
+                'timeFormat': '<?php echo $format; ?>'
+            });
+        });
+    </script>
+	<?php
+
+    if ( !lab_lab() && cerber_is_admin_page( false, array( 'tab' => 'scan_schedule' ) ) ) :
+		?>
+        <script type="text/javascript">
+            jQuery(document).ready(function ($) {
+                $('input').attr('disabled', 'disabled');
+                $('select').attr('disabled', 'disabled');
+                $('.crb-slider').css('background-color', '#888');
+                $('th').add('td').add('h2').css('color', '#888');
+
+                $('.crb-main h2').first().before('<div class="crb-pro-req">These features are available in a professional version of the plugin. Please read more: <a href="https://wpcerber.com/pro/" target="_blank">https://wpcerber.com/pro/</a></div>');
+            });
         </script>
 		<?php
 	endif;
@@ -2210,12 +2284,14 @@ function cerber_admin_footer() {
 
 add_filter( 'admin_footer_text','cerber_footer_text1');
 function cerber_footer_text1($text){
-	if (!cerber_is_admin_page(false)) return $text;
+	if ( ! cerber_is_admin_page() ) {
+		return $text;
+	}
 	return 'If you like how <strong>WP Cerber</strong> protects your website, please <a target="_blank" href="https://wordpress.org/support/plugin/wp-cerber/reviews/#new-post">leave it a &#9733; &#9733; &#9733; &#9733; &#9733; rating</a>. Thanks!';
 }
 add_filter( 'update_footer','cerber_footer_text2', 1000);
 function cerber_footer_text2($text){
-	if ( ! cerber_is_admin_page( false ) ) {
+	if ( ! cerber_is_admin_page() ) {
 		return $text;
 	}
 	if ( lab_lab() ) {

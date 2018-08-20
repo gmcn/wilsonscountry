@@ -41,6 +41,7 @@ define( 'LAB_INTERVAL', 180 ); // seconds, push interval
 define( 'LAB_DNS_TTL', 3 * 24 * 3600 ); // seconds, interval of updating DNS cache for nodes IPs
 define( 'LAB_IP_OK', 100 ); // an ideal, the best possible reputation
 define( 'LAB_KEY_LENGTH', 32 );
+define( 'LAB_LICENSE_GRACE', 3600 * 24 * 3 );
 
 /**
  * Is IP blocked globally in Cerber Lab?
@@ -179,7 +180,9 @@ function lab_api_send_request($workload = array()) {
 
 	$push = lab_get_push();
 
-	if (!$workload && !$push) return false;
+	if ( ! $workload && ! $push ) {
+		return false;
+	}
 
 	$key = lab_get_key();
 
@@ -560,33 +563,31 @@ function lab_get_push() {
 	return false;
 }
 function lab_trunc_push(){
-	global $wpdb;
-	$wpdb->query( 'TRUNCATE TABLE ' . CERBER_LAB_TABLE );
+	//global $wpdb;
+	//$wpdb->query( 'TRUNCATE TABLE ' . CERBER_LAB_TABLE );
+	cerber_db_query( 'TRUNCATE TABLE ' . CERBER_LAB_TABLE );
 }
 
-add_action( 'shutdown', function () {
-	cerber_push_lab();
-} );
-
+register_shutdown_function( 'cerber_push_lab' );
 function cerber_push_lab() {
 	if ( ! crb_get_settings( 'cerberlab' ) ) {
 		return;
 	}
-	// TODO: replace with my own cache code because wp_cache_get doesn't work with expiration
-	if ( get_transient( '_cerberpush_' ) ) {
-	//if ( wp_cache_get( '_cerberpush_', 'cerber' ) ) { // wp_cache_get doesn't work with expiration
+	if ( cerber_get_set( '_cerberpush_', null, false ) ) {
+	//if ( get_transient( '_cerberpush_' ) ) {
+		//if ( wp_cache_get( '_cerberpush_', 'cerber' ) ) { // wp_cache_get doesn't work with expiration
 		return;
 	}
 	lab_api_send_request();
-	set_transient( '_cerberpush_', 1, LAB_INTERVAL );
-	//wp_cache_set( '_cerberpush_', 1, 'cerber', LAB_INTERVAL);
+	//set_transient( '_cerberpush_', 1, LAB_INTERVAL );
+	cerber_update_set( '_cerberpush_', 1, null, false, time() + LAB_INTERVAL );
 }
 
-function lab_get_key( $regenerate = false, $nocache = false) {
+function lab_get_key( $refresh = false, $nocache = false) {
 	static $key = null;
 
 	if ( ! isset( $key ) || $nocache ) {
-		if (is_admin()) {
+		if ( is_admin() ) {
 			$key = get_site_option( '_cerberkey_' ); // must be from the session cache only
 		}
 		else {
@@ -594,28 +595,56 @@ function lab_get_key( $regenerate = false, $nocache = false) {
 		}
 	}
 
-	if ( $regenerate || ! $key || ! is_array( $key ) ) {
+	if ( $refresh || ! $key || ! is_array( $key ) ) {
 
-		if ( is_multisite() ) {
-			$home = network_home_url();
-		} else {
-			$home = home_url();
+		if ( empty( $key ) || ! is_array( $key ) ) {
+			$key = array();
 		}
-		if ( $host = parse_url( $home, PHP_URL_HOST ) ) {
-			$site_id = md5( $host );
-		} else {
-			$site_id = md5( $home );
+
+		if ( empty( $key[0] ) ) {
+			$key[0] = lab_gen_site_id();
 		}
+		else {
+			// WP is installed in a subdirectory
+			if ( 2 < substr_count( home_url(), '/' ) ) {
+				$key[0] = lab_gen_site_id();
+			}
+		}
+
+		$key[1] = time();
+
+		if ( empty( $key[4] ) ) {
+			$key[4] = 'SK//' . str_shuffle( '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ' );
+		}
+		/*
 		$new = array( $site_id, time() );
 		if ( isset( $key[2] ) ) {
 			$new[2] = $key[2];
 		}
 		$key = $new;
+		*/
 
-		update_site_option( '_cerberkey_', $new );
+		update_site_option( '_cerberkey_', $key );
 	}
 
 	return $key;
+}
+
+// @since 7.1
+function lab_gen_site_id() {
+	if ( is_multisite() ) {
+		$home = network_home_url();
+	}
+	else {
+		$home = home_url();
+	}
+
+	$home = rtrim( trim( $home ), '/' );
+	$id   = substr( $home, strpos( $home, '//' ) + 2 );
+
+	$site_id = md5( $id );
+
+	return $site_id;
 }
 
 function lab_update_key( $lic, $expires = 0 ) {
@@ -665,7 +694,7 @@ function lab_lab( $with_date = false ) {
 	if ( empty( $key[2] ) || empty( $key[3] ) ) {
 		return false;
 	}
-	if ( time() > ( $key[3] + 86400 ) ) {  // Plus grace period
+	if ( time() > ( $key[3] + LAB_LICENSE_GRACE ) ) {
 		return false;
 	}
 	if ( ! $with_date ) {
@@ -699,7 +728,9 @@ function lab_opt_in(){
 	global $cerber_shown, $crb_assets_url;
 
 	if ($cerber_shown || crb_get_settings('cerberlab')) return;
-	if (!cerber_is_admin_page(false)) return;
+	if ( ! cerber_is_admin_page() ) {
+		return;
+	}
 
 	// Avoid more than one message on the screen
 	// TODO: to many checks!
@@ -911,38 +942,6 @@ function lab_cleanup_cache() {
 }
 
 /**
- * Check if the current request is originated from the Cerber Cloud
- *
- * @return int 1 for the cloud request, 0 otherwise
- */
-function lab_is_cloud_request() {
-	static $ret;
-
-	if ( isset( $ret ) ) {
-		return $ret;
-	}
-
-	if ( empty( $_GET['cerber_cloud_nid'] ) && empty( $_POST['cerber_cloud_nid'] ) ) {
-		$ret = 0;
-		return $ret;
-	}
-
-	$node_id = absint( $_GET['cerber_cloud_nid'] );
-	if ( ! $node_id ) {
-		$node_id = absint( $_POST['cerber_cloud_nid'] );
-	}
-
-	if ( $node_id && ( lab_get_real_node_id() === $node_id ) ) {
-		$ret = 1;
-	}
-	else {
-		$ret = 0;
-	}
-
-	return $ret;
-}
-
-/**
  * Return node ID for the current request if it is originated from the Cerber Cloud
  *
  * @return bool|int Node ID if the current request comes from a valid node or false otherwise
@@ -950,11 +949,10 @@ function lab_is_cloud_request() {
 function lab_get_real_node_id() {
 	static $ret;
 
-	if ( isset( $ret ) ) {
+	if ( $ret !== null ) {
 		return $ret;
 	}
 
-	// Use a cache for all node IPs
 	$hostname = @gethostbyaddr( cerber_get_remote_ip() );
 	if ( ! $hostname || filter_var( $hostname, FILTER_VALIDATE_IP ) ) {
 		$ret = false;
@@ -967,13 +965,13 @@ function lab_get_real_node_id() {
 
 		return $ret;
 	}
-	if ( $domain[1] . '.' . $domain[2] != 'cerberlab.net' ) {
+	if ( $domain[1] . '.' . $domain[2] !== 'cerberlab.net' ) {
 		$ret = false;
 
 		return $ret;
 	}
 
-	$ret = absint( substr( $domain[0], 4, 2 ) );
+	$ret = absint( substr( $domain[0], 4, 2 ) ); // 0-99
 
 	return $ret;
 }

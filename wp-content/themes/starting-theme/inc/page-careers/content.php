@@ -5,6 +5,7 @@ $careerclosing = get_field('closing_date', false, false);
 $careerlocation = get_field('location');
 $careersalary = get_field('salary');
 $careertype = get_field('type');
+$external_apply_link = get_field('external_apply_link');
 $application_form = get_field('application_form');
 $monitoring_form = get_field('monitoring_form');
 
@@ -51,28 +52,44 @@ $careerclosing = new DateTime($careerclosing);
         </p>
 
         <p>
-          To apply for this job click the link below to download an application form. Complete and upload via the form below before the closing date.
+          <?php if($external_apply_link) : ?>
+            To apply for this job click the link below.
+          <?php else : ?>
+            To apply for this job click the link below to download an application form. Complete and upload via the form below before the closing date.
+          <?php endif ?>
         </p>
 
-        <p>
+        <!-- <p>
           Alternatively send your application to <a href="mailto:jobs@wilsonscountry.com?Subject=<?php the_title(); ?>">jobs@wilsonscountry.com</a>
-        </p>
+        </p> -->
 
-        <?php if ($application_form) : ?>
+        <?php if($external_apply_link) : ?>
 
-          <a href="<?php echo $application_form ?>" class="download" download>Download Application Form</a>
+          <a href="<?php echo $external_apply_link ?>" class="download" target="_blank">Apply Now</a>
+
+        <?php else : ?>
+
+          <?php if ($application_form) : ?>
+
+            <a href="<?php echo $application_form ?>" class="download" download>Download Application Form</a>
+
+          <?php endif; ?>
+
+          <?php if ($monitoring_form) : ?>
+
+            <a href="<?php echo $monitoring_form ?>" class="download" download>Download Monitoring Form</a>
+
+          <?php endif; ?>
 
         <?php endif; ?>
 
-        <?php if ($monitoring_form) : ?>
-
-          <a href="<?php echo $monitoring_form ?>" class="download" download>Download Monitoring Form</a>
-
-        <?php endif; ?>
+        <?php if(!$external_apply_link) : ?>
 
         <h2>Upload</h2>
 
         <?php echo do_shortcode('[contact-form-7 id="328" title="Upload Applications"]'); ?>
+
+        <?php endif; ?>
 
       </div>
 

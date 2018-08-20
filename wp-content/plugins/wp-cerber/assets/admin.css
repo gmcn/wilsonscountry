@@ -680,8 +680,9 @@ body.wp-cerber_page_cerber-integrity {
     /*width: 97%;*/
     overflow: auto;
     padding: 20px 10px 10px 10px;
-    background-color: #f9f9f9;
-    border: solid #E5E5E5 2px;
+    /*background-color: #f9f9f9;*/
+    background-color: #fff;
+    border: solid #E5E5E5 1px;
     border-bottom: none;
     /*margin-bottom: 10px;*/
 }
@@ -715,7 +716,6 @@ div.scan-tile div {
     width: 23%;
     text-align: left !important;
 }
-
 #crb-scan-info table {
     width: 100%;
 }
@@ -738,10 +738,28 @@ div.scan-tile div {
     border: 1px solid #E5E5E5;
 }
 
+#crb-browse-files td p {
+    margin-bottom: 0;
+}
+
 #crb-browse-files td {
     color: #333;
     text-align: left;
     padding: 10px;
+}
+
+#crb-browse-files tr td:nth-child(3) {
+    color: #000;
+}
+
+#crb-browse-files tr td:nth-child(n+5) {
+    color: #444;
+}
+
+#crb-browse-files tr:hover td {
+    /*background-color: #fff;*/
+    color: #000;
+    /*font-weight: bold;*/
 }
 
 #crb-browse-files .crb-scan-container {
@@ -764,6 +782,7 @@ div.scan-tile div {
 
 #crb-browse-files tr.crb-item-file td:nth-child(2) {
     font-family: Menlo, Consolas, Monaco, monospace;
+    color: #000;
     /*cursor: pointer;*/
 }
 
@@ -825,6 +844,7 @@ div.scan-tile div {
     width: 100%;
     margin-top: 10px;
     background-color: #f1f1f1;
+    border-collapse: collapse;
 }
 #crb-scan-controls td{
     text-align: center;
@@ -917,7 +937,7 @@ div.scan-tile div {
     border-bottom-style: solid;
     border-bottom-color: #eeeeee;
     padding: 4px 12px 12px;
-
+    font-family: 'Roboto', sans-serif;
 }
 
 .cerber-widget .bigdig {
@@ -926,7 +946,7 @@ div.scan-tile div {
 
 #quick-info td {
     padding: 0 8px 6px 0;
-    font-size: 110%;
+    font-size: 105%;
 }
 
 .cerber-widget td.per {
@@ -1336,7 +1356,8 @@ table.vtable td:nth-child(2) {
     position: relative;
     display: inline-block;
     width: 50px;
-    height: 22px;
+    /*height: 22px;*/
+    height: 20px;
     margin-right: 0.8em;
 }
 
@@ -1361,9 +1382,13 @@ table.vtable td:nth-child(2) {
 .crb-slider:before {
     position: absolute;
     content: "";
-    height: 16px;
+    /*height: 16px;
     width: 16px;
     left: 4px;
+    bottom: 3px;*/
+    height: 14px;
+    width: 14px;
+    left: 5px;
     bottom: 3px;
     background-color: white;
     -webkit-transition: .2s;
@@ -1392,6 +1417,12 @@ input:checked + .crb-slider:before {
     border-radius: 50%;
 }
 
+.crb-pro-req {
+    padding: 2em;
+    background-color: #fff;
+    color: #dc2f34;
+    border-left: solid 2px #dc2f34;
+}
 
 /* Flags */
 

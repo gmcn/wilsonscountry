@@ -15,6 +15,7 @@ jQuery(document).ready(function ($) {
 
     var crb_response;
     var scanner_data;
+    var all_issues = {};
 
     var crb_scan_requests = 0;
     var crb_server_errors = 0;
@@ -30,11 +31,9 @@ jQuery(document).ready(function ($) {
     var crb_scan_message = $("#crb-scan-message");
     var crb_scan_browser = $("#crb-browse-files");
 
-    var crb_scan_strings = null;
+    var crb_txt_strings = [];
 
-    cerber_scan_load_last();
-
-    cerber_load_strings();
+    cerber_scan_load_data();
 
     crb_scan_controls.find(':button,a').click(function (event) {
         var operation = $(event.target).data('control');
@@ -73,6 +72,8 @@ jQuery(document).ready(function ($) {
 
     function cerber_scan_start(object) {
 
+        console.log('Start Scan');
+        all_issues = {};
         crb_scan_mode = object.data('mode');
         crb_scan_requests = 0;
         crb_user_stop = false;
@@ -99,6 +100,8 @@ jQuery(document).ready(function ($) {
     }
 
     function cerber_scan_step(operation) {
+        console.log('Request ' + crb_scan_requests);
+
         if (!operation) {
             operation = 'continue_scan';
         }
@@ -176,10 +179,20 @@ jQuery(document).ready(function ($) {
             return;
         }
 
+        var smode = scanner_data.mode;
+        if (scanner_data.cloud) {
+            smode += ', Scheduled';
+        }
+        else {
+            smode += ', Manual';
+        }
+        smode = '<span style="text-transform: capitalize;">' + smode + '</span>';
+
         $("#crb-started").html(scanner_data.started);
         $("#crb-finished").html(scanner_data.finished);
         $("#crb-duration").html(scanner_data.duration);
         $("#crb-performance").html(scanner_data.performance);
+        $("#crb-smode").html(smode);
 
         $("#crb-total-files").html(scanner_data.total.files);
         $("#crb-scanned-files").html(scanner_data.scanned.files);
@@ -192,16 +205,15 @@ jQuery(document).ready(function ($) {
 
         // Displaying issues
 
-        var issues = [];
+        var issues;
         if (!scanner_data.issues && scanner_data.step_issues) {
-            scanner_data.issues = scanner_data.step_issues;
+            issues = scanner_data.step_issues;
         }
-        /*else if (scanner_data.issues) {
-         issues = scanner_data.issues;
-         }*/
+        else {
+            issues = scanner_data.issues;
+        }
 
-        $.each(scanner_data.issues, function (section_id) {
-
+        $.each(issues, function (section_id) {
             var the_items = [];
 
             if (!this.issues.length) {
@@ -258,7 +270,7 @@ jQuery(document).ready(function ($) {
                     }
                     extra += '<span class="crb-it-' + issue_type_id + ' scan-ilabel">' + crb_scan_msg_issues[issue_type_id] + '</span>';
                     if (issue_type_id === 5) {
-                        extra += ' &mdash; <a href="#" class="crb-issue-link" data-itype="' + issue_type_id + '" data-section-name="' + section_name + ' v. ' + version + '">Resolve issue</a>';
+                        extra += ' &mdash; <a href="#" class="crb-issue-link" data-itype="' + issue_type_id + '" data-section-name="' + section_name + ' v. ' + version + '">' + crb_txt_strings['explain'][9] + '</a>';
                     }
 
                     section_header = '<tr id="' + section_id + '" class="' + section_header_class + '" data-section-name="' + section_name + '" data-setype="' + setype + '"><td></td><td colspan = 5><span>' + section_name + '</span>' + extra + '</td></tr>';
@@ -304,20 +316,6 @@ jQuery(document).ready(function ($) {
 
         });
 
-        /*if (the_items) {
-         var container = null; alert(this.container);
-         if (this.container) {
-         container = crb_scan_browser.find('#' + this.container);
-         }
-
-         if (container.length) {
-         container.after(the_items);
-         }
-         else {
-         crb_scan_browser.append(the_items);
-         }
-         }*/
-
         $("#crb-critical").html(crb_issues_counter[3]);
         $("#crb-warning").html(crb_issues_total);
 
@@ -333,7 +331,20 @@ jQuery(document).ready(function ($) {
     function cerber_scan_parse(server_response) {
         crb_response = $.parseJSON(server_response);
         scanner_data = crb_response.cerber_scanner;
+
+        if (scanner_data.issues) {
+            all_issues = scanner_data.issues;
+        }
+        else if (scanner_data.step_issues) {
+            $.each(scanner_data.step_issues, function (section_id, value) {
+                all_issues[section_id] = value;
+            });
+        }
+
         window.crb_scan_id = scanner_data.scan_id;
+        if (crb_response.strings) {
+            crb_txt_strings = crb_response.strings;
+        }
 
         if (scanner_data.errors && scanner_data.errors.length) {
             scanner_data.errors.forEach(function (item, index) {
@@ -347,17 +358,20 @@ jQuery(document).ready(function ($) {
         }
     }
 
-    function cerber_scan_load_last() {
+    function cerber_scan_load_data() {
         $.post(ajaxurl, {
                 action: 'cerber_scan_control',
-                cerber_scan_do: 'get-last-scan',
+                cerber_scan_do: 'get_last_scan',
                 ajax_nonce: crb_ajax_nonce
             },
             function (server_response) {
                 cerber_scan_parse(server_response);
-                scanner_data.step_issues = '';
+                //scanner_data.step_issues = [];
                 cerber_scan_display(true);
-            });
+            }
+        ).fail(function (jqXHR, textStatus, errorThrown) {
+            console.error('WP CERBER SCANNER ERROR: Unable to get scanner data from server. Server error code: ' + jqXHR.status);
+        });
     }
 
     function cerber_get_issue_txt(index, issue) {
@@ -367,8 +381,12 @@ jQuery(document).ready(function ($) {
         if (issue.details.xdata && issue.details.xdata.length) {
             attr += ' data-idx="' + index + '" ';
         }
-        if (attr || (issue[0] > 15 && issue[0] < 30)) {
+        if (attr || (issue[0] > 14 && issue[0] < 55)) {
             ret = '<a href="#" ' + attr + '>' + ret + '</a>';
+        }
+
+        if (issue[3]) {
+            ret += '<p>' + crb_scan_msg_issues[issue[3]] + '</p>';
         }
 
         return ret;
@@ -469,55 +487,51 @@ jQuery(document).ready(function ($) {
 
     function cerber_delete_files() {
         var files_to_delete = crb_scan_browser.find('input[type=checkbox]:checked');
-        if (files_to_delete.length) {
-            if (!confirm('Are you sure you want to delete selected files?')){
-                return;
-            }
-            var formData = new FormData();
-            formData.append('action', 'cerber_scan_delete_files');
-            formData.append('ajax_nonce', crb_ajax_nonce);
-            formData.append('scan_id', window.crb_scan_id);
-            $.each(files_to_delete, function () {
-                formData.append('files[]', $(this).data('file_name'));
-            });
-            $.ajax({
-                url: ajaxurl,
-                type: 'POST',
-                data: formData,
-                contentType: false,
-                processData: false,
-                dataType: 'json'
-            }).done(function (server_response) {
-                var e = '', title = '';
-                if (server_response.errors && server_response.errors.length) {
-                    e = '<div style="color: #c91619;"><b>Errors occurred during deletion</b><p>'+server_response.errors.join('</p><p>')+'</p></div>';
-                }
-                if (server_response.deleted && server_response.deleted.length) {
-                    e = e + '<div><b>These files has been deleted</b><p>'+server_response.deleted.join('</p><p>')+'</p></div>';
-                }
-                if (files_to_delete.length === server_response.number) {
-                    title = 'All files are moved to the quarantine and isolated';
-                }
-                else {
-                    title = 'Deleting files';
-                }
-                cerber_popup_show(title, e);
-
-                if (server_response.deleted && server_response.deleted.length) {
-                    $.each(server_response.deleted, function (index, file_name) {
-                        crb_scan_browser.find('td[data-file-name="' + file_name + '"]').parent().remove();
-                    });
-                }
-
-            }).fail(function (jqXHR, textStatus, errorThrown) {
-                cerber_popup_show('Something went wrong on the server', jqXHR.responseText);
-            });
-
-            /*to_delete.map(function () {
-             return 'files[]=' + $(this).data('file_name');
-             }).get().join('&');
-             */
+        if (!files_to_delete.length) {
+            return;
         }
+        if (!confirm('Are you sure you want to delete selected files?')) {
+            return;
+        }
+        var formData = new FormData();
+        formData.append('action', 'cerber_scan_delete_files');
+        formData.append('ajax_nonce', crb_ajax_nonce);
+        formData.append('scan_id', window.crb_scan_id);
+        $.each(files_to_delete, function () {
+            formData.append('files[]', $(this).data('file_name'));
+        });
+        $.ajax({
+            url: ajaxurl,
+            type: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            dataType: 'json'
+        }).done(function (server_response) {
+            var e = '', title = '';
+            if (server_response.errors && server_response.errors.length) {
+                e = '<div style="color: #c91619;"><b>Errors occurred during deletion</b><p>' + server_response.errors.join('</p><p>') + '</p></div>';
+            }
+            if (server_response.deleted && server_response.deleted.length) {
+                e = e + '<div><b>These files has been deleted</b><p>' + server_response.deleted.join('</p><p>') + '</p></div>';
+            }
+            if (files_to_delete.length === server_response.number) {
+                title = 'All files are moved to the quarantine and isolated';
+            }
+            else {
+                title = 'Deleting files';
+            }
+            cerber_popup_show(title, e);
+
+            if (server_response.deleted && server_response.deleted.length) {
+                $.each(server_response.deleted, function (index, file_name) {
+                    crb_scan_browser.find('td[data-file-name="' + file_name + '"]').parent().remove();
+                });
+            }
+
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+            cerber_popup_show('Something went wrong on the server', jqXHR.responseText);
+        });
     }
 
     function cerber_toggle_file_name(control) {
@@ -535,11 +549,11 @@ jQuery(document).ready(function ($) {
                 }
                 if (window.cerber_full_toggler) {
                     $(this).html($(this).data('file-name'));
-                    $(control).text('Hide full paths');
+                    //$(control).text('Hide full paths');
                 }
                 else {
                     $(this).html($(this).data('short'));
-                    $(control).text('Show full paths');
+                    //$(control).text('Show full paths');
                 }
             });
         }
@@ -551,7 +565,7 @@ jQuery(document).ready(function ($) {
             $('#ref-section-name').text($(this).data('section-name'));
             crb_enable_ref_form();
             crb_upload_form_ul.children().hide();
-            tb_show("Please upload a reference ZIP archive", '#TB_inline?width=420&height=400&inlineId=crb-ref-upload-dialog');
+            tb_show(crb_txt_strings['explain'][8], '#TB_inline?width=420&height=400&inlineId=crb-ref-upload-dialog');
             $('#TB_closeWindowButton').blur();
         }
         else {
@@ -568,14 +582,14 @@ jQuery(document).ready(function ($) {
         var section_type = section.data('setype');
         var itype = cerber_get_itype(element);
 
-        if (itype === 18) {
+        if (itype === 15 || itype === 18) {
             var section_name = section.data('section-name');
-            cerber_popup_show($(element).text(), cerber_get_issue_explain(section_name));
+            cerber_popup_show($(element).text(), cerber_get_issue_explain(itype, section_name));
             return;
         }
 
-        if (section_type === 20 && itype < 30) {
-            info.push('<p>' + 'This file contains executable code and may contain obfuscated malware.' + '</p><p>' + 'If this file is a part of a theme or a plugin, it must be located in the theme or the plugin folder. No exception, no excuses.' + '</p>');
+        if (section_type === 20 && itype <= 25) {
+            info.push('<p>' + crb_txt_strings['explain'][0] + '</p>');
         }
 
         // Some data after file inspection?
@@ -588,7 +602,7 @@ jQuery(document).ready(function ($) {
         }
 
         if (section_type > 20) {
-            info.push(cerber_get_issue_explain());
+            info.push(cerber_get_issue_explain(itype));
         }
 
         cerber_popup_show($(element).text(), info, w, h);
@@ -601,55 +615,63 @@ jQuery(document).ready(function ($) {
             return '';
         }
 
-        if (typeof scanner_data.issues[section_id].issues[idx].details === 'undefined') {
+        if (typeof all_issues[section_id].issues[idx].details === 'undefined') {
             return '';
         }
 
-        var xdata = scanner_data.issues[section_id].issues[idx].details.xdata;
+        var xdata = all_issues[section_id].issues[idx].details.xdata;
         if (!xdata.length) {
             return '';
         }
 
-        if (!crb_scan_strings) {
-            cerber_load_strings();
-            return '';
-        }
+        var itype = all_issues[section_id].issues[idx][0];
 
         var tokens = [], regs = [], info = '', ls = [];
 
         $.each(xdata, function (index, e) {
             if (e[0] === 1) {
-                tokens.push('<code>Line ' + e[2] + ': <b>' + e[1] + '</b></code><p>' + crb_scan_strings[e[0]][e[1]][1] + '</p>');
+                tokens.push('<code>Line ' + e[2] + ': <b>' + e[1] + '</b></code><p>' + crb_txt_strings[e[0]][e[1]][1] + '</p>');
             }
             else {
                 ls = [];
                 $.each(e[2], function (index, s) {
                     ls.push('<code>Line ' + s[2] + ': <b>' + s[0] + '</b></code>');
                 });
-                regs.push(ls.join('</br>') + '<p>' + crb_scan_strings[e[0]][e[1]] + ' (' + e[1] + ')' + '</p>');
+                regs.push(ls.join('</br>') + '<p>' + crb_txt_strings[e[0]][e[1]] + ' (' + e[1] + ')' + '</p>');
             }
         });
 
         if (tokens.length) {
-            info += '<p><b>Suspicious code instruction detected</b></p><div>' + tokens.join('</div><div>') + '</div>';
+            info += '<p><b> ' + crb_txt_strings['explain'][3] + '</b></p><div>' + tokens.join('</div><div>') + '</div>';
         }
         if (regs.length) {
-            info += '<p><b>Suspicious code signatures detected</b></p><div>' + regs.join('</div><div>') + '</div>';
+            var title = (itype === 26) ? crb_txt_strings['explain'][5] : crb_txt_strings['explain'][4];
+
+            info += '<p><b>' + title + '</b></p><div>' + regs.join('</div><div>') + '</div>';
         }
 
         return info;
     }
 
     // Explainer for end-user
-    function cerber_get_issue_explain(subject) {
+    function cerber_get_issue_explain(itype, subject) {
         if (typeof subject === 'undefined' || !subject) {
             subject = 'WordPress';
         }
-        var a = 'The scanner recognizes this file as "ownerless" or "not bundled" because it does not belong to any known part of the website and should not be there.';
-        var text = 'It may remain after upgrading to a newer version of <b>%s</b>.';
-        var b = 'It also may be a piece of unknown obfuscated malware.';
-        var d = 'In some rare case it might be a part of a custom-made (bespoke) software.';
-        return '<p>' + a + '</p><p>' + text.replace('%s', subject) + ' ' + b + ' ' + d + '</p>';
+        subject = '<b>' + subject + '</b>';
+        var ret = [];
+        switch (itype) {
+            case 15:
+                ret.push(crb_txt_strings['explain'][6]);
+                ret.push(crb_txt_strings['explain'][7].replace('%s', subject));
+                break;
+            default:
+                ret.push(crb_txt_strings['explain'][1]);
+                ret.push(crb_txt_strings['explain'][2].replace('%s', subject));
+                break;
+        }
+
+        return '<p>'+ ret.join('</p><p>') + '</p>'
     }
 
     function cerber_get_itype(e) {
@@ -661,6 +683,7 @@ jQuery(document).ready(function ($) {
     }
 
 
+    /*
     function cerber_load_strings() {
         $.get(ajaxurl, {
                 action: 'cerber_get_strings',
@@ -674,7 +697,7 @@ jQuery(document).ready(function ($) {
             }).fail(function () {
             alert('Unable to load strings due to a server error.');
         });
-    }
+    }*/
 
     // Uploader
 

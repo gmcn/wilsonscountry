@@ -87,6 +87,26 @@ if ( class_exists( 'WP_CLI_Command' ) ) {
 				WP_CLI::error( __( 'WPI CLI is not supported in Multisite mode. Please use web interface to create a backup.', AI1WM_PLUGIN_NAME ) );
 			}
 
+			if ( ! is_dir( AI1WM_STORAGE_PATH ) ) {
+				if ( ! mkdir( AI1WM_STORAGE_PATH ) ) {
+					WP_CLI::error_multi_line( array(
+						sprintf( __( 'All in One WP Migration is not able to create <strong>%s</strong> folder.', AI1WM_PLUGIN_NAME ), AI1WM_STORAGE_PATH ),
+						__( 'You will need to create this folder and grant it read/write/execute permissions (0777) for the All in One WP Migration plugin to function properly.', AI1WM_PLUGIN_NAME ),
+					) );
+					exit;
+				}
+			}
+
+			if ( ! is_dir( AI1WM_BACKUPS_PATH ) ) {
+				if ( ! mkdir( AI1WM_BACKUPS_PATH ) ) {
+					WP_CLI::error_multi_line( array(
+						sprintf( __( 'All in One WP Migration is not able to create <strong>%s</strong> folder.', AI1WM_PLUGIN_NAME ), AI1WM_BACKUPS_PATH ),
+						__( 'You will need to create this folder and grant it read/write/execute permissions (0777) for the All in One WP Migration plugin to function properly.', AI1WM_PLUGIN_NAME ),
+					) );
+					exit;
+				}
+			}
+
 			$params = array();
 			if ( isset( $assoc_args['list'] ) ) {
 				$backups = new cli\Table;
@@ -101,7 +121,7 @@ if ( class_exists( 'WP_CLI_Command' ) ) {
 				foreach ( $model->get_files() as $backup ) {
 					$backups->addRow( array(
 						'name' => $backup['filename'],
-						'date' => human_time_diff( $backup['mtime'] ) . __( ' ago', AI1WM_PLUGIN_NAME ),
+						'date' => sprintf( __( '%s ago', AI1WM_PLUGIN_NAME ), human_time_diff( $backup['mtime'] ) ),
 						'size' => size_format( $backup['size'], 2 ),
 					) );
 				}
@@ -168,7 +188,6 @@ if ( class_exists( 'WP_CLI_Command' ) ) {
 			try {
 
 				// Remove filters
-				remove_filter( 'ai1wm_export', 'Ai1wm_Export_Resolve::execute', 5 );
 				remove_filter( 'ai1wm_export', 'Ai1wm_Export_Clean::execute', 300 );
 
 				// Run filters
@@ -200,6 +219,16 @@ if ( class_exists( 'WP_CLI_Command' ) ) {
 				WP_CLI::error( __( 'WPI CLI is not supported in Multisite mode. Please use web interface to restore a backup.', AI1WM_PLUGIN_NAME ) );
 			}
 
+			if ( ! is_dir( AI1WM_STORAGE_PATH ) ) {
+				if ( ! mkdir( AI1WM_STORAGE_PATH ) ) {
+					WP_CLI::error_multi_line( array(
+						sprintf( __( 'All in One WP Migration is not able to create <strong>%s</strong> folder.', AI1WM_PLUGIN_NAME ), AI1WM_STORAGE_PATH ),
+						__( 'You will need to create this folder and grant it read/write/execute permissions (0777) for the All in One WP Migration plugin to function properly.', AI1WM_PLUGIN_NAME ),
+					) );
+					exit;
+				}
+			}
+
 			$params = array();
 			if ( isset( $args[0] ) && is_file( ai1wm_backup_path( array( 'archive' => $args[0] ) ) ) ) {
 				$params = array(
@@ -221,7 +250,6 @@ if ( class_exists( 'WP_CLI_Command' ) ) {
 
 				// Remove filters
 				remove_filter( 'ai1wm_import', 'Ai1wm_Import_Upload::execute', 5 );
-				remove_filter( 'ai1wm_import', 'Ai1wm_Import_Resolve::execute', 10 );
 				remove_filter( 'ai1wm_import', 'Ai1wm_Import_Confirm::execute', 100 );
 				remove_filter( 'ai1wm_import', 'Ai1wm_Import_Clean::execute', 400 );
 

@@ -31,16 +31,16 @@ define( 'AI1WM_DEBUG', false );
 // ==================
 // = Plugin Version =
 // ==================
-define( 'AI1WM_VERSION', '6.70' );
+define( 'AI1WM_VERSION', '6.74' );
 
 // ===============
 // = Plugin Name =
 // ===============
 define( 'AI1WM_PLUGIN_NAME', 'all-in-one-wp-migration' );
 
-// ===================
-// = Directory Index =
-// ===================
+// ============================
+// = Directory index.php File =
+// ============================
 define( 'AI1WM_DIRECTORY_INDEX', 'index.php' );
 
 // ================
@@ -82,11 +82,6 @@ define( 'AI1WM_EXPORT_PATH', AI1WM_MODEL_PATH . DIRECTORY_SEPARATOR . 'export' )
 // = Import Path =
 // ===============
 define( 'AI1WM_IMPORT_PATH', AI1WM_MODEL_PATH . DIRECTORY_SEPARATOR . 'import' );
-
-// =============
-// = Http Path =
-// =============
-define( 'AI1WM_HTTP_PATH', AI1WM_MODEL_PATH . DIRECTORY_SEPARATOR . 'http' );
 
 // =============
 // = View Path =
@@ -159,7 +154,7 @@ define( 'AI1WM_SETTINGS_NAME', 'settings.json' );
 define( 'AI1WM_MULTIPART_NAME', 'multipart.list' );
 
 // ========================
-// = Archive FileMap Name =
+// = Archive Filemap Name =
 // ========================
 define( 'AI1WM_FILEMAP_NAME', 'filemap.list' );
 
@@ -183,6 +178,11 @@ define( 'AI1WM_ENDURANCE_PHP_EDGE_NAME', 'endurance-php-edge.php' );
 // ================================
 define( 'AI1WM_ENDURANCE_BROWSER_CACHE_NAME', 'endurance-browser-cache.php' );
 
+// =========================
+// = GD System Plugin Name =
+// =========================
+define( 'AI1WM_GD_SYSTEM_PLUGIN_NAME', 'gd-system-plugin.php' );
+
 // ===================
 // = Export Log Name =
 // ===================
@@ -198,16 +198,6 @@ define( 'AI1WM_IMPORT_NAME', 'import.log' );
 // ==================
 define( 'AI1WM_ERROR_NAME', 'error.log' );
 
-// ==========
-// = URL IP =
-// ==========
-define( 'AI1WM_URL_IP', 'ai1wm_url_ip' );
-
-// ===============
-// = URL Adapter =
-// ===============
-define( 'AI1WM_URL_ADAPTER', 'ai1wm_url_adapter' );
-
 // ==============
 // = Secret Key =
 // ==============
@@ -222,6 +212,16 @@ define( 'AI1WM_AUTH_USER', 'ai1wm_auth_user' );
 // = Auth Password =
 // =================
 define( 'AI1WM_AUTH_PASSWORD', 'ai1wm_auth_password' );
+
+// ============
+// = Site URL =
+// ============
+define( 'AI1WM_SITE_URL', 'siteurl' );
+
+// ============
+// = Home URL =
+// ============
+define( 'AI1WM_HOME_URL', 'home' );
 
 // ==================
 // = Active Plugins =
@@ -281,12 +281,12 @@ define( 'AI1WM_SUPPORT_EMAIL', 'support@servmask.com' );
 // =================
 // = Max File Size =
 // =================
-define( 'AI1WM_MAX_FILE_SIZE', 536870912 );
+define( 'AI1WM_MAX_FILE_SIZE', 2 << 28 );
 
 // ==================
 // = Max Chunk Size =
 // ==================
-define( 'AI1WM_MAX_CHUNK_SIZE', 5242880 );
+define( 'AI1WM_MAX_CHUNK_SIZE', 5 * 1024 * 1024 );
 
 // =====================
 // = Max Chunk Retries =
@@ -320,25 +320,30 @@ define( 'AI1WM_SITES_PATH', AI1WM_UPLOADS_PATH . DIRECTORY_SEPARATOR . 'sites' )
 // ================
 define( 'AI1WM_BACKUPS_PATH', WP_CONTENT_DIR . DIRECTORY_SEPARATOR . 'ai1wm-backups' );
 
-// ======================
-// = Storage Index File =
-// ======================
+// ==========================
+// = Storage index.php File =
+// ==========================
 define( 'AI1WM_STORAGE_INDEX', AI1WM_STORAGE_PATH . DIRECTORY_SEPARATOR . 'index.php' );
 
-// ======================
-// = Backups Index File =
-// ======================
+// ==========================
+// = Backups index.php File =
+// ==========================
 define( 'AI1WM_BACKUPS_INDEX', AI1WM_BACKUPS_PATH . DIRECTORY_SEPARATOR . 'index.php' );
 
-// =========================
-// = Backups Htaccess File =
-// =========================
+// ==========================
+// = Backups .htaccess File =
+// ==========================
 define( 'AI1WM_BACKUPS_HTACCESS', AI1WM_BACKUPS_PATH . DIRECTORY_SEPARATOR . '.htaccess' );
 
-// ==========================
-// = Backups Webconfig File =
-// ==========================
+// ===========================
+// = Backups web.config File =
+// ===========================
 define( 'AI1WM_BACKUPS_WEBCONFIG', AI1WM_BACKUPS_PATH . DIRECTORY_SEPARATOR . 'web.config' );
+
+// ============================
+// = WordPress .htaccess File =
+// ============================
+define( 'AI1WM_WORDPRESS_HTACCESS', ABSPATH . DIRECTORY_SEPARATOR . '.htaccess' );
 
 // ================================
 // = WP Migration Plugin Base Dir =
@@ -347,6 +352,36 @@ if ( defined( 'AI1WM_PLUGIN_BASENAME' ) ) {
 	define( 'AI1WM_PLUGIN_BASEDIR', dirname( AI1WM_PLUGIN_BASENAME ) );
 } else {
 	define( 'AI1WM_PLUGIN_BASEDIR', 'all-in-one-wp-migration' );
+}
+
+// ======================================
+// = Microsoft Azure Extension Base Dir =
+// ======================================
+if ( defined( 'AI1WMZE_PLUGIN_BASENAME' ) ) {
+	define( 'AI1WMZE_PLUGIN_BASEDIR', dirname( AI1WMZE_PLUGIN_BASENAME ) );
+} else {
+	define( 'AI1WMZE_PLUGIN_BASEDIR', 'all-in-one-wp-migration-azure-storage-extension' );
+}
+
+// ===================================
+// = Microsoft Azure Extension About =
+// ===================================
+if ( ! defined( 'AI1WMZE_PLUGIN_ABOUT' ) ) {
+	define( 'AI1WMZE_PLUGIN_ABOUT', 'https://servmask.com/products/microsoft-azure-storage-extension/about' );
+}
+
+// =================================
+// = Microsoft Azure Extension Key =
+// =================================
+if ( ! defined( 'AI1WMZE_PLUGIN_KEY' ) ) {
+	define( 'AI1WMZE_PLUGIN_KEY', 'ai1wmze_plugin_key' );
+}
+
+// ===================================
+// = Microsoft Azure Extension Short =
+// ===================================
+if ( ! defined( 'AI1WMZE_PLUGIN_SHORT' ) ) {
+	define( 'AI1WMZE_PLUGIN_SHORT', 'azure-storage' );
 }
 
 // ===================================
@@ -497,6 +532,36 @@ if ( ! defined( 'AI1WMFE_PLUGIN_KEY' ) ) {
 // =======================
 if ( ! defined( 'AI1WMFE_PLUGIN_SHORT' ) ) {
 	define( 'AI1WMFE_PLUGIN_SHORT', 'ftp' );
+}
+
+// ===========================================
+// = Google Cloud Storage Extension Base Dir =
+// ===========================================
+if ( defined( 'AI1WMCE_PLUGIN_BASENAME' ) ) {
+	define( 'AI1WMCE_PLUGIN_BASEDIR', dirname( AI1WMCE_PLUGIN_BASENAME ) );
+} else {
+	define( 'AI1WMCE_PLUGIN_BASEDIR', 'all-in-one-wp-migration-gcloud-storage-extension' );
+}
+
+// ========================================
+// = Google Cloud Storage Extension About =
+// ========================================
+if ( ! defined( 'AI1WMCE_PLUGIN_ABOUT' ) ) {
+	define( 'AI1WMCE_PLUGIN_ABOUT', 'https://servmask.com/products/google-cloud-storage-extension/about' );
+}
+
+// ======================================
+// = Google Cloud Storage Extension Key =
+// ======================================
+if ( ! defined( 'AI1WMCE_PLUGIN_KEY' ) ) {
+	define( 'AI1WMCE_PLUGIN_KEY', 'ai1wmce_plugin_key' );
+}
+
+// ========================================
+// = Google Cloud Storage Extension Short =
+// ========================================
+if ( ! defined( 'AI1WMCE_PLUGIN_SHORT' ) ) {
+	define( 'AI1WMCE_PLUGIN_SHORT', 'gcloud-storage' );
 }
 
 // ===================================

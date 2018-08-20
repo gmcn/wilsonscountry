@@ -372,6 +372,7 @@ function cerber_show_wp_diag(){
 		array( 'Content folder', dirname( cerber_get_plugins_dir() ) ),
 		//array( 'Plugins folder (WP_PLUGIN_DIR) ', WP_PLUGIN_DIR ),
 		array( 'Plugins folder', cerber_get_plugins_dir() ),
+		array( 'Themes folder', cerber_get_themes_dir() ),
 		array( 'Must use plugin folder (WPMU_PLUGIN_DIR) ', WPMU_PLUGIN_DIR ),
 		array( 'Folder for temporary files', ini_get( 'upload_tmp_dir' ) ),
 		array( 'Folder for session data', session_save_path() ),

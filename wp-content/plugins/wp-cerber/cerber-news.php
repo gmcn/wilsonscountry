@@ -147,6 +147,13 @@ function cerber_push_the_news( $version ) {
 	$news['7.0'][] = 'A new setting has been added for Traffic Inspector: Use White IP Access List. When enabled it allows any requests from IP addresses in the White IP access list to bypass all Traffic Inspector security rules.';
 	$news['7.0'][] = 'Since v 7.0 the redirection from /wp-admin/ to the login page is not blocked if a not logged in user has been logged in once before.';
 
+	$news['7.2'][] = 'Monitoring files changes and new files.';
+	$news['7.2'][] = 'Monitoring changes, detecting malicious redirections and directives in .htaccess files.';
+	$news['7.2'][] = 'A new detector for Base64 encoded strings quickly detects obfuscated malware code and trojans.';
+	$news['7.2'][] = 'Automated hourly and daily scheduled scans with flexible email alerts and reports.';
+	$news['7.2'][] = 'Bug fixed: Unexpected warning messages in the WordPress dashboard.';
+	$news['7.2'][] = 'Bug fixed: Some file status links on the scanner results page may not work.';
+
 	if ( ! empty( $news[ $version ] ) ) {
 		//$text = '<h3>What\'s new in WP Cerber '.$version.'</h3>';
 

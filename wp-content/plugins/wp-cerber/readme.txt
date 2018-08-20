@@ -5,19 +5,20 @@ Tags: security, malware scanner, antispam, firewall, limit login attempts, custo
 Requires at least: 4.5
 Requires PHP: 5.4
 Tested up to: 4.9
-Stable tag: 7.0
+Stable tag: 7.2
 License: GPLv2
 
 Protection against hacker attacks and bots. Malware scanner & integrity checker. Monitor user activity. Antispam reCAPTCHA. Limit login attempts.
 
 == Description ==
 
-Defends WordPress against brute force attacks by limiting the number of login attempts through the login form, XML-RPC / REST API requests or using auth cookies.
+Defends WordPress against hacker attacks, spam, trojans and malware.
+Mitigate brute force attacks by limiting the number of login attempts through the login form, XML-RPC / REST API requests or using auth cookies.
 Restricts access with the Black IP Access List and the White IP Access List.
 Tracks user and intruder activity with powerful email, mobile and desktop notifications.
 Stop spam: activates Cerber antispam engine and Google reCAPTCHA for protecting registration, contact and comments forms.
 Hardening WordPress with a set of security rules and comprehensive algorithms.
-Malware scanner & integrity checker.
+Malware scanner, integrity checker, file monitor.
 
 **Features you will love**
 
@@ -27,7 +28,8 @@ Malware scanner & integrity checker.
 * Create **Custom login URL** ([rename wp-login.php](https://wpcerber.com/how-to-rename-wp-login-php/)).
 * Cerber antispam engine for protecting any contact form. Automatically detects and moves spam comments to trash or deny it completely.
 * Log users, bots, hacker and other suspicious activities.
-* Scan and verify the integrity of all WordPress files, plugins and themes.
+* Verify the integrity of all WordPress files, plugins and themes.
+* Monitor file changes and new files.
 * Cool notifications with powerful event filters.
 * Hide wp-login.php, wp-signup.php and wp-register.php from possible attacks.
 * Hide wp-admin (dashboard) when a user isn't logged in.
@@ -63,9 +65,21 @@ You will be able to create a **Black IP Access List** or **White IP Access List*
 
 Moreover, you can create your Custom login page and forget about automatic attacks to the default wp-login.php, which takes your attention and consumes a lot of server resources. If an attacker tries to access wp-login.php they will be blocked and get a 404 Error response.
 
-= Malware scanner & integrity checker. =
+= Malware scanner =
 
-The main purpose of the scanner is to provide a handy diagnostic tool to monitor all files on a website, verify the integrity of WordPress, plugins, themes and to detect and remove malware. [Read more about malware scanner](https://wpcerber.com/wordpress-security-scanner/).
+Cerber Security Scanner is a sophisticated and extremely powerful tool that thoroughly scans every folder and inspects every file on a website for traces of malware, trojans, backdoors, changed and new files.
+
+[Read more about malware scanner](https://wpcerber.com/wordpress-security-scanner/).
+
+= Integrity checker =
+
+The scanner checks if all WordPress folders and files match what exist in the official WordPress core repository, compares your plugins and themes with what are in the official WordPress repository and alerts you to any changes. As with scanning free plugins and themes, the scanner scans and verifies commercial plugins and themes that are installed manually.
+
+= Automated recurring scans and email reporting =
+
+Cerber Security Scanner allows you to easily configure your schedule for automated recurring scanning. Once the schedule is configured the scanner will automatically perform the scan of the website and send a email report with results of the scan.
+
+[Read more about automated scans](https://wpcerber.com/automated-recurring-malware-scans/).
 
 = Log, filter out and export activities =
 
@@ -294,6 +308,21 @@ To get access to your dashboard you need to copy the WP Cerber Reset folder to t
 
 == Changelog ==
 
+= 7.2 =
+* New: Monitoring new and changed files.
+* New: Detecting malicious redirections and directives in .htaccess files.
+* New: [Automated hourly and daily scheduled scans with flexible email reports](https://wpcerber.com/automated-recurring-malware-scans/).
+* Update: Added a protection from logging wrong time stamps on some not correctly configured servers.
+* Bug fixed: Unexpected warning messages in the WordPress dashboard.
+* Bug fixed: Some file status links on the scanner results page may not work.
+
+= 7.0 =
+* Cerber Security Scanner: [integrity checker, malware detector and malware removal tool](https://wpcerber.com/wordpress-security-scanner/).
+* New: a new setting for Traffic Inspector: Use White IP Access List.
+* Update: the redirection from /wp-admin/ to the login page is not blocked for a user that has been logged in once before.
+* Bug fixed: the limit to the number of new user registrations is calculated the way that allows one additional registration within a given period of time.
+* [Read more](https://wpcerber.com/wp-cerber-security-7-0/)
+
 = 6.7.5 =
 * A new button View Activity has been added to the user edit page in the WordPress dashboard.
 * Miscellaneous code optimizations: performance of database routines and SQL queries are improved.
@@ -455,113 +484,6 @@ To get access to your dashboard you need to copy the WP Cerber Reset folder to t
 * Fixed bug: If a hacker or a bot uses login from the list of prohibited usernames or non-existent username, Citadel mode is unable to be automatically activated.
 * Fixed bug: reCAPTCHA for an ordinary WordPress login form is incompatible with a WooCommerce login form.
 * Fixed issue: In some cases the plugin log first digits of an IP address as an ID of existing user.
-
-= 3.0 =
-* New: [reCAPTCHA to protect WordPress forms spam registrations. Also available for lost password and login forms.](https://wpcerber.com/how-to-setup-recaptcha/)
-* New: Registration, XML RCP, WP REST API are controlled by IP Access Lists now. If a particular IP address is locked out or blacklisted registration is impossible.
-* New: Action Get WHOIS info and trigger IP locked out to create automation scenarios with the [jetFlow.io automation plugin](http://jetflow.io).
-* New: Notification emails will contain Reason of a lockout.
-* New: The activity DB table will be optimized after removing old records daily.
-* Update: Column Username on the Activity tab now shows real value that submitted with WordPress login form.
-* Update: Text domain is updated to 'wp-cerber'
-* Fixed issue: If a user enter correct email address and wrong password to log in, IP address is locked immediately.
-
-= 2.9 =
-* New: Checking for a prohibited username (login). You can specify list of logins manually on the new settings page (Users).
-* New: Rate limiting for notification letters. Set it on the main settings page.
-* New: If new user registration disabled, automatic redirection from wp-register.php to the login page is blocked (404 error). Remote IP will be locked out.
-* New: You can set user session expiration timeout.
-* New: Define constant CERBER_IP_KEY if you want the plugin to use it as a key to get IP address from $_SERVER variable.
-* Update: Improved WP-CLI compatibility.
-* Update: All dates are displayed in a localized format with date_i18n function.
-* Fixed bugs: incorrect admin URL in notification letters for multisite with multiple domains configuration, lack of error message on the login form if IP is blocked, CSRF vulnerability on the import settings page
-* Removed calls of deprecated function get_currentuserinfo().
-
-= 2.7.2 =
-* Fixed bug for non-English WordPress configuration: the plugin is unable to block IP in some server environment. If you have configured language other than English you have to install this release.
-
-= 2.7.1 =
-* Fixed two small bugs related to 1) unable to remove IP subnet from the Access Lists and 2) getting IP address in case of reverse proxy doesn't work properly.
-
-= 2.7 =
-
-* New: Now you can view extra WHOIS information for IP addresses in the activity log including country, network info, abuse contact, etc.
-* New: Added ability to disable WP REST API, see [Hardening WordPress](https://wpcerber.com/hardening-wordpress/)
-* New: Added ability to add IP address to the Black List from the Activity tab. Nail it!
-* New: Added Spanish translation, thanks to Ismael.
-* New: Added ability to set numbers of displayed rows (lines) on the Activity and Lockout tabs. Click Screen Options on the top-right.
-* Fixed minor security issue: Actions to remove IP on the Access Lists tab were not protected against CSRF attacks. Thanks to Gerard.
-* Update: Small changes on the dashboard widget.
-* Update: Action taken by the plugin (plugin makes a decision) now marked with dark vertical bar on the right side of the labels (Activity tab).
-
-= 2.0.1.6 =
-* New: Added Reason column on the Lockouts screen which will display cause of blocking particular IP.
-* New: Added Hardening WP with options: disable XML-RPC completely, disable user enumeration, disable feeds (RSS, Atom, RSD).
-* New: Added Custom email address for notifications.
-* New: Added Dutch and Czech translations.
-* New: Added Quick info about IP on Activity tab.
-* Update: Removed option 'Allow whitelist in Citadel mode'. Now this whitelist is enabled by default all the time.
-* Update: For notifications on the multisite installation the admin email address from the Network Settings will be used.
-* Fixed Bug: Disable wp-login.php doesn't work for subfolder installation.
-* Fixed Bug: Custom login URL doesn't work without trailing slash.
-* Fixed Bug: Any request to wp-signup.php reveal hidden Custom login URL.
-
-= 1.9 =
-* Code refactoring and cleaning up.
-* Unlocalized strings was localized.
-
-= 1.8.1 =
-* Fixed minor bug: no content (empty cells) in the custom colums added by other plugins on the Users screen in the Dashboard.
-
-= 1.8 =
-* New! added Hostname column for the Activity and Lockouts tabs.
-* New! added ability to write failed login attempts to the specified file or to the syslog file. Use it to protect site with fail2ban.
-* Added Ukrainian translation (Український переклад).
-
-= 1.7 =
-* Added ability to remove old records from the user activity log. Log will be cleaned up automatically. Check out new Keep records for field on the settings page.
-* Added pagination for the Activity and Lockouts tabs.
-* Added German (Deutsch) translation, thanks to mario.
-* Added ability to reset settings to the recommended defaults at any time.
-
-= 1.6 =
-* New: beautiful widget for the dashboard to keep an eye on things. Get quick analytic with trends over 24 hours and ability to manually deactivate Citadel mode.
-* French translation added, thanks to hardesfred.
-* Hardening WordPress. Removed automatically redirection from /login/ to the login page, from /admin/ and /dashboard/ to the dashboard.
-* Fixed issue with lost password link in the multisite mode.
-* Now compatible with User Switching plugin.
-* Added ability to manually deactivate Citadel mode, once it automatically switches on.
-
-= 1.5 =
-* New feature: importing and exporting settings and access lists from/to the file.
-* Limited notifications in the dashboard.
-
-= 1.4 =
-* Added support Multisite mode for limit login attempts.
-* Added Number of comments column on the Users screen in dashboard.
-* Updated notification settings.
-* Updated languages files.
-
-= 1.3 =
-* Fixed issue with hanging up during redirect to /wp-admin/ on some circumstance.
-* Fixed minor issue with limit login attempts for non-admin users.
-* Added Date of registration column on the Users screen in dashboard.
-* Some UI improvements on access-list screen.
-* Performance optimization & code refactoring.
-
-= 1.2 =
-* Added localization & internationalization files. You can use Loco Translate plugin to make your own translation.
-* Added Russian translation.
-* Added headers for failed attempts to use such headers with [fail2ban](http://www.fail2ban.org).
-
-= 1.1 =
-* Added ability to filter out Activity List by IP, username or particular event. You can see what happens and when it happened with particular IP or username. When IP reaches limit login attempts and when it was blocked.
-* Added protection from adding to the Black IP Access List subnet belongs to current user's session IP.
-* Added option to work with site/server behind reverse proxy.
-* Update installation instruction.
-
-= 1.0 =
-* Initial version
 
 == Other Notes ==
 

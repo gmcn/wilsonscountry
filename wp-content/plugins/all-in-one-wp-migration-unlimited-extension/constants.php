@@ -26,7 +26,7 @@
 // ==================
 // = Plugin Version =
 // ==================
-define( 'AI1WMUE_VERSION', '2.16' );
+define( 'AI1WMUE_VERSION', '2.18' );
 
 // ===============
 // = Plugin Name =

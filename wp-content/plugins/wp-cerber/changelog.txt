@@ -1,3 +1,11 @@
+= 7.2 =
+* New: Monitoring new and changed files.
+* New: Detecting malicious redirections and directives in .htaccess files.
+* New: Automated hourly and daily scheduled scans with flexible email reports.
+* Update: Added a protection from logging wrong time stamps on some not correctly configured servers.
+* Bug fixed: Unexpected warning messages in the WordPress dashboard.
+* Bug fixed: Some file status links on the scanner results page may not work.
+
 = 7.0 =
 * Cerber Security Scanner: system integrity checker, malware detector and malware removal tool.
 * New: a new setting for Traffic Inspector: Use White IP Access List.

@@ -42,6 +42,7 @@ define('CERBER_OPT_C','cerber-recaptcha');
 define('CERBER_OPT_N','cerber-notifications');
 define('CERBER_OPT_T','cerber-traffic');
 define('CERBER_OPT_S','cerber-scanner');
+define('CERBER_OPT_E','cerber-schedule');
 
 /**
  * A set of Cerber setting (WP options)
@@ -50,7 +51,7 @@ define('CERBER_OPT_S','cerber-scanner');
  */
 
 function cerber_get_setting_list() {
-	return array( CERBER_OPT, CERBER_OPT_H, CERBER_OPT_U, CERBER_OPT_C, CERBER_OPT_N, CERBER_OPT_T, CERBER_OPT_S );
+	return array( CERBER_OPT, CERBER_OPT_H, CERBER_OPT_U, CERBER_OPT_C, CERBER_OPT_N, CERBER_OPT_T, CERBER_OPT_S, CERBER_OPT_E );
 }
 
 /*
@@ -59,7 +60,7 @@ function cerber_get_setting_list() {
 add_action('admin_init', 'cerber_settings_init');
 function cerber_settings_init(){
 
-	if ( ! cerber_is_admin_page( false ) && ! strpos( $_SERVER['REQUEST_URI'], '/options.php' ) ) {
+	if ( ! cerber_is_admin_page() && ! strpos( $_SERVER['REQUEST_URI'], '/options.php' ) ) {
 		return;
 	}
 
@@ -141,7 +142,9 @@ function cerber_settings_init(){
 	$tab='users'; // 'cerber-users' settings
 	register_setting( 'cerberus-'.$tab, CERBER_OPT_U);
 	add_settings_section('us', __('User related settings','wp-cerber'), 'cerber_sapi_section', CERBER_OPT_U);
-	if (lab_lab()) add_settings_field('reglimit',__('Registration limit','wp-cerber'),'cerberus_field_show', CERBER_OPT_U,'us',array('group'=>$tab,'option'=>'reglimit','type'=>'reglimit'));
+	if (lab_lab()) {
+	    add_settings_field('reglimit',__('Registration limit','wp-cerber'),'cerberus_field_show', CERBER_OPT_U,'us',array('group'=>$tab,'option'=>'reglimit','type'=>'reglimit'));
+	}
 	add_settings_field( 'prohibited', __( 'Prohibited usernames', 'wp-cerber' ), 'cerber_field_show', CERBER_OPT_U, 'us',
 		array( 'group'  => $tab,
 		       'setting' => 'prohibited',
@@ -228,13 +231,19 @@ function cerber_settings_init(){
 	add_settings_field('pbtoken','Pushbullet access token','cerber_field_show',CERBER_OPT_N,'pushit',array('group'=>$group,'setting'=>'pbtoken','type'=>'text','size'=>60));
 
 	$set = array();
-	if (cerber_is_admin_page(false, array('tab'=>'notifications'))){
+	if ( cerber_is_admin_page( false, array( 'tab' => 'notifications' ) ) ) {
 		$set = cerber_pb_get_devices();
-		if (is_array($set)){
-			if (!empty($set)) $set = array('all' => __('All connected devices','wp-cerber')) + $set;
-			else $set = array('N' => __('No devices found','wp-cerber'));
+		if ( is_array( $set ) ) {
+			if ( ! empty( $set ) ) {
+				$set = array( 'all' => __( 'All connected devices', 'wp-cerber' ) ) + $set;
+			}
+			else {
+				$set = array( 'N' => __( 'No devices found', 'wp-cerber' ) );
+			}
 		}
-		else $set = array('N' => __('Not available','wp-cerber'));
+		else {
+			$set = array( 'N' => __( 'Not available', 'wp-cerber' ) );
+		}
 	}
 	add_settings_field('pbdevice','Pushbullet device','cerber_field_show',CERBER_OPT_N,'pushit',array('group'=>$group,'setting'=>'pbdevice','type'=>'select','set'=>$set));
 
@@ -377,7 +386,20 @@ function cerber_settings_init(){
 		       'type'   => 'textarea',
 		       'delimiter'   => "\n",
 		       'list'        => true,
-		       'label' => __( 'Specify directories to exclude from scanning. One item per line. Use with caution.', 'wp-cerber' )
+		       'label' => __( 'Specify directories to exclude from scanning. Use absolute paths. One item per line.', 'wp-cerber' )
+		) );
+	add_settings_field( 'scan_inew', __( 'Monitor new files', 'wp-cerber' ), 'cerber_field_show', CERBER_OPT_S, 'smain',
+		array(
+			'group'   => $group,
+			'setting' => 'scan_inew',
+			'type'    => 'checkbox',
+		) );
+
+	add_settings_field( 'scan_imod', __( 'Monitor modified files', 'wp-cerber' ), 'cerber_field_show', CERBER_OPT_S, 'smain',
+		array(
+			'group'   => $group,
+			'setting' => 'scan_imod',
+			'type'    => 'checkbox',
 		) );
 	add_settings_field( 'scan_tmp', __( 'Scan temporary directory', 'wp-cerber' ), 'cerber_field_show', CERBER_OPT_S, 'smain',
 		array(
@@ -385,6 +407,7 @@ function cerber_settings_init(){
 			'setting' => 'scan_tmp',
 			'type'    => 'checkbox',
 		) );
+
 	add_settings_field( 'scan_sess', __( 'Scan session directory', 'wp-cerber' ), 'cerber_field_show', CERBER_OPT_S, 'smain',
 		array(
 			'group'   => $group,
@@ -399,6 +422,77 @@ function cerber_settings_init(){
 			'label'   => __( 'days', 'wp-cerber' ),
 			'size'    => 3
 		) );
+
+	// Scanner Schedule -----------------------------------------------------------------------------
+
+	$group = 'schedule'; // 'cerber-scanner' settings
+	register_setting( 'cerberus-' . $group, CERBER_OPT_E );
+
+	add_settings_section( 's1', 'Automated recurring scan schedule', 'cerber_sapi_section', CERBER_OPT_E );
+	add_settings_field( 'scan_aquick', __( 'Launch Quick Scan', 'wp-cerber' ), 'cerber_field_show', CERBER_OPT_E, 's1',
+		array(
+			'group'   => $group,
+			'setting' => 'scan_aquick',
+			'type'    => 'select',
+			'set'     => cerber_get_qs(),
+		) );
+	add_settings_field( 'scan_afull', __( 'Launch Full Scan', 'wp-cerber' ), 'cerber_field_show', CERBER_OPT_E, 's1',
+		array(
+			'group'   => $group,
+			'setting' => 'scan_afull',
+			'type'    => 'timepicker',
+			'enabled' => 'once a day at'
+		) );
+
+	add_settings_section( 's2', 'Scan results reporting', 'cerber_sapi_section', CERBER_OPT_E );
+
+	$list = array( 1 => __('Low severity','wp-cerber'), 2 => __('Medium severity','wp-cerber'), 3 => __('High severity','wp-cerber')) + cerber_get_issue_label( array( CERBER_IMD, CERBER_UXT, 50, 51 ) );
+	add_settings_field( 'scan_reinc', __( 'Report an issue if any of the following is true', 'wp-cerber' ), 'cerber_field_show', CERBER_OPT_E, 's2',
+		array(
+			'group'   => $group,
+			'setting' => 'scan_reinc',
+			'type'    => 'checkbox_set',
+			'set'     => $list,
+		) );
+
+	add_settings_field( 'scan_relimit', __( 'Send email report', 'wp-cerber' ), 'cerber_field_show', CERBER_OPT_E, 's2',
+		array(
+			'group'   => $group,
+			'setting' => 'scan_relimit',
+			'type'    => 'select',
+			'set'     => array(
+				1  => __( 'After every scan', 'wp-cerber' ),
+				3  => __( 'If any changes in scan results occurred', 'wp-cerber' ),
+				5  => __( 'If new issues found', 'wp-cerber' ),
+			)
+		) );
+
+	add_settings_field( 'scan_isize', __( 'Include file sizes', 'wp-cerber' ), 'cerber_field_show', CERBER_OPT_E, 's2',
+		array(
+			'group'   => $group,
+			'setting' => 'scan_isize',
+			'type'    => 'checkbox',
+		) );
+
+	add_settings_field( 'scan_ierrors', __( 'Include scan errors', 'wp-cerber' ), 'cerber_field_show', CERBER_OPT_E, 's2',
+		array(
+			'group'   => $group,
+			'setting' => 'scan_ierrors',
+			'type'    => 'checkbox',
+		) );
+
+	add_settings_field( 'email-scan', __( 'Email Address', 'wp-cerber' ), 'cerber_field_show', CERBER_OPT_E, 's2',
+		array( 'group'       => $group,
+		       'setting'     => 'email-scan',
+		       'type'        => 'text',
+		       'placeholder' => __( 'Use comma to specify multiple values', 'wp-cerber' ),
+		       'delimiter'   => ',',
+		       'list'        => true,
+		       'size'        => 60,
+		       'maxlength'   => 1000,
+		       'label'       => sprintf( __( 'if empty, email from notification settings will be used', 'wp-cerber' ), $def_email )
+		) );
+
 }
 /*
 	Generate HTML for each sections on a settings page
@@ -510,18 +604,21 @@ function cerber_settings_page(){
 	<?php
 }
 /*
- * Display settings screen (one tab)
+ * Display a settings page (a single tab)
  *
  */
-function cerber_show_settings_page($group = null){
-	if (is_multisite()) $action =  ''; // Settings API doesn't work in multisite. Post data will be handled in the cerber_ms_update()
-	else $action ='options.php';
-	// Display form with settings fields via Settings API
-	echo '<form method="post" action="'.$action.'">';
+function cerber_show_settings_page( $group = null ) {
+	if ( is_multisite() ) {
+		$action = '';  // Settings API doesn't work in multisite. Post data will be handled in the cerber_ms_update()
+	}
+	else {
+		$action = 'options.php'; // Display form with settings fields via Settings API
+	}
+	echo '<form method="post" action="' . $action . '">';
 
-	settings_fields( 'cerberus-'.$group ); // option group name, the same as used in register_setting().
-	do_settings_sections( 'cerber-'.$group ); // the same as used in add_settings_section()	$page
-    echo '<div style="padding-left: 220px">';
+	settings_fields( 'cerberus-' . $group ); // option group name, the same as used in register_setting().
+	do_settings_sections( 'cerber-' . $group ); // the same as used in add_settings_section()	$page
+	echo '<div style="padding-left: 220px">';
 	submit_button();
 	echo '</div>';
 	echo '</form>';
@@ -728,14 +825,27 @@ function cerber_field_show($args){
 			$html.= '<label for="'.$args['setting'].'">'.$label.'</label>';
 			break;
 		case 'textarea':
-			$html='<textarea class="large-text code" id="'.$args['setting'].'" name="'.$name.'" '.$disabled.' />'.$value.'</textarea>';
-			$html.= '<br><label for="'.$args['setting'].'">'.$label.'</label>';
+			$html = '<textarea class="large-text code" id="' . $args['setting'] . '" name="' . $name . '" ' . $disabled . ' />' . $value . '</textarea>';
+			$html .= '<br><label for="' . $args['setting'] . '">' . $label . '</label>';
 			break;
 		case 'select':
-			$html=cerber_select($name,$args['set'],$value);
+			$html = cerber_select( $name, $args['set'], $value );
+			break;
+		case 'checkbox_set':
+			$html = '<div class="crb-checkbox_set" style="line-height: 2em;">';
+			foreach ( $args['set'] as $key => $item ) {
+				$v    = ( ! empty( $value[ $key ] ) ) ? $value[ $key ] : 0;
+				$html .= '<input type="checkbox" value="1" name="' . $name . '[' . $key . ']" ' . checked( 1, $v, false ) . $disabled . '/>' . $item . '</br>';
+			}
+			$html .= '</div>';
+			//$html='<textarea class="large-text code" id="'.$args['setting'].'" name="'.$name.'" '.$disabled.' />'.$value.'</textarea>';
 			break;
 		case 'reptime':
 			$html = cerber_time_select( $args, $settings );
+			break;
+		case 'timepicker':
+			$html = '<input class="crb-tpicker" type="text" size="7" id="' . $args['setting'] . '" name="' . $name . '" value="' . $value . '"' . $disabled . '/>';
+			$html .= ' <label for="' . $args['setting'] . '">' . $label . '</label>';
 			break;
 		case 'text':
 		default:
@@ -766,14 +876,14 @@ function cerber_field_show($args){
 		break;
 	}
 
-	if (!empty($args['enabled'])){
-		$name = 'cerber-'.$args['group'].'['.$args['setting'].'-enabled]';
+	if ( ! empty( $args['enabled'] ) ) {
+		$name  = 'cerber-' . $args['group'] . '[' . $args['setting'] . '-enabled]';
 		$value = 0;
 		if ( isset( $settings[ $args['setting'] . '-enabled' ] ) ) {
 			$value = $settings[ $args['setting'] . '-enabled' ];
 		}
 		$checkbox = '<label class="crb-switch"><input class="screen-reader-text" type="checkbox" id="' . $args['setting'] . '-enabled" name="' . $name . '" value="1" ' . checked( 1, $value, false ) . ' /><span class="crb-slider round"></span></label>' . $args['enabled'];
-		$html = $checkbox . $html;
+		$html     = $checkbox . ' ' . $html;
 	}
 
 	echo $html."\n";
@@ -843,8 +953,7 @@ function cerber_time_select($args, $settings){
 /*
 	Sanitizing users input for Main Settings
 */
-add_filter( 'pre_update_option_'.CERBER_OPT, 'cerber_sanitize_m', 10, 3 );
-function cerber_sanitize_m($new, $old, $option) {
+add_filter( 'pre_update_option_'.CERBER_OPT, function ($new, $old, $option) {
 
 	$ret = cerber_set_boot_mode( $new['boot-mode'], $old['boot-mode'] );
 	if ( is_wp_error( $ret ) ) {
@@ -874,7 +983,7 @@ function cerber_sanitize_m($new, $old, $option) {
 			$msg[]  = __( 'If you use a caching plugin, you have to add your new login URL to the list of pages not to cache.', 'wp-cerber' );
 			$msg_e[]  = __( 'If you use a caching plugin, you have to add your new login URL to the list of pages not to cache.', 'wp-cerber' );
 			cerber_admin_notice( $msg );
-			cerber_send_notify( 'newlurl', $msg_e );
+			cerber_send_email( 'newlurl', $msg_e );
 		}
 	} else {
 		$new['loginpath'] = '';
@@ -898,22 +1007,20 @@ function cerber_sanitize_m($new, $old, $option) {
 	}
 
 	return $new;
-}
+}, 10, 3 );
 /*
 	Sanitizing/checking user input for User tab settings
 */
-add_filter( 'pre_update_option_'.CERBER_OPT_U, 'cerber_sanitize_u', 10, 3 );
-function cerber_sanitize_u($new, $old, $option) {
+add_filter( 'pre_update_option_'.CERBER_OPT_U, function ($new, $old, $option) {
 
 	$new['prohibited'] = cerber_text2array($new['prohibited'], ',', 'strtolower');
 
 	return $new;
-}
+}, 10, 3 );
 /*
 	Sanitizing/checking user input for reCAPTCHA tab settings
 */
-add_filter( 'pre_update_option_'.CERBER_OPT_C, 'cerber_sanitize_c', 10, 3 );
-function cerber_sanitize_c($new, $old, $option) {
+add_filter( 'pre_update_option_'.CERBER_OPT_C, function ($new, $old, $option) {
 	global $wp_cerber;
 	// Check ability to make external HTTP requests
 	if ($wp_cerber && !empty($new['sitekey']) && !empty($new['secretkey'])) {
@@ -935,12 +1042,11 @@ function cerber_sanitize_c($new, $old, $option) {
 	}
 
 	return $new;
-}
+}, 10, 3 );
 /*
 	Sanitizing/checking user input for Notifications tab settings
 */
-add_filter( 'pre_update_option_'.CERBER_OPT_N, 'cerber_sanitize_n', 10, 3 );
-function cerber_sanitize_n($new, $old, $option) {
+add_filter( 'pre_update_option_'.CERBER_OPT_N, function ($new, $old, $option) {
 
 	$emails = cerber_text2array( $new['email'], ',' );
 
@@ -977,13 +1083,12 @@ function cerber_sanitize_n($new, $old, $option) {
 	}
 
 	return $new;
-}
+}, 10, 3 );
 
 /*
     Sanitizing/checking user input for Hardening tab settings
 */
-add_filter( 'pre_update_option_'.CERBER_OPT_H, 'cerber_sanitize_h', 10, 3 );
-function cerber_sanitize_h($new, $old, $option) {
+add_filter( 'pre_update_option_'.CERBER_OPT_H, function ($new, $old, $option) {
 
     $new['restwhite'] = cerber_text2array($new['restwhite'], "\n");
 
@@ -1007,17 +1112,16 @@ function cerber_sanitize_h($new, $old, $option) {
 	}
 
     return $new;
-}
+}, 10, 3 );
 /*
     Sanitizing/checking user input for Traffic Inspector tab settings
 */
-add_filter( 'pre_update_option_'.CERBER_OPT_T, 'cerber_sanitize_t', 10, 3 );
-function cerber_sanitize_t($new, $old, $option) {
+add_filter( 'pre_update_option_'.CERBER_OPT_T, function ($new, $old, $option) {
 
 	$new['tiwhite'] = cerber_text2array( $new['tiwhite'], "\n" );
 	foreach ( $new['tiwhite'] as $item ) {
 		if ( strrpos( $item, '?' ) ) {
-			cerber_admin_notice( 'You may not specify the query string with question mark: ' . htmlspecialchars( $item ) );
+			cerber_admin_notice( 'You may not specify the query string with a question mark: ' . htmlspecialchars( $item ) );
 		}
 		if ( strrpos( $item, '://' ) ) {
 			cerber_admin_notice( 'You may not specify the full URL: ' . htmlspecialchars( $item ) );
@@ -1035,17 +1139,20 @@ function cerber_sanitize_t($new, $old, $option) {
 	}
 
 	return $new;
-}
+}, 10, 3 );
 
 /*
     Sanitizing/checking user input for Security Scanner settings
 */
-add_filter( 'pre_update_option_' . CERBER_OPT_S, 'cerber_sanitize_s', 10, 3 );
-function cerber_sanitize_s( $new, $old, $option ) {
+add_filter( 'pre_update_option_' . CERBER_OPT_S, function ( $new, $old, $option ) {
 
 	$list = cerber_text2array( $new['scan_exclude'], "\n" );
 	$list = array_filter( $list, function ( $item ) {
-		return @is_dir( $item );
+		if ( ! @is_dir( $item ) ) {
+			cerber_admin_notice( 'Directory does not exist: ' . htmlspecialchars( $item ) );
+			return false;
+		}
+		return true;
 	} );
 	$new['scan_exclude'] = $list;
 
@@ -1053,7 +1160,40 @@ function cerber_sanitize_s( $new, $old, $option ) {
 	$new['scan_uext'] = cerber_text2array( $new['scan_uext'], "," );
 
 	return $new;
-}
+}, 10, 3 );
+
+/*
+    Sanitizing/checking user input for Scanner Schedule settings
+*/
+add_filter( 'pre_update_option_' . CERBER_OPT_E, function ( $new, $old, $option ) {
+	$new['scan_aquick']        = absint( $new['scan_aquick'] );
+	$new['scan_afull-enabled'] = ( empty( $new['scan_afull-enabled'] ) ) ? 0 : 1;
+
+    $sec = cerber_sec_from_time( $new['scan_afull'] );
+	if ( ! $sec || ! ( $sec >= 0 && $sec <= 86400 ) ) {
+		$new['scan_afull'] = '01:00';
+	}
+
+    $emails = cerber_text2array( $new['email-scan'], ',' );
+	$new['email-scan'] = array();
+	foreach ( $emails as $item ) {
+		if ( is_email( $item ) ) {
+			$new['email-scan'][] = $item;
+		}
+		else {
+			cerber_admin_notice( __( '<strong>ERROR</strong>: please enter a valid email address.' ) );
+		}
+	}
+
+	if ( cerber_cloud_sync( $new ) ) {
+		cerber_admin_message( __( 'The schedule has been updated', 'wp-cerber' ) );
+	}
+	else {
+		cerber_admin_message( __( 'Unable to updated the schedule', 'wp-cerber' ) );
+	}
+
+	return $new;
+}, 10, 3 );
 
 /**
  * Let's sanitize them all
@@ -1229,14 +1369,14 @@ function cerber_get_defaults($field = null) {
 
 		),
 		CERBER_OPT_H => array(
-			'stopenum' => 1,
-			'adminphp' => 0,
-			'xmlrpc'   => 0,
-			'nofeeds'  => 0,
-			'norest'  => 0,
-			'restauth'  => 0,
-			'restwhite' => 'oembed',
-			'hashauthor'  => 0,
+			'stopenum'   => 1,
+			'adminphp'   => 0,
+			'xmlrpc'     => 0,
+			'nofeeds'    => 0,
+			'norest'     => 0,
+			'restauth'   => 0,
+			'restwhite'  => 'oembed',
+			'hashauthor' => 0,
 			'cleanhead'  => 1,
 		),
 		CERBER_OPT_U => array(
@@ -1273,39 +1413,51 @@ function cerber_get_defaults($field = null) {
 			'recaptcha-within' => 30,
 		),
 		CERBER_OPT_N => array(
-			'email'        => '',
-			'emailrate'    => 12,
+			'email'          => '',
+			'emailrate'      => 12,
 			'notify-new-ver' => '1',
-			'pbtoken'      => '',
-			'pbdevice'     => '',
-			'wreports-day'  => '1', // workaround, see cerber_upgrade_options()
-			'wreports-time' => 9,
-			'email-report'  => '',
+			'pbtoken'        => '',
+			'pbdevice'       => '',
+			'wreports-day'   => '1', // workaround, see cerber_upgrade_options()
+			'wreports-time'  => 9,
+			'email-report'   => '',
 			'enable-report'  => '1',  // workaround, see cerber_upgrade_options()
 		),
 		CERBER_OPT_T => array(
-			'tienabled' => '1',
-			'tiipwhite' => 0,
-			'tiwhite'   => '',
-			'timode'    => '1',
-			'tinocrabs'  => '1',
-			'tifields'  => 0,
-			'timask'    => '',
-			'tihdrs'  => 0,
-			'tisenv'  => 0,
-			'ticandy'  => 0,
-			'tithreshold'  => '',
-			'tikeeprec' => 7,
-        ),
+			'tienabled'   => '1',
+			'tiipwhite'   => 0,
+			'tiwhite'     => '',
+			'timode'      => '1',
+			'tinocrabs'   => '1',
+			'tifields'    => 0,
+			'timask'      => '',
+			'tihdrs'      => 0,
+			'tisenv'      => 0,
+			'ticandy'     => 0,
+			'tithreshold' => '',
+			'tikeeprec'   => 7,
+		),
 		CERBER_OPT_S => array(
-			'scan_cpt' => '',
-			'scan_uext' => '',
-			'scan_exclude' => '',
-			'scan_tmp'  => '1',
-			'scan_sess' => '1',
+			'scan_cpt'      => '',
+			'scan_uext'     => '',
+			'scan_exclude'  => '',
+			'scan_inew'     => '1',
+			'scan_imod'     => '1',
+			'scan_tmp'      => '1',
+			'scan_sess'     => '1',
 			'scan_qcleanup' => '30',
+		),
+		CERBER_OPT_E => array(
+			'scan_aquick'        => 0,
+			'scan_afull'         => '0' . rand( 1, 5 ) . ':00',
+			'scan_afull-enabled' => 0,
+			'scan_reinc'         => array( 3 => 1, CERBER_IMD => 1, 50 => 1, 51 => 1 ),
+			'scan_relimit'       => 3,
+			'scan_isize'         => 0,
+			'scan_ierrors'       => 0,
+			'email-scan'         => ''
 		)
-		);
+	);
 	if ( $field ) {
 		foreach ( $all_defaults as $option ) {
 			if ( isset( $option[ $field ] ) ) {
@@ -1432,10 +1584,14 @@ function crb_get_settings( $option = '' ) {
 	    $united  = array();
 
 	    if ( is_multisite() ) {
-		    $set = $wpdb->get_col( 'SELECT meta_value FROM ' . $wpdb->sitemeta . ' WHERE meta_key ' . $in );
+		    //$set = $wpdb->get_col( 'SELECT meta_value FROM ' . $wpdb->sitemeta . ' WHERE meta_key ' . $in );
+		    // since 7.1.6
+		    $set = cerber_db_get_col( 'SELECT meta_value FROM ' . $wpdb->sitemeta . ' WHERE meta_key ' . $in );
 	    }
 	    else {
-		    $set = $wpdb->get_col( 'SELECT option_value FROM ' . $wpdb->options . ' WHERE option_name ' . $in );
+		    //$set = $wpdb->get_col( 'SELECT option_value FROM ' . $wpdb->options . ' WHERE option_name ' . $in );
+            // since 7.1.6
+		    $set = cerber_db_get_col( 'SELECT option_value FROM ' . $wpdb->options . ' WHERE option_name ' . $in );
 	    }
 
 	    foreach ( $set as $item ) {
@@ -1488,15 +1644,19 @@ function cerber_get_site_option($option = '', $unserialize = true){
 		return get_site_option( $option, null );
 	}
 
-	if (isset($values[$option])){
-		return $values[$option];
-    }
+	if ( isset( $values[ $option ] ) ) {
+		return $values[ $option ];
+	}
 
     if ( is_multisite() ) {
-		$value = $wpdb->get_var( 'SELECT meta_value FROM ' . $wpdb->sitemeta . ' WHERE meta_key = "' . $option . '"' );
+	    // @since 7.1
+		//$value = $wpdb->get_var( 'SELECT meta_value FROM ' . $wpdb->sitemeta . ' WHERE meta_key = "' . $option . '"' );
+	    $value = cerber_db_get_var( 'SELECT meta_value FROM ' . $wpdb->sitemeta . ' WHERE meta_key = "' . $option . '"' );
 	}
 	else {
-		$value = $wpdb->get_var( 'SELECT option_value FROM ' . $wpdb->options . ' WHERE option_name = "' . $option . '"' );
+		// @since 7.1
+		//$value = $wpdb->get_var( 'SELECT option_value FROM ' . $wpdb->options . ' WHERE option_name = "' . $option . '"' );
+		$value = cerber_db_get_var( 'SELECT option_value FROM ' . $wpdb->options . ' WHERE option_name = "' . $option . '"' );
 	}
 
 	if ( $value ) {
@@ -1538,10 +1698,10 @@ function cerber_load_defaults() {
  *
  * @return array|string Email address(es) for notifications
  */
-function cerber_get_email($type = '', $array = false) {
+function cerber_get_email( $type = '', $array = false ) {
 	$email = '';
 
-    if ( $type == 'report' ) {
+	if ( in_array( $type, array( 'report', 'scan' ) ) ) {
 		$email = crb_get_settings( 'email-' . $type );
 	}
 
@@ -1549,7 +1709,7 @@ function cerber_get_email($type = '', $array = false) {
 		$email = crb_get_settings( 'email' );
 	}
 
-	if ( !$array && is_array( $email ) ) {  // @since 4.9
+	if ( ! $array && is_array( $email ) ) {  // @since 4.9
 		$email = implode( ', ', $email );
 	}
 
@@ -1561,4 +1721,63 @@ function cerber_get_email($type = '', $array = false) {
 	}
 
 	return $email;
+}
+
+/**
+ * Sync a set of scanner/uptime bots settings with the cloud
+ *
+ * @param $data
+ *
+ * @return bool
+ */
+function cerber_cloud_sync( $data = array() ) {
+	if ( ! $data ) {
+		$data = crb_get_settings();
+	}
+	$e   = ( empty( $data['scan_afull-enabled'] ) ) ? 0 : 1;
+	$set = array(
+		absint( $data['scan_aquick'] ),
+		$e,
+		cerber_sec_from_time( $data['scan_afull'] ),
+		cerber_get_email( 'scan', true )
+	);
+	if ( lab_api_send_request( array(
+		'scan_scheduling' => array( // Is used for scheduled scans
+			'client'     => $set,
+			'site_url'   => home_url(),
+			'gmt_offset' => (int) get_option( 'gmt_offset' ),
+			'dtf' => cerber_get_dt_format(),
+		)
+	) ) ) {
+		return true;
+	}
+
+	return false;
+}
+
+/**
+ * Is a cloud based service enabled by the site owner
+ *
+ * @return bool False if nothing cloud related is enabled
+ */
+function cerber_is_cloud_enabled( $what = '' ) {
+	$data = crb_get_settings();
+
+	$s = array( 'quick' => 'scan_aquick', 'full' => 'scan_afull-enabled' );
+
+	if ( $what ) {
+		if ( ! empty( $data[ $s[ $what ] ] ) ) {
+			return true;
+		}
+
+		return false;
+	}
+
+	foreach ( $s as $item ) {
+		if ( ! empty( $data[ $item ] ) ) {
+			return true;
+		}
+	}
+
+	return false;
 }
