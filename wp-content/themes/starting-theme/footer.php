@@ -23,6 +23,7 @@
 						<img class="footer__logo" src="<?php echo get_template_directory_uri(); ?>/images/wilsonscountry-logo_white.svg" alt="<?php bloginfo( 'name' ); ?>" />
 					</a>
 					<span>© Wilson’s Country 2018</span>
+					<a href="/our-policies/">Privacy Policy</a>
 				</div>
 				<div class="col-md-5 footermatch wow fadeInUp">
 					<p>

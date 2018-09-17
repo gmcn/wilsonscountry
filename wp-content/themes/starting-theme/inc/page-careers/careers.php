@@ -73,7 +73,7 @@
       </p>
 
       <p>
-        <strong>Further information can be found in our Privacy Notice (Job Applicants) in the <a href="/our-policies/">Our Policies</a> section below.</strong>
+        <strong>Further information can be found in our Privacy Notice in the <a href="/our-policies/">Our Policies</a> section below.</strong>
       </p>
 
     </div>
