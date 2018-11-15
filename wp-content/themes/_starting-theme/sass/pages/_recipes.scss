@@ -1,0 +1,101 @@
+.recipes {
+  margin-bottom: 50px;
+  .wrapper {
+    text-align: center;
+    height: 400px;
+  }
+  .recipe {
+    margin-bottom: 15px;
+  }
+  .title {
+    width: 50%;
+    margin: 0 auto;
+    background: #2E231D;
+    text-align: left;
+    padding: 20px 20px 20px 20px;
+    h3 {
+      color: $white;
+      padding: 0;
+      margin: 0 0 20px 0;
+    }
+    a {
+      color: $white;
+      opacity: .5;
+      border-bottom: 1px solid $white;
+      display: block;
+      padding: 20px 0;
+      font-style: italic;
+      font-size: 14px;
+    }
+  }
+}
+
+.recipe {
+  font-size: 22px;
+  margin-bottom: 50px;
+  .recipematch {
+    min-height: 300px;
+  }
+  .recipematch:first-of-type {
+    @include xxs {
+    margin-bottom: 15px;
+    }
+    @include md {
+      margin-bottom: 0;
+    }
+  }
+  .prep-time, .feed-amount {
+    color: $white;
+    padding: 20px 20px 20px 120px;
+    margin-bottom: 15px;
+    font-family: $primaryfont;
+    font-weight: $primaryfont_bold;
+  }
+  .prep-time {
+    background: url('images/prep-time.svg') #06838F no-repeat;
+    background-size: 45px 70px;
+    background-position: 20px;
+  }
+  .feed-amount {
+    background: url('images/feeds-amount.svg') #06838F no-repeat;
+    background-size: 50px 70px;
+    background-position: 20px;
+  }
+  .ingredients {
+    background: url('images/ingredients_bg.png') #06838F no-repeat bottom;
+    min-height: 600px;
+    color: $white;
+    padding: 20px;
+    p {
+      color: rgba(255,255,255,.5);
+      font-size: 16px;
+      font-weight: $primaryfont_med;
+    }
+    ul {
+      padding: 0;
+      margin: 20px;
+      li {
+        font-weight: $primaryfont_med;
+      }
+    }
+  }
+}
+
+.instructions {
+  color: #536874;
+  margin-bottom: 50px;
+  font-weight: $primaryfont_lte;
+  .col-sm-6 {
+    margin-bottom: 25px;
+  }
+  h3 {
+    font-size: 22px;
+    font-weight: $primaryfont_bold;
+    margin-bottom: 25px;
+  }
+  h4 {
+    text-transform: uppercase;
+    font-size: 26px;
+    font-weight: $primaryfont_bold;
+  }
+}

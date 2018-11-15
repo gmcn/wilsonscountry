@@ -47,7 +47,7 @@
 
 										</div><!-- /.col-sm-4 -->
 
-										<div class="col-md-1 col-xs-3 wow fadeInUp matchheight">
+										<div class="col-md-1 hidden-xs wow fadeInUp matchheight">
 											<img src="<?php echo get_template_directory_uri(); ?>/images/<?php echo $slide_icon ?>-icon.svg" alt="<?php echo $slide_tagline1; ?> <?php echo $slide_tagline2; ?>" />
 										</div><!-- /.col-sm-1 -->
 

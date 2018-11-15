@@ -22,6 +22,8 @@
 
             <?php if($i % 2) : ?>
 
+              <img class="hidden-md hidden-lg" src="<?php echo $image ?>" alt="<?php echo $title ?>" />
+
               <div class="vert-align">
 
                 <?php echo $copy ?>
@@ -32,7 +34,7 @@
 
              <?php else : ?>
 
-               <img src="<?php echo $image ?>" alt="<?php echo $title ?>" />
+               <img class="hidden-xs hidden-sm" src="<?php echo $image ?>" alt="<?php echo $title ?>" />
 
              <?php endif ?>
 
@@ -42,9 +44,11 @@
 
             <?php if($i % 2) : ?>
 
-              <img src="<?php echo $image ?>" alt="<?php echo $title ?>" />
+              <img class="hidden-xs hidden-sm" src="<?php echo $image ?>" alt="<?php echo $title ?>" />
 
              <?php else : ?>
+
+               <img class="hidden-md hidden-lg" src="<?php echo $image ?>" alt="<?php echo $title ?>" />
 
                <div class="vert-align">
 

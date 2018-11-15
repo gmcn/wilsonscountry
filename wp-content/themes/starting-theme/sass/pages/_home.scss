@@ -9,7 +9,10 @@
   .slide-wrapper {
     position: absolute;
     bottom: 100px;
-    right: 100px;
+    right: 0;
+    @include md {
+      right: 100px;
+    }
     h1, h2, a {
       text-align: right;
       padding: 10px;
@@ -19,11 +22,19 @@
       margin: 0;
       display: inline-block;
       float: right;
+      font-size: 24px;
+      @include md {
+        font-size: 36px;
+      }
     }
     h2 {
       background-color: #fff;
       float: right;
       margin-top: 10px;
+      font-size: 24px;
+      @include md {
+        font-size: 36px;
+      }
     }
   }
   .findout {
@@ -291,7 +302,7 @@ ul.slider_main li {
 /* LOADER */
 .bx-wrapper .bx-loading {
   min-height: 50px;
-  background: url('../images/bx_loader.gif') center center no-repeat #ffffff;
+  background: url('images/bx_loader.gif') center center no-repeat #ffffff;
   height: 100%;
   width: 100%;
   position: absolute;

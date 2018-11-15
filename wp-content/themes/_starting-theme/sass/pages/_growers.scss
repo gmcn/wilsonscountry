@@ -1,0 +1,52 @@
+.growers {
+  margin-top: 15px;
+  .row {
+    @include md {
+      margin-bottom: 15px
+    }
+  }
+  .col-md-6:nth-child(odd) {
+    .vert-align {
+      border-right: 10px solid $green;
+    }
+  }
+  .col-md-6:nth-child(even) {
+    .vert-align {
+      border-left: 10px solid $green;
+    }
+    p {
+      padding-left: 40px;
+      width: 85%;
+    }
+  }
+  .col-md-6 {
+    @include md {
+    min-height: 450px;
+    }
+    @include xxs {
+      margin-bottom: 15px
+    }
+    @include md {
+      margin-bottom: 15px
+    }
+    img {
+      width: 100%;
+    }
+    p:first-of-type {
+      font-weight: bold;
+      font-size: 25px;
+    }
+    p {
+      @include md {
+        width: 80%
+      }
+      font-size: 14px;
+      color: #3D4B53;
+    }
+    p.name {
+      font-size: 22px;
+      font-weight: $primaryfont_bold;
+      margin-top: 40px;
+    }
+  }
+}

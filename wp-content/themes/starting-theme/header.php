@@ -47,11 +47,11 @@ window.cookieconsent.initialise({
 <body <?php body_class(); ?>>
 	<a class="skip-link screen-reader-text" href="#content"><?php esc_html_e( 'Skip to content', 'starting-theme' ); ?></a>
 
-	<header id="masthead" class="site-header" role="banner">
+	<header class="site-header" role="banner">
 
 		<div class="container">
 			<div class="row no-gutter">
-				<div class="col-xs-3 col-sm-2 col-md-1 wow fadeInDown">
+				<div class="col-xs-3 col-sm-2 col-md-1 branding wow fadeInDown">
 					<a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
 						<img src="<?php echo get_template_directory_uri(); ?>/images/wilsonscountry_logo.svg" alt="<?php bloginfo( 'name' ); ?>" />
 					</a>
@@ -115,6 +115,6 @@ window.cookieconsent.initialise({
 			</div><!-- /.row -->
 		</div><!-- /.container -->
 
-	</header><!-- #masthead -->
+	</header>
 
 	<div id="content" class="site-content">

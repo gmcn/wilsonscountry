@@ -1,0 +1,232 @@
+.breadcrumbs {
+  background: $green;
+  text-align: right;
+  padding: 20px 0 31px;
+  color: #fff;
+  font-weight: $primaryfont_lte;
+  p#breadcrumbs {
+    font-size: 12px;
+    @include xxs {
+      text-align: center;
+      margin: 25px 0;
+    }
+    @include md {
+      text-align: right;
+    }
+  }
+  a, .breadcrumb_last {
+    color: rgba(255,255,255,.4);
+    transition: .5s;
+  }
+  a:hover {
+    color: rgba(255,255,255,1);
+    text-decoration: none;
+  }
+  .child-pages {
+    p {
+      text-align: left;
+    }
+    ul {
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+    li {
+      @include xs {
+        float: left;
+        margin-right: 5px;
+      }
+      background: $white;
+      text-align: center;
+      padding: 10px 25px;
+      a {
+        color: $green;
+        font-weight: $primaryfont_bold;
+        text-transform: uppercase;
+      }
+      a:hover {
+        text-decoration: none;
+      }
+    }
+  }
+}
+
+.intro {
+  color: #536874;
+
+  .imgbg {
+    @include xxs {
+      height: 250px;
+    }
+    @include md {
+      height: 450px;
+    }
+  }
+  .container {
+    margin-top: -30px;
+    background-color: $white;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    max-width: 100%;
+  }
+  h1 {
+    font-weight: $primaryfont_bold;
+    opacity: .5;
+    @include xxs {
+      font-size: 45px;
+    }
+    @include md {
+      font-size: 55px;
+    }
+  }
+
+  h2 {
+    font-weight: $primaryfont_bold;
+    @include xxs {
+      width: 100%;
+      font-size: 35px;
+      line-height: 35px;
+    }
+    @include md {
+      width: 80%;
+      font-size: 55px;
+      line-height: 55px;
+    }
+  }
+  p {
+    font-size: 22px;
+  }
+  p:first-of-type {
+    font-weight: $primaryfont_bold;
+  }
+}
+
+.intro-child-page {
+  background-color: $green;
+  .imgbg {
+    @include xxs {
+      height: 250px;
+    }
+    @include md {
+      height: 450px;
+    }
+  }
+  .container {
+    margin-top: -30px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+  h1 {
+    font-weight: $primaryfont_bold;
+    color: $white;
+    @include xxs {
+      font-size: 45px;
+    }
+    @include md {
+      font-size: 55px;
+    }
+  }
+  p {
+    font-weight: $primaryfont_bold;
+    color: $white;
+    font-size: 22px;
+  }
+  h2 {
+    color: $white;
+    font-weight: $primaryfont_bold;
+    @include xxs {
+      width: 100%;
+      font-size: 35px;
+      line-height: 35px;
+    }
+    @include md {
+      width: 80%;
+      font-size: 55px;
+      line-height: 55px;
+    }
+  }
+  p:nth-of-type(1) {
+    font-weight: $primaryfont_bold !important;
+    color: $white !important;
+    font-size: 22px !important;
+    border-top: none !important;
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
+
+  p:last-of-type {
+    font-weight:$primaryfont_lte;
+    border-top: 1px solid $white;
+    margin-top: 50px;
+    padding-top: 50px;
+  }
+}
+
+.intro-page-convenience {
+  background-color: #492365;
+  .no-gutter {
+    margin-top: 50px;
+  }
+  .imgbg {
+    @include xxs {
+      height: 250px;
+    }
+    @include md {
+      height: 450px;
+    }
+  }
+  .container {
+    margin-top: -30px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+  h1 {
+    font-weight: $primaryfont_bold;
+    color: $white;
+    @include xxs {
+      font-size: 45px;
+    }
+    @include md {
+      font-size: 55px;
+    }
+  }
+  p {
+    font-weight: $primaryfont_bold;
+    color: $white;
+    font-size: 22px;
+  }
+  h2 {
+    color: $white;
+    background: #34164B;
+    padding: 20px;
+    font-weight: $primaryfont_bold;
+    transform: rotate(-2deg);
+    margin-bottom: 30px;
+    @include xxs {
+      font-size: 35px;
+      line-height: 35px;
+    }
+    @include md {
+      font-size: 55px;
+      line-height: 55px;
+    }
+  }
+}
+
+.vert-align {
+  @include md {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    transform: translateY(-50%);
+  }
+}
+
+iframe {
+  display: block;
+  width: 100%;
+}

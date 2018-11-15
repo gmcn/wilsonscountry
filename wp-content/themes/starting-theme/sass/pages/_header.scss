@@ -1,6 +1,12 @@
 .no-gutter > [class*='col-'] {
+  @include md {
     padding-right:0;
     padding-left:0;
+  }
+}
+
+.branding {
+  z-index: 9999;
 }
 
 header .container {
@@ -54,6 +60,9 @@ header .container {
     padding: 10px 5px;
   }
   @include lg {
+    padding: 10px 10px;
+  }
+  @include xl {
     padding: 10px 15px;
   }
 }

@@ -17,7 +17,7 @@
       <div class="col-md-6">
         <h2><?php the_title(); ?></h2>
         <?php the_content() ?>
-        <a class="back" href="/news-blog">Back to Blog ></a>
+        <a class="back" href="/blog">Back to Blog ></a>
       </div>
       <div class="col-md-6">
         <section>

@@ -7,20 +7,29 @@
   }
   .col-md-6:nth-child(odd) {
     .vert-align {
-      border-right: 10px solid $green;
+      @include md {
+        border-right: 10px solid $green;
+      }
+
     }
   }
   .col-md-6:nth-child(even) {
     .vert-align {
+      @include md {
       border-left: 10px solid $green;
+      }
     }
     p {
-      padding-left: 40px;
-      width: 85%;
+      @include md {
+        padding-left: 40px;
+        width: 85%;
+      }
     }
   }
   .col-md-6 {
+    @include md {
     min-height: 450px;
+    }
     @include xxs {
       margin-bottom: 15px
     }

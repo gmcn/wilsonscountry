@@ -27,7 +27,7 @@
 
             <div class="container-fluid">
 
-              <div class="col-sm-4 col-sm-offset-8 slide-wrapper">
+              <div class="col-xs-12 slide-wrapper">
 
                 <h1 style="background: <?php echo $slide_colour ?> ;" class="bxslider__title wow fadeInLeft"><?php echo $slide_tagline1; ?></h1>
 
